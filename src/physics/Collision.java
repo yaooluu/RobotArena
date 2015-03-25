@@ -3,7 +3,7 @@ package physics;
 import environment.Boid;
 
 /**
- * @author ChenJF
+ * @author Jianfeng Chen
  * @version 1.0
  * contact: jchen37@ncsu.edu
  */
