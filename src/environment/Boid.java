@@ -1,6 +1,8 @@
 package environment;
 
+
 import main.Config;
+import physics.*;
 import processing.core.PApplet;
 
 public class Boid {
@@ -8,16 +10,13 @@ public class Boid {
 	private PApplet canvas = null;
 	
 	//dynamic movement parameters
-	public int x = 0;
-	public int y = 0;
+	public Position pos = new Position(0,0);
 	public int r = 0;
 	
-	public int vx = 0;
-	public int vy = 0;
+	public Velocity v = new Velocity(0,0);
 	public int vr = 0;
 	
-	public int ax = 0;
-	public int ay = 0;
+	public Accle a = new Accle(0,0);
 	public int ar = 0;
 	
 	//identify ally or enemy
@@ -47,8 +46,8 @@ public class Boid {
 		this.auditory  = Config.BOID_AUDITORY[this.type];
 		this.fuel = Config.BOID_FUEL[this.type];		
 		
-		this.x = x;
-		this.y = y;
+		pos.x = x;
+		pos.y = y;
 		this.r = r;
 		
 		draw();
@@ -62,7 +61,7 @@ public class Boid {
 		}
 				
 		canvas.pushMatrix();
-		canvas.translate(x, y);
+		canvas.translate(pos.x, pos.y);
 		canvas.rotate(PApplet.radians(r));
 				
 		canvas.fill(0);

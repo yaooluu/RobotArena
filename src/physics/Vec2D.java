@@ -1,5 +1,8 @@
 package physics;
 
+
+
+
 public class Vec2D {
 	public float x;
 	public float y;
@@ -7,6 +10,11 @@ public class Vec2D {
 	public Vec2D(float x, float y) {
 		this.x = x;
 		this.y = y;
+	}
+
+	public Vec2D(int x, int y) {
+		this.x = (float) x;
+		this.y = (float) y;
 	}
 
 	public void plusEqual(Vec2D increment) {
@@ -28,7 +36,7 @@ public class Vec2D {
 	}
 
 	public float getLength() {
-		return (float)Math.sqrt((x * x + y * y));
+		return (float) Math.sqrt((x * x + y * y));
 	}
 
 	public void normalize() {
@@ -36,17 +44,19 @@ public class Vec2D {
 		this.x /= l;
 		this.y /= l;
 	}
-	
-	public Vec2D getUnitVec(){
+
+	public Vec2D getUnitVec() {
 		float l = this.getLength();
-		return new Vec2D(x/l,y/l);
+		return new Vec2D(x / l, y / l);
 	}
 
 	public Vec2D scale(float s) {
-		return new Vec2D(s * x,  s * y);
+		return new Vec2D(s * x, s * y);
 	}
 
 	public void truncate(float maxLength) {
+		if (this.getLength() < maxLength)
+			return;
 		this.normalize();
 		Vec2D e = this.scale(maxLength);
 		this.x = e.x;
@@ -56,10 +66,8 @@ public class Vec2D {
 	public String toString() {
 		return "(" + x + "," + y + ")";
 	}
-
-	public static void main(String[] args){
-		Vec2D a = new Vec2D(200,300);
-		Vec2D b = new Vec2D(1,1);
-		System.out.println(a.getUnitVec());
-	}
 }
+
+
+
+
