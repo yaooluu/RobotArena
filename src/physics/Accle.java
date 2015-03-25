@@ -1,5 +1,10 @@
 package physics;
 
+/**
+ * @author ChenJF
+ * @version 1.0
+ * contact: jchen37@ncsu.edu
+ */
 public class Accle extends Vec2D {
 
 	float ax;

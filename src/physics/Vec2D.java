@@ -1,8 +1,10 @@
 package physics;
 
-
-
-
+/**
+ * @author ChenJF
+ * @version 1.0
+ * contact: jchen37@ncsu.edu
+ */
 public class Vec2D {
 	public float x;
 	public float y;
