@@ -14,7 +14,7 @@ public class Main extends PApplet {
 		size(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		frameRate(Config.FRAME_RATE);
 		
-		//test boid shape
+		//test boid style
 		b = new Boid(100, 100,0, 0, Config.BOID_TYPE.scout);
 	}
 	

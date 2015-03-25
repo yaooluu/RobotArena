@@ -7,36 +7,34 @@ public class Boid {
 	
 	private PApplet canvas = null;
 	
-	private int x = 0;
-	private int y = 0;
-	private int r = 0; //heading, range [0,360), starts from X-right
+	//dynamic movement parameters
+	public int x = 0;
+	public int y = 0;
+	public int r = 0;
 	
-	private int team = -1;
+	public int vx = 0;
+	public int vy = 0;
+	public int vr = 0;
+	
+	public int ax = 0;
+	public int ay = 0;
+	public int ar = 0;
+	
+	//identify ally or enemy
+	public int team = -1;
+	
 	private int type = -1;
-	
 	private int size = 0;
 	private int vision = 0;
 	private int auditory = 0;
 	private int fuel = 0;
-	
 	private RGB rgb = null;
-	
-	//getters
-	public int getX() {return x;}
-	public int getY() {return y;}
-	public int getR() {return r;}
 	
 	public int getSize() {return size;}
 	public int getVision() {return vision;}
 	public int getAuditory() {return auditory;}
-	public int getFuel() {return fuel;}	
+	public int getFuel() {return fuel;}
 	
-	//setters
-	public void setX(int x) {this.x = x;}
-	public void setY(int y) {this.y = y;}
-	public void setR(int r) {this.r = r;}
-	
-	//init boid
 	public Boid(int x, int y, int r, int team, Config.BOID_TYPE type) {
 		this.canvas = Config.canvas;
 		
