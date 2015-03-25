@@ -2,9 +2,10 @@ package physics;
 
 /**
  * @author Jianfeng Chen
+ * @contact jchen37@ncsu.edu
  * @version 1.0
- * contact: jchen37@ncsu.edu
  */
+
 public class Position extends Vec2D {
 	public Position(float x, float y) {
 		super(x, y);
