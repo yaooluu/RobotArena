@@ -15,7 +15,7 @@ public class Collision {
 	 * @param b1 the first boid
 	 * @param b2 the second boid
 	 */
-	public static void performCollision(Boid b1,Boid b2){
+	public static void perform(Boid b1,Boid b2){
 		
 	}
 }
