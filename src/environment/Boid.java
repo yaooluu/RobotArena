@@ -53,7 +53,7 @@ public class Boid {
 		pos.y = y;
 		this.r = r;
 		
-		//draw();
+		draw();
 	}
 	
 	public void draw() {
