@@ -27,12 +27,14 @@ public class Boid {
 	private int vision = 0;
 	private int auditory = 0;
 	private int fuel = 0;
+	private int mass = 0;
 	private RGB rgb = null;
 	
 	public int getSize() {return size;}
 	public int getVision() {return vision;}
 	public int getAuditory() {return auditory;}
 	public int getFuel() {return fuel;}
+	public int getMass() {return mass;}
 	
 	public Boid(int x, int y, int r, int team, Config.BOID_TYPE type) {
 		this.canvas = Config.canvas;
@@ -44,13 +46,14 @@ public class Boid {
 		this.size = Config.BOID_SIZE[this.type];
 		this.vision = Config.BOID_VISION[this.type]; 
 		this.auditory  = Config.BOID_AUDITORY[this.type];
-		this.fuel = Config.BOID_FUEL[this.type];		
+		this.fuel = Config.BOID_FUEL[this.type];
+		this.mass = Config.BOID_MASS[this.type];
 		
 		pos.x = x;
 		pos.y = y;
 		this.r = r;
 		
-		draw();
+		//draw();
 	}
 	
 	public void draw() {

@@ -23,4 +23,9 @@ public class Velocity extends Vec2D {
 		vy = y;
 	}
 	
+	public Velocity(Vec2D a){
+		super(a.x,a.y);
+		vx = a.x;
+		vy = a.y;
+	}
 }

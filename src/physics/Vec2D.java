@@ -52,7 +52,7 @@ public class Vec2D {
 		return new Vec2D(x / l, y / l);
 	}
 
-	public Vec2D scale(float s) {
+	public Vec2D multiply(float s) {
 		return new Vec2D(s * x, s * y);
 	}
 
@@ -60,7 +60,7 @@ public class Vec2D {
 		if (this.getLength() < maxLength)
 			return;
 		this.normalize();
-		Vec2D e = this.scale(maxLength);
+		Vec2D e = this.multiply(maxLength);
 		this.x = e.x;
 		this.y = e.y;
 	}
