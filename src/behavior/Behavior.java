@@ -39,6 +39,8 @@ public class Behavior {
 		boid.a.plusEqual(st.a);
 		boid.a.truncate(Config.MAX_LINACC[boid.getType()]);
 		boid.ar+=st.ar;
+		if(boid.ar>Config.MAX_ANGACC[boid.getType()])
+			boid.ar=Config.MAX_ANGACC[boid.getType()];
 		//
 		return st;
 	}
