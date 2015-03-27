@@ -3,16 +3,15 @@ package behavior;
 import main.Config;
 import environment.Boid;
 import pathfinding.PathLibrary;
-import physics.Accel;
-import physics.Position;
+import physics.Vec2D;
 
 class Steering {
-	public Accel a;
+	public Vec2D a;
 	public float ar;
 	
 	public Steering()
 	{
-		this.a = new Accel(0,0);
+		this.a = new Vec2D(0,0);
 		this.ar=0;
 	}
 
@@ -20,37 +19,42 @@ class Steering {
 
 public class Behavior {
 	
-	public static Steering seek(Boid boid, Position targetPos)
+	public static Steering seek(Boid boid, Vec2D targetPos)
 	{
 
 		Steering st;
 
-		Position newTarget = PathLibrary.getNextTarget(boid.pos, targetPos);
+		Vec2D newTarget = PathLibrary.getNextTarget(boid.pos, targetPos);
 		if(newTarget != null) targetPos = newTarget;
 		
 
 		st=new Steering();
 		//Steering behavior
-		st.a=(Accel) boid.pos.minus(targetPos);
+		st.a=targetPos.minus(boid.pos);
 		//clip velocity
-		st.a.truncate(Config.MAX_LINACC[boid.getType()]);
+		st.a.truncate(Config.MAX_LINACC[boid.getType()]/Config.FRAME_RATE);
 		st.ar=0;
 		//
-		boid.a.plusEqual(st.a);
-		boid.a.truncate(Config.MAX_LINACC[boid.getType()]);
-		boid.ar+=st.ar;
-		if(boid.ar>Config.MAX_ANGACC[boid.getType()])
-			boid.ar=Config.MAX_ANGACC[boid.getType()];
-		//
 		return st;
+	}
+	public static void changeBoid(Boid boid,Steering st)
+	{
+		//
+		boid.a.plusEqual(st.a);
+		boid.a.truncate(Config.MAX_LINACC[boid.getType()]/Config.FRAME_RATE);
+		boid.ar += st.ar;
+		if(boid.ar>Config.MAX_ANGACC[boid.getType()]/Config.FRAME_RATE)
+			boid.ar=Config.MAX_ANGACC[boid.getType()/Config.FRAME_RATE];
+		//
 	}
 	//update velocity
 	public static void update(Boid boid)
 	{
 		boid.pos.plusEqual(boid.v);
-		boid.r+=boid.vr;
+		boid.r += boid.vr;
 		boid.v.plusEqual(boid.a);
-		boid.vr+=boid.ar;
+		boid.v.truncate(Config.MAX_SPEED[boid.getType()]);
+		boid.vr += boid.ar;
 	}
 	
 }

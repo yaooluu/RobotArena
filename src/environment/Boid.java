@@ -10,13 +10,13 @@ public class Boid {
 	private PApplet canvas = null;
 	
 	//dynamic movement parameters
-	public Position pos = new Position(0,0);
+	public Vec2D pos = new Vec2D(0,0);
 	public float r = 0;
 	
-	public Velocity v = new Velocity(0,0);
+	public Vec2D v = new Vec2D(0,0);
 	public float vr = 0;
 	
-	public Accel a = new Accel(0,0);
+	public Vec2D a = new Vec2D(0,0);
 	public float ar = 0;
 	
 	//offensive, defensive
