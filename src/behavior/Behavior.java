@@ -32,7 +32,7 @@ public class Behavior {
 		//Steering behavior
 		st.a=targetPos.minus(boid.pos);
 		//clip velocity
-		st.a.truncate(Config.MAX_LINACC[boid.getType()]);
+		st.a.truncate(Config.MAX_LINACC[boid.getType()]/Config.FRAME_RATE);
 		st.ar=0;
 		//
 		return st;
