@@ -24,6 +24,7 @@ public class Config {
 	public static int[] BOID_VISION = 		{120, 60, 30, 90, 90};
 	public static int[] BOID_AUDITORY = 	{30, 15, 10, 20, 20};
 	public static int[] BOID_FUEL = 		{100, 200, 300, 200, 200};
+	public static int[] BOID_MASS =			{200,300,600,250,350};
 	
 	public static int[] MAX_LINACC = 		{100,100,100,100,100};
 	public static int[]	MAX_ANGACC = 		{100,100,100,100,100};
