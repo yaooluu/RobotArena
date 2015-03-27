@@ -11,13 +11,13 @@ public class Boid {
 	
 	//dynamic movement parameters
 	public Position pos = new Position(0,0);
-	public int r = 0;
+	public float r = 0;
 	
 	public Velocity v = new Velocity(0,0);
-	public int vr = 0;
+	public float vr = 0;
 	
-	public Accle a = new Accle(0,0);
-	public int ar = 0;
+	public Accel a = new Accel(0,0);
+	public float ar = 0;
 	
 	//identify ally or enemy
 	public int team = -1;
@@ -36,7 +36,7 @@ public class Boid {
 	public int getFuel() {return fuel;}
 	public int getMass() {return mass;}
 	
-	public Boid(int x, int y, int r, int team, Config.BOID_TYPE type) {
+	public Boid(float x, float y, float r, int team, Config.BOID_TYPE type) {
 		this.canvas = Config.canvas;
 		
 		this.team = team;
