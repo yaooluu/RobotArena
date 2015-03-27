@@ -6,7 +6,8 @@ import environment.*;
 @SuppressWarnings("serial")
 public class Main extends PApplet {
 
-	Boid b = null;
+	Boid b1 = null;
+	Boid b2 = null;
 	
 	public void setup() {
 		Config.canvas = this;	//set global canvas object
@@ -15,11 +16,14 @@ public class Main extends PApplet {
 		frameRate(Config.FRAME_RATE);
 		
 		//test boid style
-		b = new Boid(100, 100,0, 0, Config.BOID_TYPE.scout);
+		b1 = new Boid(100, 100, 90, 0, Config.BOID_TYPE.scout);
+		b2 = new Boid(400, 100, 270, 0, Config.BOID_TYPE.scout);
 	}
 	
 	public void draw() {
 		background(255);
-		b.draw();
+		Attack.attack(b1, b2);
+		b1.draw();
+		b2.draw();
 	}
 }

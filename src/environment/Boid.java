@@ -37,6 +37,14 @@ public class Boid {
 	public int getAuditory() {return auditory;}
 	public int getFuel() {return fuel;}
 	public int getMass() {return mass;}
+
+	public Boid getVisibleEnemy() {
+		return null;
+	}
+	
+	public Boid getAudibleEnemy() {
+		return null;
+	}
 	
 	public Boid(float x, float y, float r, int team, Config.BOID_TYPE type) {
 		this.canvas = Config.canvas;
