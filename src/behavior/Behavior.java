@@ -44,7 +44,7 @@ public class Behavior {
 		boid.a.truncate(Config.MAX_LINACC[boid.getType()]/Config.FRAME_RATE);
 		boid.ar += st.ar;
 		if(boid.ar>Config.MAX_ANGACC[boid.getType()]/Config.FRAME_RATE)
-			boid.ar=Config.MAX_ANGACC[boid.getType()/Config.FRAME_RATE];
+			boid.ar=Config.MAX_ANGACC[boid.getType()]/Config.FRAME_RATE;
 		//
 	}
 	//update velocity
@@ -53,7 +53,7 @@ public class Behavior {
 		boid.pos.plusEqual(boid.v);
 		boid.r += boid.vr;
 		boid.v.plusEqual(boid.a);
-		boid.v.truncate(Config.MAX_SPEED[boid.getType()]);
+		boid.v.truncate(Config.MAX_SPEED[boid.getType()]/Config.FRAME_RATE);
 		boid.vr += boid.ar;
 	}
 	
