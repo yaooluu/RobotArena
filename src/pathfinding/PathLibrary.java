@@ -1,10 +1,10 @@
 package pathfinding;
 
-import physics.Position;
+import physics.*;
 
 public class PathLibrary {
 
-	public static Position getNextTarget(Position pos, Position targetPos) {
+	public static Vec2D getNextTarget(Vec2D pos, Vec2D targetPos) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -3,16 +3,15 @@ package behavior;
 import main.Config;
 import environment.Boid;
 import pathfinding.PathLibrary;
-import physics.Accel;
-import physics.Position;
+import physics.Vec2D;
 
 class Steering {
-	public Accel a;
+	public Vec2D a;
 	public float ar;
 	
 	public Steering()
 	{
-		this.a = new Accel(0,0);
+		this.a = new Vec2D(0,0);
 		this.ar=0;
 	}
 
@@ -20,18 +19,18 @@ class Steering {
 
 public class Behavior {
 	
-	public static Steering seek(Boid boid, Position targetPos)
+	public static Steering seek(Boid boid, Vec2D targetPos)
 	{
 
 		Steering st;
 
-		Position newTarget = PathLibrary.getNextTarget(boid.pos, targetPos);
+		Vec2D newTarget = PathLibrary.getNextTarget(boid.pos, targetPos);
 		if(newTarget != null) targetPos = newTarget;
 		
 
 		st=new Steering();
 		//Steering behavior
-		st.a=(Accel) boid.pos.minus(targetPos);
+		st.a= boid.pos.minus(targetPos);
 		//clip velocity
 		st.a.truncate(Config.MAX_LINACC[boid.getType()]);
 		st.ar=0;

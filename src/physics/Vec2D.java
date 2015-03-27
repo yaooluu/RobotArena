@@ -13,10 +13,10 @@ public class Vec2D {
 		this.x = x;
 		this.y = y;
 	}
-
-	public Vec2D(int x, int y) {
-		this.x = (float) x;
-		this.y = (float) y;
+	
+	public Vec2D(Vec2D v) {
+		this.x = v.x;
+		this.y = v.y;
 	}
 
 	public void plusEqual(Vec2D increment) {
