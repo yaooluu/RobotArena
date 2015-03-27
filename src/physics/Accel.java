@@ -21,4 +21,11 @@ public class Accel extends Vec2D {
 		ax = x;
 		ay = y;
 	}
+
+	public Accel(Vec2D a) {
+		// TODO Auto-generated constructor stub
+		super(a.x,a.y);
+		ax = a.x;
+		ay = a.y;
+	}
 }
