@@ -12,6 +12,7 @@ public class Config {
 	public static int SCREEN_HEIGHT = 600;
 	public static int FRAME_RATE = 60;
 	public static int TILE_SIZE = 2;
+	public static int MAX_FUEL = 100;
 	
 	public static enum BOID_TYPE {
 		scout(0), soldier(1), tank(2), hero(3), commander(4);
