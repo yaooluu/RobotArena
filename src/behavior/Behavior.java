@@ -35,16 +35,20 @@ public class Behavior {
 		//clip velocity
 		st.a.truncate(Config.MAX_LINACC[boid.getType()]);
 		st.ar=0;
+		
+		boid.a.plusEqual(st.a);
 		//
 		return st;
 	}
 	//update velocity
 	public static void update(Boid boid,Steering st)
 	{
-		boid.pos.plusEqual(boid.v);
+		
 		boid.r+=boid.vr;
-		boid.v.plusEqual(st.a);
-		boid.vr+=st.ar;
+		
+		
+		
+		
 	}
 	
 }
