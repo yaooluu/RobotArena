@@ -19,10 +19,11 @@ public class Boid {
 	public Accel a = new Accel(0,0);
 	public float ar = 0;
 	
+	//offensive, defensive
+	public int status = 1;
 	
 	//identify ally or enemy
-	public int team = -1;
-	
+	private int team = -1;
 	private int type = -1;
 	private int size = 0;
 	private int vision = 0;
@@ -31,6 +32,7 @@ public class Boid {
 	private int mass = 0;
 	private RGB rgb = null;
 	
+	public int getTeam() {return team;}
 	public int getType() {return type;}
 	public int getSize() {return size;}
 	public int getVision() {return vision;}
