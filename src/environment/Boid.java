@@ -16,7 +16,7 @@ public class Boid {
 	public Velocity v = new Velocity(0,0);
 	public int vr = 0;
 	
-	public Accle a = new Accle(0,0);
+	public Accel a = new Accel(0,0);
 	public int ar = 0;
 	
 	//identify ally or enemy
