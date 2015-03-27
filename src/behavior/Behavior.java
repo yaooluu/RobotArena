@@ -36,15 +36,19 @@ public class Behavior {
 		st.a.truncate(Config.MAX_LINACC[boid.getType()]);
 		st.ar=0;
 		//
+		boid.a.plusEqual(st.a);
+		boid.a.truncate(Config.MAX_LINACC[boid.getType()]);
+		boid.ar+=st.ar;
+		//
 		return st;
 	}
 	//update velocity
-	public static void update(Boid boid,Steering st)
+	public static void update(Boid boid)
 	{
 		boid.pos.plusEqual(boid.v);
 		boid.r+=boid.vr;
-		boid.v.plusEqual(st.a);
-		boid.vr+=st.ar;
+		boid.v.plusEqual(boid.a);
+		boid.vr+=boid.ar;
 	}
 	
 }
