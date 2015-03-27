@@ -2,6 +2,7 @@ package behavior;
 
 import main.Config;
 import environment.Boid;
+import pathfinding.PathLibrary;
 import physics.Accel;
 import physics.Position;
 
@@ -21,7 +22,13 @@ public class Behavior {
 	
 	public static Steering seek(Boid boid, Position targetPos)
 	{
+
 		Steering st;
+
+		Position newTarget = PathLibrary.getNextTarget(boid.pos, targetPos);
+		if(newTarget != null) targetPos = newTarget;
+		
+
 		st=new Steering();
 		//Steering behavior
 		st.a=(Accel) boid.pos.minus(targetPos);
