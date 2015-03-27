@@ -18,10 +18,10 @@ class Steering {
 }
 
 public class Behavior {
-	private static Steering st;
 	
 	public static Steering seek(Boid boid, Position targetPos)
 	{
+		Steering st;
 		st=new Steering();
 		//Steering behavior
 		st.a=(Accel) boid.pos.minus(targetPos);
@@ -31,6 +31,13 @@ public class Behavior {
 		//
 		return st;
 	}
-	
+	//update velocity
+	public static void update(Boid boid,Steering st)
+	{
+		boid.pos.plusEqual(boid.v);
+		boid.r+=boid.vr;
+		boid.v.plusEqual(st.a);
+		boid.vr+=st.ar;
+	}
 	
 }
