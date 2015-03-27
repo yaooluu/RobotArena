@@ -2,6 +2,7 @@ package main;
 
 import processing.core.PApplet;
 import environment.*;
+import behavior.*;
 
 @SuppressWarnings("serial")
 public class Main extends PApplet {
@@ -22,7 +23,7 @@ public class Main extends PApplet {
 	
 	public void draw() {
 		background(255);
-		Attack.attack(b1, b2);
+		Attack.goAttack(b1, b2);
 		b1.draw();
 		b2.draw();
 	}

@@ -2,6 +2,7 @@ package behavior;
 
 import main.Config;
 import environment.Boid;
+import pathfinding.PathLibrary;
 import physics.Accel;
 import physics.Position;
 
