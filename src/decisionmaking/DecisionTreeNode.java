@@ -43,7 +43,10 @@ class MiddleFuel{
 	public static String traverse(Boid b){
 		if (b.getFuel() < Config.MAX_FUEL * 0.15)
 			return "redbuff";
-		else
+		else {
+			
+		}
+		return null;
 			
 	}
 	

@@ -24,18 +24,11 @@ public class Main extends PApplet {
 	public void draw() {
 		background(255);
 		
-		b1.pos.plusEqual(b1.v);
-		b1.v.plusEqual(b1.a);
-
 		Attack.goAttack(b1, b2);
-		Attack.goAttack(b1, b2);
-		
 		
 		Behavior.update(b1);
-		b1.pos.plusEqual(b1.v);
-		b1.v.plusEqual(b1.a);
-		b1.a.plusEqual(a1);
-			
+		Behavior.update(b2);
+
 		b1.draw();
 		b2.draw();
 	}
