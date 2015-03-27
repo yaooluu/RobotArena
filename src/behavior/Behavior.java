@@ -18,7 +18,7 @@ class Steering {
 }
 
 public class Behavior {
-	public static Steering st;
+	private static Steering st;
 	
 	public static Steering seek(Boid boid, Position targetPos)
 	{
@@ -26,11 +26,7 @@ public class Behavior {
 		//Steering behavior
 		st.a=(Accel) boid.pos.minus(targetPos);
 		//clip velocity
-		if(st.a.getLength()>Config.MAX_LINACC[boid.getType()])
-		{
-			st.a.normalize();;
-			st.a.multiply(Config.MAX_LINACC[boid.getType()]);
-		}
+		st.a.truncate(Config.MAX_LINACC[boid.getType()]);
 		st.ar=0;
 		return st;
 	}
