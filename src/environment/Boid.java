@@ -19,6 +19,7 @@ public class Boid {
 	public Accel a = new Accel(0,0);
 	public float ar = 0;
 	
+	
 	//identify ally or enemy
 	public int team = -1;
 	
@@ -30,6 +31,7 @@ public class Boid {
 	private int mass = 0;
 	private RGB rgb = null;
 	
+	public int getType() {return type;}
 	public int getSize() {return size;}
 	public int getVision() {return vision;}
 	public int getAuditory() {return auditory;}
