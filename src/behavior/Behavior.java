@@ -53,6 +53,7 @@ public class Behavior {
 		boid.pos.plusEqual(boid.v);
 		boid.r += boid.vr;
 		boid.v.plusEqual(boid.a);
+		boid.v.truncate(Config.MAX_SPEED[boid.getType()]);
 		boid.vr += boid.ar;
 	}
 	
