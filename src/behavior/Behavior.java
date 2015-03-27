@@ -28,7 +28,7 @@ public class Behavior {
 		//clip velocity
 		st.a.truncate(Config.MAX_LINACC[boid.getType()]);
 		st.ar=0;
-		
+		//
 		return st;
 	}
 	
