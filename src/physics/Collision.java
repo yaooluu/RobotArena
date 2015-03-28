@@ -25,7 +25,7 @@ public class Collision {
 		int distance = (int) b1.pos.minus(b2.pos).getLength();
 		if (distance > (b1.getSize() + b2.getSize()) / 2)
 			return;
-		System.out.println("calculating...");
+		
 		float m1 = b1.getMass();
 		float m2 = b2.getMass();
 		Vec2D v1 = b1.v;
@@ -36,6 +36,8 @@ public class Collision {
 				v2.multiply((m2 - m1) / (m1 + m2)));
 		b1.v = new Vec2D(v11);
 		b2.v = new Vec2D(v22);
+		
+		System.out.println("calculated: "+b1.v.getLength() +","+b2.v.getLength());
 	}
 
 	public static void main(String[] args) {
