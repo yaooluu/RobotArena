@@ -164,7 +164,7 @@ class LowFuel2 {
 		if (b.getFuel() < Config.MAX_FUEL * 0.15)
 			return "evade";
 		else {
-			if (b.getAudibleEnemy().getType() > b.getType())
+			if (b.status == 1)
 				return StrongLowFuel.traverse(b);
 			else
 				return Math.random() < 0.5 ? "wander" : "evade";
@@ -181,13 +181,31 @@ class StrongLowFuel {
 			else
 				return Math.random() < 0.5 ? "trace" : "evade";
 		} else
-			return Math.random() < 0.5 ? "wander" : "evade";
+			return Math.random() < 0.5 ? "trace" : "attack";
 	}
 }
 
 class AllyDetectable {
 	public static String traverse(Boid b) {
-		//TODO
-		return null;
+		if (b.getDetectableAlly() != null) {
+			return Math.random() < 0.5 ? "wander" : Offensive4.traverse(b);
+		} else {
+			if (b.getBuffRange() < 100)
+				return "bluebuff";
+			else {
+				double t = Math.random();
+				return t < 0.1 ? "buff" : (t < 0.6 ? "wander" : "hide");
+			}
+		}
+	}
+}
+
+class Offensive4 {
+	public static String traverse(Boid b) {
+		if (b.status == 1) {
+			return b.getDetectableAlly().getFuel() < Config.MAX_FUEL * 0.15 ? "guard"
+					: "wander";
+		} else
+			return "wander";
 	}
 }
