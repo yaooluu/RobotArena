@@ -108,7 +108,6 @@ public class Boid {
 		canvas.pushMatrix();
 		canvas.translate(pos.x, pos.y);
 		canvas.rotate(PApplet.radians(r));
-
 		canvas.fill(0);
 		canvas.ellipse(0, 0, size, size); // draw body
 
