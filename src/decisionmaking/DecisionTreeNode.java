@@ -188,5 +188,6 @@ class StrongLowFuel {
 class AllyDetectable {
 	public static String traverse(Boid b) {
 		//TODO
+		return null;
 	}
 }
