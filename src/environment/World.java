@@ -11,11 +11,13 @@ public class World {
 	private static int width=Config.SCREEN_WIDTH;
 	private static int height=Config.SCREEN_HEIGHT;
 	//create graph from image using tile based division scheme
-	public static void createGraphFromImage(Graph graph,int[] pixels, PApplet parent)
+	//input: empty graph
+	public static void createGraphFromImage(Graph graph, PApplet parent)
 	{
 		 PImage environment;
 		 environment = parent.loadImage("./src/environment/Environment.png");
 	   environment.loadPixels();
+	   int pixels[]=environment.pixels;
 		 int nodeIndex=0;
 		 //number of tile on each row
 		 int numberOfRow=(int) Math.floor((height/tileSize));

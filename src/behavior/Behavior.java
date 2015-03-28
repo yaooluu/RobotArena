@@ -85,7 +85,8 @@ public class Behavior {
 			{
 				rotation+=360; 
 			}
-			boid.vr=2*rotation/Config.FRAME_RATE;
+			
+			boid.vr=rotation/Config.FRAME_RATE;
 			if(Math.abs(rotation)<5)
 			{
 				boid.vr=0;
