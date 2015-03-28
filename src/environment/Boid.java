@@ -56,6 +56,16 @@ public class Boid {
 		return 0;
 	}
 	
+	public Vec2D getRedBuff() {
+		Vec2D v = new Vec2D(0, 0);
+		return v;
+	}
+	
+	public Vec2D getBlueBuff() {
+		Vec2D v = new Vec2D(0, 0);
+		return v;
+	}
+	
 	public Boid(float x, float y, float r, int team, Config.BOID_TYPE type) {
 		this.canvas = Config.canvas;
 		
