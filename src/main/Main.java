@@ -18,7 +18,7 @@ public class Main extends PApplet {
 		
 		//test boid style
 		b1 = new Boid(100, 100, 90, 0, Config.BOID_TYPE.scout);
-		b2 = new Boid(400, 100, 270, 1, Config.BOID_TYPE.scout);
+		b2 = new Boid(400, 100, 270, 1, Config.BOID_TYPE.tank);
 	}
 	
 	public void draw() {
