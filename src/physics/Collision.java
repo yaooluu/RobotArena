@@ -4,9 +4,9 @@ import main.Config;
 import environment.Boid;
 
 /**
- * @author Jianfeng Chen
- * @contact jchen37@ncsu.edu
- * @version 1.0
+ * @author Jianfeng Chen, Yao Lu
+ * @contact jchen37@ncsu.edu, ylu31@ncsu.edu
+ * @version 1.0, 1.1
  */
 
 public class Collision {
@@ -22,6 +22,11 @@ public class Collision {
 	 *            the second boid
 	 */
 	public static void perform(Boid b1, Boid b2) {
+		
+		//check boids' distance, see if collision happens
+		int distance = (int) b1.pos.minus(b2.pos).getLength();
+		if(distance > (b1.getSize()+b2.getSize())/2) return;
+		
 		float m1 = b1.getMass();
 		float m2 = b2.getMass();
 		Vec2D v1 = b1.v;
