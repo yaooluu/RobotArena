@@ -23,9 +23,9 @@ public class Main extends PApplet {
 	
 	public void draw() {
 		background(255);
-		
-		Attack.goAttack(b1, b2);
-		Evade.evade(b2, b1);
+		Wander.wander(b2);
+		//Attack.goAttack(b1, b2);
+		//Evade.evade(b2, b1);
 		Behavior.update(b1);
 		Behavior.update(b2);
 		//System.out.println(b1.v.getLength());

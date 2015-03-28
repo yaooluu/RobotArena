@@ -10,14 +10,17 @@ public class Buff {
 			Steering st=null;
 			if(type.equals("red"))
 			{
-				//st=Behavior.seek(b1, Redbuffposition);	
+				if(b1.getRedBuff()!=null)
+					st=Behavior.seek(b1, b1.getRedBuff());	
 			}
 			else if(type.equals("blue"))
 			{
-				//st=Behavior.seek(b1, Bluebuffposition);	
+				if(b1.getBlueBuff()!=null)
+					st=Behavior.seek(b1, b1.getBlueBuff());	
 			}
 			
-			Behavior.changeBoid(b1, st);
+			if(st!=null)
+					Behavior.changeBoid(b1, st);
 
 	}
 }
