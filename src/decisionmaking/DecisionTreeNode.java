@@ -164,7 +164,7 @@ class LowFuel2 {
 		if (b.getFuel() < Config.MAX_FUEL * 0.15)
 			return "evade";
 		else {
-			if (b.getAudibleEnemy().getType() > b.getType())
+			if (b.status == 1)
 				return StrongLowFuel.traverse(b);
 			else
 				return Math.random() < 0.5 ? "wander" : "evade";
@@ -181,7 +181,7 @@ class StrongLowFuel {
 			else
 				return Math.random() < 0.5 ? "trace" : "evade";
 		} else
-			return Math.random() < 0.5 ? "wander" : "evade";
+			return Math.random() < 0.5 ? "trace" : "attack";
 	}
 }
 
