@@ -187,7 +187,25 @@ class StrongLowFuel {
 
 class AllyDetectable {
 	public static String traverse(Boid b) {
-		//TODO
-		return null;
+		if (b.getDetectableAlly() != null) {
+			return Math.random() < 0.5 ? "wander" : Offensive4.traverse(b);
+		} else {
+			if (b.getBuffRange() < 100)
+				return "bluebuff";
+			else {
+				double t = Math.random();
+				return t < 0.1 ? "buff" : (t < 0.6 ? "wander" : "hide");
+			}
+		}
+	}
+}
+
+class Offensive4 {
+	public static String traverse(Boid b) {
+		if (b.status == 1) {
+			return b.getDetectableAlly().getFuel() < Config.MAX_FUEL * 0.15 ? "guard"
+					: "wander";
+		} else
+			return "wander";
 	}
 }
