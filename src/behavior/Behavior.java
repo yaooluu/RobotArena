@@ -32,7 +32,7 @@ public class Behavior {
 		//Steering behavior
 		st.a=targetPos.minus(boid.pos);
 		//clip velocity
-		st.a.truncate(Config.MAX_LINACC[boid.getType()]/Config.FRAME_RATE);
+		st.a.truncate(Config.MAX_LINACC[boid.getType()]);
 		st.ar=0;
 		//
 		return st;
@@ -41,10 +41,10 @@ public class Behavior {
 	{
 		//
 		boid.a.plusEqual(st.a);
-		boid.a.truncate(Config.MAX_LINACC[boid.getType()]/Config.FRAME_RATE);
+		boid.a.truncate(Config.MAX_LINACC[boid.getType()]);
 		boid.ar += st.ar;
-		if(boid.ar>Config.MAX_ANGACC[boid.getType()]/Config.FRAME_RATE)
-			boid.ar=Config.MAX_ANGACC[boid.getType()]/Config.FRAME_RATE;
+		if(boid.ar>Config.MAX_ANGACC[boid.getType()])
+			boid.ar=Config.MAX_ANGACC[boid.getType()];
 		//
 	}
 	//update velocity
@@ -52,8 +52,8 @@ public class Behavior {
 	{
 		boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
 		boid.r += boid.vr;
-		boid.v.plusEqual(boid.a);
-		boid.v.truncate(Config.MAX_SPEED[boid.getType()]/Config.FRAME_RATE);
+		boid.v.plusEqual(boid.a.multiply((float) (1.0/Config.FRAME_RATE)));
+		boid.v.truncate(Config.MAX_SPEED[boid.getType()]);
 		boid.vr += boid.ar;
 	}
 	
