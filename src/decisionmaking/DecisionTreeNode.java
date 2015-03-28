@@ -26,7 +26,10 @@ class EnemyRange {
 
 class EnemyAudible {
 	public static String traverse(Boid b) {
-		return "";
+		if (b.getAudibleEnemy() != null)
+			return MovingToMe.traverse(b);
+		else
+			return LowFuel.traverse(b);
 	}
 }
 
@@ -119,5 +122,71 @@ class Rand2 {
 		if (t < 0.9)
 			return "lure";
 		return "evade";
+	}
+}
+
+class MovingToMe {
+	public static String traverse(Boid b) {
+		// determine whether the audiable enemy is moving to me
+		boolean movingtome = b.pos.minus(b.getAudibleEnemy().pos).dotCross(b.v) > 0;
+		if (movingtome)
+			return Offensive3.traverse(b);
+		else
+			return LowFuel2.traverse(b);
+	}
+}
+
+class LowFuel {
+	public static String traverse(Boid b) {
+		if (b.getFuel() < Config.MAX_FUEL * 0.15) // low fuel
+			return "redbuff";
+		else
+			return Math.random() < 0.01 ? "ultimate" : AllyDetectable
+					.traverse(b);
+	}
+}
+
+class Offensive3 {
+	public static String traverse(Boid b) {
+		if (b.status == 1) {
+			if (b.getAudibleEnemy().getType() > b.getType())// stronger than me
+				return "evade";
+			else
+				return b.getFuel() < Config.MAX_FUEL * 0.15 ? "evade"
+						: "attack";
+		} else
+			return "evade";
+	}
+}
+
+class LowFuel2 {
+	public static String traverse(Boid b) {
+		if (b.getFuel() < Config.MAX_FUEL * 0.15)
+			return "evade";
+		else {
+			if (b.getAudibleEnemy().getType() > b.getType())
+				return StrongLowFuel.traverse(b);
+			else
+				return Math.random() < 0.5 ? "wander" : "evade";
+		}
+	}
+}
+
+class StrongLowFuel {
+	public static String traverse(Boid b) {
+		if (b.getAudibleEnemy().getType() > b.getType()) { // Stronger than me
+			if (b.getAudibleEnemy().getType() == Config.BOID_TYPE.commander
+					.value())// enemy is VIP
+				return "attack";
+			else
+				return Math.random() < 0.5 ? "trace" : "evade";
+		} else
+			return Math.random() < 0.5 ? "wander" : "evade";
+	}
+}
+
+class AllyDetectable {
+	public static String traverse(Boid b) {
+		//TODO
 	}
 }

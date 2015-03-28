@@ -13,7 +13,7 @@ public class Vec2D {
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	public Vec2D(Vec2D v) {
 		this.x = v.x;
 		this.y = v.y;
@@ -56,6 +56,10 @@ public class Vec2D {
 		return new Vec2D(s * x, s * y);
 	}
 
+	public float dotCross(Vec2D b) {
+		return this.x * b.x + this.y * b.y;
+	}
+
 	public void truncate(float maxLength) {
 		if (this.getLength() < maxLength)
 			return;
@@ -69,7 +73,3 @@ public class Vec2D {
 		return "(" + x + "," + y + ")";
 	}
 }
-
-
-
-
