@@ -37,6 +37,9 @@ public class Collision {
 		b1.v = new Vec2D(v11);
 		b2.v = new Vec2D(v22);
 		
+		b1.pos.plusEqual(b1.v.multiply((float) (1.0/Config.FRAME_RATE)));
+		b2.pos.plusEqual(b2.v.multiply((float) (1.0/Config.FRAME_RATE)));
+		
 		System.out.println("calculated: "+b1.v.getLength() +","+b2.v.getLength());
 	}
 
