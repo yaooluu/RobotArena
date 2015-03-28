@@ -43,8 +43,8 @@ public class Collision {
 	public static void main(String[] args){
 		Boid b1 = new Boid(20,30,2,2,Config.BOID_TYPE.scout);
 		Boid b2 = new Boid(30,20,2,2,Config.BOID_TYPE.scout);
-		b1.v = new Vec2D(7,0);
-		b2.v = new Vec2D(0,0);
+		b1.v = new Vec2D(10,10);
+		b2.v = new Vec2D(-10,20);
 		Collision.perform(b1, b2);
 		System.out.println(b1.v);
 		System.out.println(b2.v);

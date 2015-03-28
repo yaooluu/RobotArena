@@ -48,6 +48,14 @@ public class Boid {
 		return null;
 	}
 	
+	public Boid getDetectableAlly() {
+		return null;
+	}
+	
+	public int getBuffRange() {
+		return 0;
+	}
+	
 	public Boid(float x, float y, float r, int team, Config.BOID_TYPE type) {
 		this.canvas = Config.canvas;
 		
