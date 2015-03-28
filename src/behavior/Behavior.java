@@ -50,7 +50,7 @@ public class Behavior {
 	//update velocity
 	public static void update(Boid boid)
 	{
-		boid.pos.plusEqual(boid.v.multiply(1/Config.FRAME_RATE));
+		boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
 		boid.r += boid.vr;
 		boid.v.plusEqual(boid.a);
 		boid.v.truncate(Config.MAX_SPEED[boid.getType()]/Config.FRAME_RATE);
