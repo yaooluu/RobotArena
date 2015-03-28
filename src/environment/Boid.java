@@ -69,6 +69,8 @@ public class Boid {
 	}
 	
 	public void draw() {
+		if(canvas == null) return;
+		
 		canvas.noStroke();
 		if(rgb != null) {
 			canvas.stroke(rgb.r, rgb.g, rgb.b);

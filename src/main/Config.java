@@ -28,7 +28,7 @@ public class Config {
 	public static int[] BOID_MASS =			{200,300,600,250,350};
 	
 	public static float[] MAX_LINACC = 		{100,100,100,100,100};
-	public static float[]	MAX_ANGACC = 		{100,100,100,100,100};
+	public static float[] MAX_ANGACC = 		{100,100,100,100,100};
 	public static float[] MAX_SPEED =  		{200,150,100,200,150};
 	
 	public static double[] NUM_BOID = {0.1, 0.4, 0.1, 0.1, 0.1, 0.1, 0.1};
