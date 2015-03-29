@@ -22,6 +22,8 @@ public class Boid {
 	//offensive, defensive
 	public int status = 1;
 	
+	public float wanderOrientation = 0;
+	
 	//identify ally or enemy
 	private int team = -1;
 	private int type = -1;

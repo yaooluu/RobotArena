@@ -30,10 +30,9 @@ public class Main extends PApplet {
 	
 	public void draw() {
 		background(255);
-
+		
 		for(int i=0;i<boids.size();i++) {
 			Boid b = boids.get(i);
-
 			if(frameCount % 60 == 1) {
 				System.out.print(b.getId()+": ");
 				Boid ve = b.getVisibleEnemy();
@@ -44,10 +43,9 @@ public class Main extends PApplet {
 				System.out.println(da==null?da:da.getId());
 				if(i==boids.size()-1) System.out.println();
 			}
-			//Wander.wander(b);
+			Wander.wander(b);
 			Behavior.update(b);
 			b.draw();
 		}
-
 	}
 }
