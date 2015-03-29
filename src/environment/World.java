@@ -41,6 +41,10 @@ public class World {
 		return graph;
 	}
 
+	public static int quantize(Vec2D point){
+		return 0;
+	}
+	
 	private static boolean detectAccessible(Vec2D u, Vec2D v, int[] pixels) {
 		int length = (int) u.minus(v).getLength() - 1;
 		for (int i = 0; i < length; i++) {
