@@ -25,7 +25,7 @@ public class Wander {
 		float targetOrientation;
 		wanderOrientation+=randomBinomial()*wanderRate;
 		wanderOrientation%=360;
-		System.out.println(wanderOrientation);
+		//System.out.println(wanderOrientation);
 		targetOrientation=wanderOrientation+boid.r;
 		
 		
