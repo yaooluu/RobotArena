@@ -1,6 +1,11 @@
 package environment;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import main.Config;
+import main.Main;
 import pathfinding.Graph;
 import physics.Vec2D;
 import processing.core.PApplet;
@@ -44,10 +49,27 @@ public class World {
 		return graph;
 	}
 
-	public static int quantize(Vec2D point){
-		return 0;
+	/**
+	 * @param point
+	 * @return the index of the quantized vertex
+	 */
+	public static int quantize(Vec2D point) {
+		int result = 0;
+		float dis = Float.MAX_VALUE;
+		float temp;
+		Iterator<Entry<Integer, Vec2D>> it = Main.getGraph().getNodePos()
+				.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			Vec2D v = (Vec2D) pair.getValue();
+			if ((temp = v.minus(point).getLength()) < dis) {
+				dis = temp;
+				result = (int) pair.getKey();
+			}
+		}
+		return result;
 	}
-	
+
 	private static boolean detectAccessible(Vec2D u, Vec2D v, int[] pixels) {
 		int length = (int) u.minus(v).getLength() - 1;
 		for (int i = 0; i < length; i++) {

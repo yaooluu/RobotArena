@@ -11,6 +11,10 @@ public class Graph {
 
 	
 	private HashMap<Integer, Vec2D> nodePos = null;
+	public HashMap<Integer, Vec2D> getNodePos() {
+		return nodePos;
+	}
+
 	private HashMap<Integer, List<Connection>> connectionLists = null;
 	private int maxId = -1;
 	private int screenWidth = 0;
