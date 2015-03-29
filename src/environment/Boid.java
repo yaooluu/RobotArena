@@ -1,13 +1,13 @@
 package environment;
 
-
-import main.Config;
+import main.*;
 import physics.*;
 import processing.core.PApplet;
 
 public class Boid {
 	
 	private PApplet canvas = null;
+	private int id = -1;
 	
 	//dynamic movement parameters
 	public Vec2D pos = new Vec2D(0,0);
@@ -32,6 +32,7 @@ public class Boid {
 	private int mass = 0;
 	private RGB rgb = null;
 	
+	public int getId() {return id;}
 	public int getTeam() {return team;}
 	public int getType() {return type;}
 	public int getSize() {return size;}
@@ -40,35 +41,10 @@ public class Boid {
 	public int getFuel() {return fuel;}
 	public int getMass() {return mass;}
 
-	public Boid getVisibleEnemy() {
-		return null;
-	}
-	
-	public Boid getAudibleEnemy() {
-		return null;
-	}
-	
-	public Boid getDetectableAlly() {
-		return null;
-	}
-	
-	public int getBuffRange() {
-		return 0;
-	}
-	
-	public Vec2D getRedBuff() {
-		Vec2D v = new Vec2D(0, 0);
-		return v;
-	}
-	
-	public Vec2D getBlueBuff() {
-		Vec2D v = new Vec2D(0, 0);
-		return v;
-	}
-	
-	public Boid(float x, float y, float r, int team, Config.BOID_TYPE type) {
+	public Boid(float x, float y, float r, int team, Config.BOID_TYPE type, int id) {
 		this.canvas = Config.canvas;
 		
+		this.id = id;
 		this.team = team;
 		this.type = type.value();
 		this.rgb = RGB.getTeamColor(team);
@@ -110,4 +86,60 @@ public class Boid {
 
 		canvas.popMatrix();
 	}
+	
+	public Boid getVisibleEnemy() {
+		return searchBoid(this.vision, Integer.MAX_VALUE, true);
+	}
+	
+	public Boid getAudibleEnemy() {
+		return searchBoid(360, this.auditory, true);
+	}
+	
+	public Boid getDetectableAlly() {
+		Boid b =  searchBoid(this.vision, Integer.MAX_VALUE, false);
+		if(b==null) b = searchBoid(360, this.auditory, false);
+		return b;
+	}
+	
+	private Boid searchBoid(float angle,float range, boolean isEnemy) {
+		Boid boid = null;
+		float distance = Integer.MAX_VALUE;
+		
+		for(Boid b : Main.getBoids()) {
+			if(this.id == b.id || (this.team!=b.team) != isEnemy) continue;
+			
+			float ang = 0;
+			float dx = b.pos.x - this.pos.x, dy = b.pos.y - this.pos.y;
+			float sharp = (float) (Math.atan(Math.abs(dx/dy)) * 180 / Math.PI);
+			if(dx>=0 && dy>=0) ang = 180 - sharp;
+			else if(dx<0 && dy>0) ang = 180 + sharp;
+			else if(dx<0 && dy<0) ang = 360 - sharp;
+			else ang = sharp;
+			
+			float dist = b.pos.minus(this.pos).getLength();
+			if(dist < range && ( Math.abs(ang-this.r) < angle/2
+				 || (int)angle == 360)){
+				if(dist<distance) {
+					distance = dist;
+					boid = b;
+				}
+			}
+		}
+		return boid;
+	}
+
+	public int getBuffRange() {
+		return 0;
+	}
+	
+	public Vec2D getRedBuff() {
+		Vec2D v = new Vec2D(0, 0);
+		return v;
+	}
+	
+	public Vec2D getBlueBuff() {
+		Vec2D v = new Vec2D(0, 0);
+		return v;
+	}
+	
 }
