@@ -20,7 +20,7 @@ public class Buff {
 			}
 			
 			if(st!=null)
-					Behavior.changeBoid(b1, st);
+					Behavior.addAcc(b1, st);
 
 	}
 }

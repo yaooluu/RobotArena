@@ -16,6 +16,6 @@ public class Hide {
 			//Steering behavior
 			Steering st=null;
 			st=Behavior.seek(b1, hidePos);	
-			Behavior.changeBoid(b1, st);
+			Behavior.addAcc(b1, st);
 	}
 }

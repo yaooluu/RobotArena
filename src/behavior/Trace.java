@@ -19,9 +19,9 @@ public class Trace {
 			target.y=(float) (b2.pos.y-distance*Math.cos(Math.toRadians(b2.r)));
 			
 			st=Behavior.seek(b1, target);	
-			Behavior.changeBoid(b1, st);
+			Behavior.addAcc(b1, st);
 			System.out.println("test:"+ target.x+" "+target.y);
 			st=Behavior.arrive(b1, target);
-			if(st.a.getLength()>0)Behavior.changeBoidInstant(b1, st);
+			if(st.a.getLength()>0)Behavior.changeAcc(b1, st);
 	}
 }

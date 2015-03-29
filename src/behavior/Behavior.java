@@ -76,7 +76,7 @@ public class Behavior {
 		}		
 		return st;
 	}
-	public static void changeBoidInstant(Boid boid,Steering st)
+	public static void changeAcc(Boid boid,Steering st)
 	{
 		//
 		boid.a=st.a;
@@ -87,7 +87,7 @@ public class Behavior {
 		//
 	}
 	
-	public static void changeBoid(Boid boid,Steering st)
+	public static void addAcc(Boid boid,Steering st)
 	{
 		//
 		boid.a.plusEqual(st.a);

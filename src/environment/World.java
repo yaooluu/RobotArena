@@ -19,13 +19,14 @@ public class World {
 		Graph graph = new Graph();
 
 		int nodeIndex = 0;
-
+		System.out.println("Initializeing pixels[]...");
 		// detect the vertices of Dirichlet Domain
 		for (int i = 0; i < width; i++)
 			for (int j = 0; j < height; j++) {
 				// scanning in pixels[j*width+i]
-				if (pixels[j * width + i] == 0xFF0000) {
+				if (pixels[j * width + i] == 0x00FF0000) {
 					// RED pixel indicates Dirichlet Domain vertices
+					System.out.println("Found Dirichlet vertex!");
 					graph.setNodePos(nodeIndex, new Vec2D(i, j));
 					nodeIndex++;
 				}
@@ -51,15 +52,16 @@ public class World {
 	 * @return the index of the quantized vertex
 	 */
 	public static int quantize(Vec2D point) {
-		int result = 0;
+		int result = -1;
 		float dis = Float.MAX_VALUE;
 		float temp;
 		Iterator<Entry<Integer, Vec2D>> it = Main.getGraph().getNodePos()
 				.entrySet().iterator();
 		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
+			Map.Entry<Integer, Vec2D> pair = (Map.Entry<Integer, Vec2D>) it.next();
 			Vec2D v = (Vec2D) pair.getValue();
-			if ((temp = v.minus(point).getLength()) < dis) {
+			temp = v.minus(point).getLength();
+			if (temp < dis) {
 				dis = temp;
 				result = (int) pair.getKey();
 			}
