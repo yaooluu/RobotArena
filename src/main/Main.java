@@ -59,6 +59,7 @@ public class Main extends PApplet {
 				if(i==boids.size()-1) System.out.println();
 			}
 			//Wander.wander(b);
+			Trace.trace(boids.get(0), boids.get(5));
 			Behavior.update(b);
 			b.draw();
 		}

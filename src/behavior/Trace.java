@@ -20,7 +20,8 @@ public class Trace {
 			
 			st=Behavior.seek(b1, target);	
 			Behavior.changeBoid(b1, st);
-			
-
+			System.out.println("test:"+ target.x+" "+target.y);
+			st=Behavior.arrive(b1, target);
+			if(st.a.getLength()>0)Behavior.changeBoidInstant(b1, st);
 	}
 }

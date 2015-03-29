@@ -40,6 +40,53 @@ public class Behavior {
 		//
 		return st;
 	}
+	
+	//arrival
+//detect arrival
+	public static Steering arrive(Boid boid, Vec2D targetPos)
+	{
+		Steering st=new Steering();
+		Vec2D distance;
+		float arrivalRadius=8,decelerationRadius=60;
+		float timeToTarget=0.5f;
+		
+		distance=targetPos.minus(boid.pos);
+		Vec2D goalVelocity=new Vec2D(0,0);
+		Vec2D maxVelocity=new Vec2D(distance.x,distance.y);
+		maxVelocity.normalize();
+		maxVelocity.multiply((Config.MAX_SPEED[boid.getType()]));
+		
+		if(distance.getLength()<=arrivalRadius)
+		{
+			return st;
+		}
+		if(distance.getLength()>decelerationRadius)
+		{
+			goalVelocity.x=maxVelocity.x;
+			goalVelocity.y=maxVelocity.y;
+		}
+		else
+		{
+			goalVelocity.x=maxVelocity.x;
+			goalVelocity.y=maxVelocity.y;
+			goalVelocity.multiply((distance.getLength()/decelerationRadius));		
+
+			st.a=goalVelocity.minus(boid.v);
+			st.a.multiply(1/timeToTarget);
+		}		
+		return st;
+	}
+	public static void changeBoidInstant(Boid boid,Steering st)
+	{
+		//
+		boid.a=st.a;
+		boid.a.truncate(Config.MAX_LINACC[boid.getType()]);
+		boid.ar += st.ar;
+		if(boid.ar>Config.MAX_ANGACC[boid.getType()])
+			boid.ar=Config.MAX_ANGACC[boid.getType()];
+		//
+	}
+	
 	public static void changeBoid(Boid boid,Steering st)
 	{
 		//
