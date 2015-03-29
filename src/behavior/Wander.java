@@ -1,31 +1,28 @@
 package behavior;
 
-import java.util.Random;
 import physics.Vec2D;
 import environment.Boid;
 
 public class Wander {
 	
-	
-	static float wanderOrientation = 0;
 	private static float randomBinomial()
 	{
-		Random random = new Random(System.currentTimeMillis());
-		return random.nextFloat();
+		//Random random = new Random(System.currentTimeMillis());
+		return (float)(Math.random()-Math.random());
 	}
 	
 	public static void wander(Boid boid)
 	{
 		float wanderOffset=40;
 	  float wanderRadius=120;
-	  float wanderRate=(float)0.3;
+	  float wanderRate=10f;
 	  
 		Vec2D target = new Vec2D(0,0);
 		float targetOrientation;
-		wanderOrientation+=randomBinomial()*wanderRate;
-		wanderOrientation%=360;
+		boid.wanderOrientation+=randomBinomial()*wanderRate;
+		boid.wanderOrientation%=360;
 
-		targetOrientation=wanderOrientation+boid.r;
+		targetOrientation=boid.wanderOrientation+boid.r;
 		
 		
 		target.x=(float) (boid.pos.x+wanderOffset*Math.sin(Math.toRadians(boid.r)));
