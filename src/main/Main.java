@@ -1,6 +1,8 @@
 package main;
 
 import java.util.*;
+
+import pathfinding.Graph;
 import processing.core.PApplet;
 import environment.*;
 import behavior.*;
@@ -8,11 +10,16 @@ import behavior.*;
 @SuppressWarnings("serial")
 public class Main extends PApplet {
 
-	private static List<Boid> boids = new ArrayList<Boid>();
+	private static List<Boid> boids = null;
 	public static List<Boid> getBoids() {return boids;}
 	
+	private static Graph graph = null;
+	public static Graph getGraph() {return graph;}
+	
 	public void setup() {
-		Config.canvas = this;	//set global canvas object
+		Config.canvas = this;
+		boids = new ArrayList<Boid>();
+		graph = World.createGraphFromImage(this);
 		
 		size(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		frameRate(Config.FRAME_RATE);
@@ -43,7 +50,7 @@ public class Main extends PApplet {
 				System.out.println(da==null?da:da.getId());
 				if(i==boids.size()-1) System.out.println();
 			}
-			Wander.wander(b);
+			//Wander.wander(b);
 			Behavior.update(b);
 			b.draw();
 		}
