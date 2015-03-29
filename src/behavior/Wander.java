@@ -16,7 +16,7 @@ public class Wander {
 		return random.nextFloat();
 	}
 	
-	public static void wander(Boid boid, List<Boid> boids)
+	public static void wander(Boid boid)
 	{
 		float wanderOffset=40;
 	  float wanderRadius=120;
@@ -46,7 +46,7 @@ public class Wander {
 		Behavior.changeBoid(boid, st);
 		
 		//collision avoidance
-		st=Behavior.collisionAvoide(boid, boids);
+		st=Behavior.collisionAvoide(boid);
 		Behavior.changeBoid(boid, st);
 	}
 	

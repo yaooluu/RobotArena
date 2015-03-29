@@ -3,6 +3,7 @@ package behavior;
 
 import java.util.List;
 import main.Config;
+import main.Main;
 import environment.Boid;
 import pathfinding.PathLibrary;
 import physics.Vec2D;
@@ -97,8 +98,9 @@ public class Behavior {
 	}
 	
 	//collision avoidance
-	public static Steering collisionAvoide(Boid boid, List<Boid> boids)
+	public static Steering collisionAvoide(Boid boid)
 	{
+		List<Boid> boids=Main.getBoids();
 		Steering st=new Steering();
 		float INFINITY=2147483647;
 		float shortestTime=(float) 1.3;

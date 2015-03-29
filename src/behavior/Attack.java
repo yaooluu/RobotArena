@@ -1,6 +1,5 @@
 package behavior;
 
-import physics.Collision;
 import environment.Boid;
 
 public class Attack {
@@ -16,7 +15,6 @@ public class Attack {
 			//Steering behavior
 			st=Behavior.seek(b1, b2.pos);	
 			Behavior.changeBoid(b1, st);
-			Collision.perform(b1, b2);
 
 	}
 	
