@@ -13,7 +13,7 @@ public class World {
 	public static Graph createGraphFromImage(PApplet parent) {
 		Graph graph = new Graph();
 		PImage environment;
-		environment = parent.loadImage("./src/environment/Environment.png");
+		environment = parent.loadImage("../src/environment/Environment.png");
 		environment.loadPixels();
 		int pixels[] = environment.pixels;
 		int nodeIndex = 0;
@@ -21,8 +21,8 @@ public class World {
 		// detect the vertices of Dirichlet Domain
 		for (int i = 0; i < width; i++)
 			for (int j = 0; j < height; j++) {
-				// scanning in pixels[i*width+j]
-				if (pixels[i * width + j] == 0xFF0000) {
+				// scanning in pixels[j*width+i]
+				if (pixels[j * width + i] == 0xFF0000) {
 					// RED pixel indicates Dirichlet Domain vertices
 					graph.setNodePos(nodeIndex, new Vec2D(i, j));
 					nodeIndex++;
@@ -50,7 +50,7 @@ public class World {
 			Vec2D t = v.minus(u).getUnitVec().multiply(i);
 			int x = (int) t.x;
 			int y = (int) t.y;
-			if (pixels[x * width + y] != 0xFFFFFF) // TODO modify access
+			if (pixels[y * width + x] != 0xFFFFFF) // TODO modify access
 													// indicator
 				return false;
 		}
