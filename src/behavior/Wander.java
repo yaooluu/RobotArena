@@ -1,5 +1,6 @@
 package behavior;
 
+import java.util.List;
 import java.util.Random;
 import main.Config;
 import physics.Vec2D;
@@ -15,7 +16,7 @@ public class Wander {
 		return random.nextFloat();
 	}
 	
-	public static void wander(Boid boid)
+	public static void wander(Boid boid, List<Boid> boids)
 	{
 		float wanderOffset=40;
 	  float wanderRadius=120;
@@ -25,12 +26,14 @@ public class Wander {
 		float targetOrientation;
 		wanderOrientation+=randomBinomial()*wanderRate;
 		wanderOrientation%=360;
-		System.out.println(wanderOrientation);
+
 		targetOrientation=wanderOrientation+boid.r;
 		
 		
 		target.x=(float) (boid.pos.x+wanderOffset*Math.sin(Math.toRadians(boid.r)));
 		target.y=(float) (boid.pos.y+wanderOffset*Math.cos(Math.toRadians(boid.r)));
+		
+		
 		
 		target.x+=wanderRadius*Math.sin(Math.toRadians(targetOrientation));
 		target.y+=wanderRadius*Math.cos(Math.toRadians(targetOrientation));
@@ -40,6 +43,10 @@ public class Wander {
 		//Steering behavior
 		Steering st;
 		st=Behavior.seek(boid, target);
+		Behavior.changeBoid(boid, st);
+		
+		//collision avoidance
+		st=Behavior.collisionAvoide(boid, boids);
 		Behavior.changeBoid(boid, st);
 	}
 	

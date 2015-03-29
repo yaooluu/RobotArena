@@ -1,5 +1,7 @@
 package behavior;
 
+
+import java.util.List;
 import main.Config;
 import environment.Boid;
 import pathfinding.PathLibrary;
@@ -94,6 +96,73 @@ public class Behavior {
 			}
 	}
 	
+	//collision avoidance
+	public static Steering collisionAvoide(Boid boid, List<Boid> boids)
+	{
+		Steering st=new Steering();
+		float INFINITY=2147483647;
+		float shortestTime=(float) 1.3;
+		Boid firstTarget = null;
+		float firstMinSeparation=INFINITY;
+		float firstDistance = INFINITY;
+		Vec2D firstRelativePosition = null;
+		Vec2D firstRelativeVelocity = null;
+		
+		Vec2D relativePosition=new Vec2D(0,0);
+		Vec2D relativeVelocity=new Vec2D(0,0);
+		float relativeSpeed;
+		float timeToCollision=0;
+		float distance = INFINITY;
+		float minSeparation;
+		
+		for(Boid t:boids)
+		{
+			if(t!=boid)
+			{
+				relativePosition=boid.pos.minus(t.pos);
+				relativeVelocity=boid.v.minus(t.v);
+				relativeSpeed=relativeVelocity.getLength();
+				
+				if(relativeSpeed==0)
+					return st;
+				timeToCollision=-(relativePosition.dotCross(relativeVelocity)/(relativeSpeed*relativeSpeed));
+				
+				//check collision
+				distance=relativePosition.getLength();
+				minSeparation=distance-relativeSpeed*timeToCollision;
+				if(minSeparation>(boid.getSize()+t.getSize())/2)
+				{
+					continue;
+				}
+				if(timeToCollision>0&&timeToCollision<shortestTime)
+				{
+					shortestTime=timeToCollision;
+					firstTarget=t;
+					firstMinSeparation=minSeparation;
+					firstDistance=distance;
+					firstRelativePosition=relativePosition;
+					firstRelativeVelocity=relativeVelocity;					
+				}
+				
+			}
+		}
+		
+		if(firstTarget==null)return st;
+		if(firstMinSeparation<=0 || firstDistance<(boid.getSize()+firstTarget.getSize())/2)
+		{
+			//evade
+			relativePosition=boid.pos.minus(firstTarget.pos);
+		}
+		else
+		{
+			relativePosition.x=firstRelativePosition.x+firstRelativeVelocity.x*shortestTime;
+			relativePosition.y=firstRelativePosition.y+firstRelativeVelocity.y*shortestTime;
+		}
+		relativePosition.normalize();
+		st.a=relativePosition.multiply(Config.MAX_LINACC[boid.getType()]);
+		return st;
+		
+	}
 	
 	
 }

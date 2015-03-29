@@ -31,7 +31,7 @@ public class Main extends PApplet {
 
 		for(int i=0;i<boids.size();i++) {
 			Boid b = boids.get(i);
-			Wander.wander(b);
+			Wander.wander(b,boids);
 			Behavior.update(b);
 			b.draw();
 		}
