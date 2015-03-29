@@ -23,9 +23,10 @@ public class Main extends PApplet {
 	
 	public void draw() {
 		background(255);
-		Wander.wander(b1);
-		Wander.wander(b2);
-		//Attack.goAttack(b1, b2);
+		//Wander.wander(b1);
+		//Wander.wander(b2);
+		Attack.goAttack(b1, b2);
+		Attack.goAttack(b2, b1);
 		//Evade.evade(b2, b1);
 		Behavior.update(b1);
 		Behavior.update(b2);
