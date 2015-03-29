@@ -14,6 +14,11 @@ public class Config {
 	public static int TILE_SIZE = 2;
 	public static int MAX_FUEL = 100;
 	
+	//number of boids per team
+	public static int[] TEAM_SIZE = {1, 1};
+	
+	public static double[] NUM_BOID = {0.1, 0.4, 0.1, 0.1, 0.1, 0.1, 0.1};
+	
 	public static enum BOID_TYPE {
 		scout(0), soldier(1), tank(2), hero(3), commander(4);
 		private int value;
@@ -31,9 +36,6 @@ public class Config {
 	public static float[] MAX_ANGACC = 		{100,100,100,100,100};
 	public static float[] MAX_SPEED =  		{200,150,100,200,150};
 	
-	public static double[] NUM_BOID = {0.1, 0.4, 0.1, 0.1, 0.1, 0.1, 0.1};
-	
-	public static int GROUP_SIZE = 10;
 	public static Color[] TEAM_COLORS = {Color.RED, Color.BLUE, Color.GREEN,
 										Color.MAGENTA, Color.ORANGE};
 	
