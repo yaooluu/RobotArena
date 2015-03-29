@@ -12,7 +12,7 @@ public class PathFinding {
 	 * @param goal
 	 * @return H(node, goal)
 	 */
-	private double Heuristic(Graph graph, int node, int goal) {
+	private static double Heuristic(Graph graph, int node, int goal) {
 		return graph.getNodePos(node).minus(graph.getNodePos(goal)).getLength();
 	}
 
