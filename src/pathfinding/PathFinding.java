@@ -91,7 +91,7 @@ public class PathFinding {
 	 * @param end  : id of end node
 	 * @return a list of node id, representing the shortest path
 	 */
-	public List<Integer> AStar(Graph graph, int start, int end) {
+	public static List<Integer> AStar(Graph graph, int start, int end) {
 		List<Integer> path = new ArrayList<Integer>();
 		int[] prev = new int[graph.maxId() + 1];
 
