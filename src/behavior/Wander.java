@@ -35,7 +35,7 @@ public class Wander {
 		target.x+=wanderRadius*Math.sin(Math.toRadians(targetOrientation));
 		target.y+=wanderRadius*Math.cos(Math.toRadians(targetOrientation));
 		//draw the target
-		Boid b1 = new Boid(target.x, target.y, targetOrientation, 0, Config.BOID_TYPE.scout);
+		//Boid b1 = new Boid(target.x, target.y, targetOrientation, 0, Config.BOID_TYPE.scout);
 		
 		//Steering behavior
 		Steering st;
