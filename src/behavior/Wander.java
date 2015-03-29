@@ -1,8 +1,6 @@
 package behavior;
 
-import java.util.List;
 import java.util.Random;
-import main.Config;
 import physics.Vec2D;
 import environment.Boid;
 

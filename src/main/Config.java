@@ -15,7 +15,7 @@ public class Config {
 	public static int MAX_FUEL = 100;
 	
 	//number of boids per team
-	public static int[] TEAM_SIZE = {1, 1};
+	public static int[] TEAM_SIZE = {3, 3};
 	
 	public static double[] NUM_BOID = {0.1, 0.4, 0.1, 0.1, 0.1, 0.1, 0.1};
 	
