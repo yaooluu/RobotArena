@@ -57,7 +57,7 @@ public class World {
 		Iterator<Entry<Integer, Vec2D>> it = Main.getGraph().getNodePos()
 				.entrySet().iterator();
 		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
+			Map.Entry<Integer, Vec2D> pair = (Map.Entry<Integer, Vec2D>) it.next();
 			Vec2D v = (Vec2D) pair.getValue();
 			if ((temp = v.minus(point).getLength()) < dis) {
 				dis = temp;
