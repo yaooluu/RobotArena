@@ -10,7 +10,8 @@ public class World {
 	private static int width = Config.SCREEN_WIDTH;
 	private static int height = Config.SCREEN_HEIGHT;
 
-	public static void createGraphFromImage(Graph graph, PApplet parent) {
+	public static Graph createGraphFromImage(PApplet parent) {
+		Graph graph = new Graph();
 		PImage environment;
 		environment = parent.loadImage("./src/environment/Environment.png");
 		environment.loadPixels();
@@ -40,6 +41,7 @@ public class World {
 					graph.addConnection(j, i, cost);
 				}
 			}
+		return graph;
 	}
 
 	private static boolean detectAccessible(Vec2D u, Vec2D v, int[] pixels) {
