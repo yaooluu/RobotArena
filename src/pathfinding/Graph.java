@@ -9,6 +9,7 @@ import physics.Vec2D;
 
 public class Graph {
 
+	
 	private HashMap<Integer, Vec2D> nodePos = null;
 	private HashMap<Integer, List<Connection>> connectionLists = null;
 	private int maxId = -1;
