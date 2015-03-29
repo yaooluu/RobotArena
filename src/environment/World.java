@@ -3,7 +3,6 @@ package environment;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import main.Config;
 import main.Main;
 import pathfinding.Graph;
@@ -15,16 +14,20 @@ public class World {
 	private static int width = Config.SCREEN_WIDTH;
 	private static int height = Config.SCREEN_HEIGHT;
 
-	public static Graph createGraphFromImage(int pixels[]) {
+	public static Graph createGraphFromImage(PApplet parent) {
 		Graph graph = new Graph();
-
+		PImage environment;
+		environment = parent.loadImage("../src/environment/Environment.png");
+		environment.loadPixels();
+		int pixels[] = environment.pixels;
+		
 		int nodeIndex = 0;
 		System.out.println("Initializeing pixels[]...");
 		// detect the vertices of Dirichlet Domain
 		for (int i = 0; i < width; i++)
 			for (int j = 0; j < height; j++) {
 				// scanning in pixels[j*width+i]
-				if (pixels[j * width + i] == 0x00FF0000) {
+				if (parent.red(pixels[j * width + i]) > 0 && parent.blue(pixels[j * width + i])==0 ) {
 					// RED pixel indicates Dirichlet Domain vertices
 					System.out.println("Found Dirichlet vertex!");
 					graph.setNodePos(nodeIndex, new Vec2D(i, j));

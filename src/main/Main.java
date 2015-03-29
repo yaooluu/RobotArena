@@ -21,12 +21,10 @@ public class Main extends PApplet {
 		Config.canvas = this;
 		boids = new ArrayList<Boid>();
 		
+		environment=loadImage("../src/environment/GameEnvironment.png");
 		
-		environment = loadImage("../src/environment/Environment.png");
-		environment.loadPixels();
-		int pixels[] = environment.pixels;
 		
-		graph = World.createGraphFromImage(pixels);
+		graph = World.createGraphFromImage(this);
 		
 		size(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		frameRate(Config.FRAME_RATE);
