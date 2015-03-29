@@ -10,12 +10,9 @@ public class World {
 	private static int width = Config.SCREEN_WIDTH;
 	private static int height = Config.SCREEN_HEIGHT;
 
-	public static Graph createGraphFromImage(PApplet parent) {
+	public static Graph createGraphFromImage(int pixels[]) {
 		Graph graph = new Graph();
-		PImage environment;
-		environment = parent.loadImage("../src/environment/Environment.png");
-		environment.loadPixels();
-		int pixels[] = environment.pixels;
+
 		int nodeIndex = 0;
 
 		// detect the vertices of Dirichlet Domain

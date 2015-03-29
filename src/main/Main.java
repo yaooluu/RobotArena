@@ -1,9 +1,9 @@
 package main;
 
 import java.util.*;
-
 import pathfinding.Graph;
 import processing.core.PApplet;
+import processing.core.PImage;
 import environment.*;
 import behavior.*;
 
@@ -15,11 +15,18 @@ public class Main extends PApplet {
 	
 	private static Graph graph = null;
 	public static Graph getGraph() {return graph;}
+	PImage environment;
 	
 	public void setup() {
 		Config.canvas = this;
 		boids = new ArrayList<Boid>();
-		graph = World.createGraphFromImage(this);
+		
+		
+		environment = loadImage("../src/environment/Environment.png");
+		environment.loadPixels();
+		int pixels[] = environment.pixels;
+		
+		graph = World.createGraphFromImage(pixels);
 		
 		size(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		frameRate(Config.FRAME_RATE);
@@ -37,7 +44,8 @@ public class Main extends PApplet {
 	
 	public void draw() {
 		background(255);
-		
+	  //draw the indoor environment
+	  image(environment, 0, 0);
 		for(int i=0;i<boids.size();i++) {
 			Boid b = boids.get(i);
 			if(frameCount % 60 == 1) {

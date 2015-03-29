@@ -14,6 +14,8 @@ public class Hide {
 	public static void evade(Boid b1,Vec2D hidePos)
 	{		
 			//Steering behavior
-			Behavior.seek(b1, hidePos);	
+			Steering st=null;
+			st=Behavior.seek(b1, hidePos);	
+			Behavior.changeBoid(b1, st);
 	}
 }
