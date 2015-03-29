@@ -32,6 +32,7 @@ public class Main extends PApplet {
 		frameRate(Config.FRAME_RATE);
 		
 		//init teams
+		/*
 		int id = 0;
 		for(int i=0;i<Config.TEAM_SIZE.length;i++) {
 			for(int j=0;j<Config.TEAM_SIZE[i];j++) {
@@ -39,7 +40,10 @@ public class Main extends PApplet {
 				Boid b = new Boid(100+400*i, 20*(j+1), 90+180*i, i, Config.BOID_TYPE.scout, id);	
 				boids.add(b);
 			}			
-		}
+		}*/
+		
+		boids.add(new Boid(100, 100, 90, 0, Config.BOID_TYPE.scout, 1));
+		boids.add(new Boid(700, 500, 270, 1, Config.BOID_TYPE.scout, 2));
 	}
 	
 	public void draw() {
@@ -48,19 +52,29 @@ public class Main extends PApplet {
 	  image(environment, 0, 0);
 		for(int i=0;i<boids.size();i++) {
 			Boid b = boids.get(i);
-			if(frameCount % 60 == 1) {
-				System.out.print(b.getId()+": ");
-				Boid ve = b.getVisibleEnemy();
-				Boid ae = b.getAudibleEnemy();
-				Boid da = b.getDetectableAlly();
-				System.out.print((ve==null?ve:ve.getId()) + ", ");
-				System.out.print((ae==null?ae:ae.getId()) + ", ");
-				System.out.println(da==null?da:da.getId());
-				if(i==boids.size()-1) System.out.println();
-			}
+			
 			//Wander.wander(b);
+			if(i<boids.size()-1)
+				Attack.goAttack(b, boids.get(i+1));
 			Behavior.update(b);
 			b.draw();
+		}
+	}
+	
+	public void mousePressed() {
+
+
+	}
+	
+	private void testBoidVision(Boid b) {
+		if(frameCount % 60 == 1) {
+			System.out.print(b.getId()+": ");
+			Boid ve = b.getVisibleEnemy();
+			Boid ae = b.getAudibleEnemy();
+			Boid da = b.getDetectableAlly();
+			System.out.print((ve==null?ve:ve.getId()) + ", ");
+			System.out.print((ae==null?ae:ae.getId()) + ", ");
+			System.out.println(da==null?da:da.getId());
 		}
 	}
 }
