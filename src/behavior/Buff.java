@@ -11,16 +11,26 @@ public class Buff {
 			if(type.equals("red"))
 			{
 				if(b1.getRedBuff()!=null)
+				{
 					st=Behavior.seek(b1, b1.getRedBuff());	
+					Behavior.addAcc(b1, st);
+					st=Behavior.arrive(b1, b1.getRedBuff());
+				}
+					
 			}
 			else if(type.equals("blue"))
 			{
 				if(b1.getBlueBuff()!=null)
+				{
 					st=Behavior.seek(b1, b1.getBlueBuff());	
+					Behavior.addAcc(b1, st);
+					st=Behavior.arrive(b1, b1.getRedBuff());
+				}
+					
 			}
 			
 			if(st!=null)
-					Behavior.addAcc(b1, st);
+					Behavior.changeAcc(b1, st);
 
 	}
 }
