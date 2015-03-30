@@ -16,7 +16,6 @@ public class Graph {
 	}
 
 	private HashMap<Integer, List<Connection>> connectionLists = null;
-	private int maxId = -1;
 	private int screenWidth = 0;
 
 	public Graph() {
@@ -75,16 +74,16 @@ public class Graph {
 	}
 
 
-	public int[] getRowColFromNode(int node) {
-		int[] pixel = new int[2];
-		pixel[0] = node % screenWidth;
-		pixel[1] = node / screenWidth + 1;
-		if (node % screenWidth == 0) {
-			pixel[0] = screenWidth;
-			pixel[1]--;
-		}
-		return pixel;
-	}
+//	public int[] getRowColFromNode(int node) {
+//		int[] pixel = new int[2];
+//		pixel[0] = node % screenWidth;
+//		pixel[1] = node / screenWidth + 1;
+//		if (node % screenWidth == 0) {
+//			pixel[0] = screenWidth;
+//			pixel[1]--;
+//		}
+//		return pixel;
+//	}
 
 	// debug, print adjacency list of graph
 	public void printAdjacencyList() {
