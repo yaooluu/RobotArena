@@ -26,9 +26,9 @@ public class PathFinding {
 	 */
 	public static List<Integer> Dijkstra(Graph graph, int start, int end) {// System.out.println("Calculating: "+start+", "+end);
 		List<Integer> path = new ArrayList<Integer>();
-		int[] prev = new int[graph.maxId() + 1];
+		int[] prev = new int[graph.getNodeCount() + 1];
 
-		double[] csf = new double[graph.maxId() + 1];
+		double[] csf = new double[graph.getNodeCount() + 1];
 		for (int i = 0; i < csf.length; i++)
 			csf[i] = Double.MAX_VALUE - 1;
 		csf[start] = 0;
@@ -93,10 +93,9 @@ public class PathFinding {
 	 */
 	public static List<Integer> AStar(Graph graph, int start, int end) {
 		List<Integer> path = new ArrayList<Integer>();
-		int[] prev = new int[graph.maxId() + 1];
-
-		double[] csf = new double[graph.maxId() + 1];
-		double[] etc = new double[graph.maxId() + 1];
+		int[] prev = new int[graph.getNodeCount()+1];
+		double[] csf = new double[graph.getNodeCount() + 1];
+		double[] etc = new double[graph.getNodeCount() + 1];
 		for (int i = 0; i < csf.length; i++)
 			csf[i] = Double.MAX_VALUE - 1;
 		csf[start] = 0;

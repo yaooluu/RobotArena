@@ -20,16 +20,16 @@ public class World {
 		environment = parent.loadImage("../src/environment/Environment.png");
 		environment.loadPixels();
 		int pixels[] = environment.pixels;
-		
+
 		int nodeIndex = 0;
 		System.out.println("Initializeing pixels[]...");
 		// detect the vertices of Dirichlet Domain
 		for (int i = 0; i < width; i++)
 			for (int j = 0; j < height; j++) {
 				// scanning in pixels[j*width+i]
-				if (parent.red(pixels[j * width + i]) > 0 && parent.blue(pixels[j * width + i])==0 ) {
+				if (parent.red(pixels[j * width + i]) > 0
+						&& parent.blue(pixels[j * width + i]) == 0) {
 					// RED pixel indicates Dirichlet Domain vertices
-					System.out.println("Found Dirichlet vertex!");
 					graph.setNodePos(nodeIndex, new Vec2D(i, j));
 					nodeIndex++;
 				}
@@ -61,7 +61,8 @@ public class World {
 		Iterator<Entry<Integer, Vec2D>> it = Main.getGraph().getNodePos()
 				.entrySet().iterator();
 		while (it.hasNext()) {
-			Map.Entry<Integer, Vec2D> pair = (Map.Entry<Integer, Vec2D>) it.next();
+			Map.Entry<Integer, Vec2D> pair = (Map.Entry<Integer, Vec2D>) it
+					.next();
 			Vec2D v = (Vec2D) pair.getValue();
 			temp = v.minus(point).getLength();
 			if (temp < dis) {
@@ -73,14 +74,18 @@ public class World {
 	}
 
 	private static boolean detectAccessible(Vec2D u, Vec2D v, int[] pixels) {
-		int length = (int) u.minus(v).getLength() - 1;
-		for (int i = 0; i < length; i++) {
-			Vec2D t = v.minus(u).getUnitVec().multiply(i);
-			int x = (int) t.x;
-			int y = (int) t.y;
-			if (pixels[y * width + x] != 0xFFFFFF) // TODO modify access
-													// indicator
+		int sampleRate = 100;
+		float dis = u.minus(v).getLength();
+		dis /= sampleRate;
+		for (int i = 0; i < sampleRate; i++) {
+			Vec2D t = v.minus(u).getUnitVec().multiply(dis * i).plus(u);
+			int x = (int) (t.x);
+			int y = (int) (t.y);
+			if ((x == u.x && y == u.y) || (x == v.x && y == v.y))
+				continue;
+			if (pixels[y * width + x] != -1) { //white color
 				return false;
+			}
 		}
 		return true;
 	}

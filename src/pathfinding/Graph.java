@@ -74,15 +74,6 @@ public class Graph {
 		return size;
 	}
 
-	// get max node id
-	public int maxId() {
-		if (maxId == -1) {
-			for (Integer key : connectionLists.keySet())
-				if (key > maxId)
-					maxId = key;
-		}
-		return maxId;
-	}
 
 	public int[] getRowColFromNode(int node) {
 		int[] pixel = new int[2];

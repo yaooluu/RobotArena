@@ -17,7 +17,7 @@ public class PathLibrary {
 		//System.out.print("calculating path...");
 
 		List<Integer> path = PathFinding.AStar(graph, start, end);
-		//System.out.println(path);
+		System.out.println(path);
 		return graph.getNodePos(path.get(0));
 	}
 
