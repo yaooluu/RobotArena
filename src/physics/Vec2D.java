@@ -19,8 +19,9 @@ public class Vec2D {
 		this.y = v.y;
 	}
 
-	public boolean equals(Vec2D b) {
-		return (this.x == b.x) && (this.y == b.y);
+	public boolean equals(Object b) {
+		Vec2D b1 = (Vec2D) b;
+		return (this.x == b1.x) && (this.y == b1.y);
 	}
 
 	public void plusEqual(Vec2D increment) {
