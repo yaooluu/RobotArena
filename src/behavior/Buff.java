@@ -29,7 +29,7 @@ public class Buff {
 					
 			}
 			
-			if(st!=null)
+			if(st.a.getLength()>0)
 					Behavior.changeAcc(b1, st);
 
 	}
