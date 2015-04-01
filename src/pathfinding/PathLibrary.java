@@ -11,15 +11,23 @@ public class PathLibrary {
 	public static Vec2D getNextTarget(Vec2D pos, Vec2D targetPos) {
 		Graph graph = Main.getGraph();
 		int start = World.quantize(pos);
-		System.out.println("start= "+start);
 		int end = World.quantize(targetPos);
 		//System.out.println("Quantize result: startNode: "+start+", endNode:"+end);
 		if(start == end) return targetPos;
-		//System.out.print("calculating path...");
+		
+		//System.out.println("calculating path...");
 
 		List<Integer> path = PathFinding.AStar(graph, start, end);
-		System.out.println(path.get(0));
-		return graph.getNodePos(path.get(0));
+		int index = 0;
+		if(pos.minus(graph.getNodePos(path.get(index))).getLength() < 5) {
+			//System.out.println("seeking next key point...");
+			index++;
+		}
+		//System.out.println();
+		
+		if(index < path.size())
+			return graph.getNodePos(path.get(index)+1);
+		else return targetPos;
 	}
 
 }

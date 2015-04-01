@@ -1,7 +1,9 @@
 package main;
 
 import java.util.*;
+
 import pathfinding.Graph;
+import physics.Collision;
 import processing.core.PApplet;
 import processing.core.PImage;
 import environment.*;
@@ -46,18 +48,31 @@ public class Main extends PApplet {
 	
 	public void draw() {
 		background(255);
-	  //draw the indoor environment
-	  image(environment, 0, 0);
+		
+		//draw the indoor environment
+		image(environment, 0, 0);
+		
 		for(int i=0;i<boids.size();i++) {
 			Boid b = boids.get(i);
 			
 			//Wander.wander(b);
 
-			if(i<boids.size()-1)
-				Attack.goAttack(b, boids.get(i+1));
+			if(i==0)
+				Attack.goAttack(b, boids.get(1));
+			else
+				Attack.goAttack(b, boids.get(0));
+				//Evade.evade(b, boids.get(0));
 
 			Behavior.update(b);
 			b.draw();
+		}
+		
+		//physical collision for all boids
+		for(int i=0;i<boids.size();i++) {
+			for(int j=0;j<boids.size();j++) {
+				if(i == j) continue;
+				Collision.perform(boids.get(i), boids.get(j));
+			}
 		}
 	}
 	
