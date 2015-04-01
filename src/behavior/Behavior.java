@@ -136,12 +136,13 @@ public class Behavior {
 				rotation+=360; 
 			}
 			
-			boid.vr=rotation;
+			//boid.vr=rotation;
 			if(Math.abs(rotation)<5)
 			{
 				boid.vr=0;
 				boid.r=newOrientation;
 			}
+			boid.r=newOrientation;
 	}
 	
 	//collision avoidance
