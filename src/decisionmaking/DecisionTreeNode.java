@@ -194,7 +194,7 @@ class AllyDetectable {
 				return "bluebuff";
 			else {
 				double t = Math.random();
-				return t < 0.1 ? "buff" : (t < 0.6 ? "wander" : "hide");
+				return t < 0.1 ? "bluebuff" : (t < 0.6 ? "wander" : "hide");
 			}
 		}
 	}

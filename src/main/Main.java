@@ -2,7 +2,6 @@ package main;
 
 import java.util.*;
 
-import decisionmaking.DecisionTree;
 import pathfinding.Graph;
 import physics.Collision;
 import physics.Vec2D;
@@ -55,27 +54,22 @@ public class Main extends PApplet {
 		//draw the indoor environment
 		image(environment, 0, 0);
 		
-//		for(int i=0;i<boids.size();i++) {
-//			Boid b = boids.get(i);
-//			
-//			//Wander.wander(b);
-//
-//			if(i<2)
-//				Attack.goAttack(b, boids.get(2));
-//			else
-//				Attack.goAttack(b, boids.get(0));
-//				//Evade.evade(b, boids.get(0));
-//
-//			Behavior.update(b);
-//			b.draw();
-//		}
-		
-		for(Boid b:boids){
-			DecisionTree.performDecisionTree(b);
+		for(int i=0;i<boids.size();i++) {
+			Boid b = boids.get(i);
+			
+			//Wander.wander(b);
+
+			if(i<2)
+				Attack.goAttack(b, boids.get(2));
+			else
+				Attack.goAttack(b, boids.get(0));
+				//Evade.evade(b, boids.get(0));
+
 			Behavior.update(b);
 			b.draw();
 		}
-//		System.out.println(boids.get(0).v.getLength());System.out.println(boids.get(0).v.getLength());
+		
+		System.out.println(boids.get(0).v.getLength());System.out.println(boids.get(0).v.getLength());
 
 		//physical collision for all boids
 		for(int i=0;i<boids.size();i++) {
