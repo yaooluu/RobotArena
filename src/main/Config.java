@@ -34,7 +34,7 @@ public class Config {
 	
 	public static float[] MAX_LINACC = 		{200, 100, 100, 100, 100};
 	public static float[] MAX_ANGACC = 		{300, 100, 100, 100, 100};
-	public static float[] MAX_SPEED =  		{200, 150, 100, 200, 150};
+	public static float[] MAX_SPEED =  		{20, 150, 100, 200, 150};
 	
 	public static Color[] TEAM_COLORS = {Color.RED, Color.BLUE, Color.GREEN,
 										Color.MAGENTA, Color.ORANGE};

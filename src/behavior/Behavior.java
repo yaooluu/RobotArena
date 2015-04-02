@@ -105,7 +105,7 @@ public class Behavior {
 		boid.v.plusEqual(boid.a.multiply((float) (1.0/Config.FRAME_RATE)));
 		boid.v.truncate(Config.MAX_SPEED[boid.getType()]);
 		boid.vr += boid.ar;
-		smoothRotate(boid);
+		//smoothRotate(boid);
 	}
 	
 	private static float getNewOrientation(Boid boid)
