@@ -43,7 +43,7 @@ public class Main extends PApplet {
 		}*/
 		
 		boids.add(new Boid(100, 100, 90, 0, Config.BOID_TYPE.scout, 1));
-		boids.add(new Boid(700, 500, 270, 1, Config.BOID_TYPE.scout, 2));
+		boids.add(new Boid(700, 500, 270, 1, Config.BOID_TYPE.tank, 2));
 	}
 	
 	public void draw() {
