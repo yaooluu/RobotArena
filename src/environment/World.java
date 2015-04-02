@@ -1,8 +1,8 @@
 package environment;
 
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
+
 import main.Config;
 import main.Main;
 import pathfinding.Graph;
@@ -11,6 +11,11 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class World {
+	
+	//store pixels position for map walls
+	private static List<Pair> walls = new ArrayList<Pair>();
+	public static List<Pair> getWalls() {return walls;}
+	
 	private static int width = Config.SCREEN_WIDTH;
 	private static int height = Config.SCREEN_HEIGHT;
 
@@ -23,15 +28,23 @@ public class World {
 
 		int nodeIndex = 0;
 		System.out.println("Initializeing pixels[]...");
-		// detect the vertices of Dirichlet Domain
+
 		for (int i = 0; i < width; i++)
 			for (int j = 0; j < height; j++) {
-				// scanning in pixels[j*width+i]
-				if (parent.red(pixels[j * width + i]) > 0
-						&& parent.blue(pixels[j * width + i]) == 0) {
-					// RED pixel indicates Dirichlet Domain vertices
+				int curP = pixels[j * width + i];
+				
+				// scan Dirichlet Domain vertices (red)
+				if (parent.red(curP) > 0
+						&& parent.blue(curP) == 0) {
 					graph.setNodePos(nodeIndex, new Vec2D(i, j));
 					nodeIndex++;
+				}
+				
+				//scan and store walls (black)
+				if (parent.red(curP) == 0
+						&& parent.green(curP) == 0
+						&& parent.blue(curP) == 0) {
+					walls.add(new Pair(i,j));
 				}
 			}
 
@@ -109,7 +122,7 @@ class World2 {
 		int pixels[] = environment.pixels;
 		int nodeIndex = 0;
 		// number of tile on each row
-		int numberOfRow = (int) Math.floor((height / tileSize));
+		//int numberOfRow = (int) Math.floor((height / tileSize));
 		// number of tile on each column
 		int numberOfColumn = (int) Math.floor((width / tileSize));
 		// record map type

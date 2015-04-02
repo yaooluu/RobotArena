@@ -4,6 +4,7 @@ import java.util.*;
 
 import pathfinding.Graph;
 import physics.Collision;
+import physics.Vec2D;
 import processing.core.PApplet;
 import processing.core.PImage;
 import environment.*;
@@ -43,7 +44,9 @@ public class Main extends PApplet {
 		}*/
 		
 		boids.add(new Boid(100, 100, 90, 0, Config.BOID_TYPE.scout, 1));
-		boids.add(new Boid(700, 500, 270, 1, Config.BOID_TYPE.tank, 2));
+		boids.add(new Boid(100, 150, 90, 0, Config.BOID_TYPE.scout, 2));
+		boids.add(new Boid(700, 500, 270, 1, Config.BOID_TYPE.tank, 3));
+
 	}
 	
 	public void draw() {
@@ -57,8 +60,8 @@ public class Main extends PApplet {
 			
 			//Wander.wander(b);
 
-			if(i==0)
-				Attack.goAttack(b, boids.get(1));
+			if(i<2)
+				Attack.goAttack(b, boids.get(2));
 			else
 				Attack.goAttack(b, boids.get(0));
 				//Evade.evade(b, boids.get(0));
@@ -67,6 +70,8 @@ public class Main extends PApplet {
 			b.draw();
 		}
 		
+		System.out.println(boids.get(0).v.getLength());System.out.println(boids.get(0).v.getLength());
+
 		//physical collision for all boids
 		for(int i=0;i<boids.size();i++) {
 			for(int j=0;j<boids.size();j++) {
@@ -74,12 +79,18 @@ public class Main extends PApplet {
 				Collision.perform(boids.get(i), boids.get(j));
 			}
 		}
+		
+		//physical collision for walls
+		for(Boid b : boids) {
+			for(Pair p : World.getWalls()) {
+				float dist = b.pos.minus(new Vec2D(p.x, p.y)).getLength();
+				if(dist < b.getSize()/2) {
+					
+				}
+			}
+		}
 	}
 	
-	public void mousePressed() {
-
-
-	}
 	
 	private void testBoidVision(Boid b) {
 		if(frameCount % 60 == 1) {
