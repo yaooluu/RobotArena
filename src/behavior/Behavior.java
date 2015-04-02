@@ -141,7 +141,7 @@ public class Behavior {
 			{
 				boid.vr=0;
 				boid.r=newOrientation;
-			}
+			} 
 			boid.r=newOrientation;
 	}
 	
