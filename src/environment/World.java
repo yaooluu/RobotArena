@@ -13,8 +13,8 @@ import processing.core.PImage;
 public class World {
 	
 	//store pixels position for map walls
-	private static List<Pair> walls = new ArrayList<Pair>();
-	public static List<Pair> getWalls() {return walls;}
+	private static List<Wall> walls = new ArrayList<Wall>();
+	public static List<Wall> getWalls() {return walls;}
 	
 	private static int width = Config.SCREEN_WIDTH;
 	private static int height = Config.SCREEN_HEIGHT;
@@ -32,19 +32,36 @@ public class World {
 		for (int i = 0; i < width; i++)
 			for (int j = 0; j < height; j++) {
 				int curP = pixels[j * width + i];
+				//System.out.println(parent.red(curP)+","+parent.green(curP)+","+parent.blue(curP));
+				//System.out.println(curP);
 				
 				// scan Dirichlet Domain vertices (red)
-				if (parent.red(curP) > 0
-						&& parent.blue(curP) == 0) {
+				if (RGB.isRed(curP)) {
 					graph.setNodePos(nodeIndex, new Vec2D(i, j));
 					nodeIndex++;
 				}
 				
 				//scan and store walls (black)
-				if (parent.red(curP) == 0
-						&& parent.green(curP) == 0
-						&& parent.blue(curP) == 0) {
-					walls.add(new Pair(i,j));
+				if (i>0 && i<width-1 && j>0 && j<height-1
+						&& RGB.isBlack(curP)) {
+					
+					//only store margin of wall, and it's vector
+					int top = pixels[j * width + i - width];
+					int bottom = pixels[j * width + i + width];
+					int left = pixels[j * width + i - 1];
+					int right = pixels[j * width + i + 1];
+					Vec2D vec = new Vec2D(0, 0);
+					
+					int count = 0;
+					if(RGB.isWhite(top)) {vec.y = -1;count++;}
+					if(RGB.isWhite(bottom)) {vec.y = 1;count++;}
+					if(RGB.isWhite(left)) {vec.x = -1;count++;}
+					if(RGB.isWhite(right)) {vec.x = 1;count++;}
+					
+					if(count>0) {
+						walls.add(new Wall(i,j,vec));
+						//System.out.println(i+","+j+"find wall");
+					}
 				}
 			}
 
