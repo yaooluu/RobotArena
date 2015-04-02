@@ -14,7 +14,7 @@ public class Attack {
 	{		
 			//Steering behavior
 			st=Behavior.seek(b1, b2.pos);	
-			Behavior.addAcc(b1, st);
+			Behavior.changeAcc(b1, st);
 	}
 	
 }

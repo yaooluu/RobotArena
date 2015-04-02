@@ -150,6 +150,7 @@ public class PathFinding {
 			node = prev[node];
 			path.add(0, node);
 		}
+		System.out.println(path);
 		return path;
 	}
 

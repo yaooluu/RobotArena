@@ -44,8 +44,8 @@ public class Main extends PApplet {
 		}*/
 		
 		boids.add(new Boid(100, 100, 90, 0, Config.BOID_TYPE.scout, 1));
-		boids.add(new Boid(100, 150, 90, 0, Config.BOID_TYPE.scout, 2));
-		boids.add(new Boid(700, 500, 270, 1, Config.BOID_TYPE.tank, 3));
+		boids.add(new Boid(200, 400, 90, 0, Config.BOID_TYPE.scout, 2));
+		//boids.add(new Boid(700, 500, 270, 1, Config.BOID_TYPE.tank, 3));
 
 	}
 	
@@ -60,10 +60,10 @@ public class Main extends PApplet {
 			
 			//Wander.wander(b);
 
-			if(i<2)
-				Attack.goAttack(b, boids.get(2));
-			else
-				Attack.goAttack(b, boids.get(0));
+			//if(i<1)
+				//Attack.goAttack(b, boids.get(1));
+			//else
+				if(i==1)Attack.goAttack(b, boids.get(0));
 				//Evade.evade(b, boids.get(0));
 
 			Behavior.update(b);
