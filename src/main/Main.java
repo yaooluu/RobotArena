@@ -70,7 +70,7 @@ public class Main extends PApplet {
 			b.draw();
 		}
 		
-		System.out.println(boids.get(0).v.getLength());System.out.println(boids.get(0).v.getLength());
+		//System.out.println(boids.get(0).v.getLength());System.out.println(boids.get(0).v.getLength());
 
 		//physical collision for all boids
 		for(int i=0;i<boids.size();i++) {
