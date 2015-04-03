@@ -2,6 +2,7 @@ package behavior;
 
 
 import java.util.List;
+
 import main.Config;
 import main.Main;
 import environment.Boid;
@@ -30,14 +31,34 @@ public class Behavior {
 		Vec2D newTarget = PathLibrary.getNextTarget(boid.pos, targetPos);
 		if(newTarget != null) targetPos = newTarget;
 		
-
 		st=new Steering();
 		//Steering behavior
 		st.a=targetPos.minus(boid.pos);
 		//clip velocity
 		st.a.truncate(Config.MAX_LINACC[boid.getType()]);
 		st.ar=0;
-		//
+		
+		/*
+		try {
+			System.out.println("frame:"+Config.canvas.frameCount);
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}//*/
+		
+		//new way to change direction, Yao Lu
+		
+		float ang = Vec2D.getAngleBetween(boid.getOriVec(), targetPos.minus(boid.pos));
+		if(ang > 30) {
+			boid.r = Vec2D.vecToR(targetPos.minus(boid.pos));
+			boid.v = new Vec2D(0,0);
+			boid.a = new Vec2D(0,0);
+		}
+		
+		//System.out.println("Boid.r:"+boid.r);
+		//System.out.println("ang:"+ang);
+		//System.out.println("Boid.r/vecToR:"+boid.r+"\n");
+		
 		return st;
 	}
 	
@@ -100,18 +121,20 @@ public class Behavior {
 	//update velocity
 	public static void update(Boid boid)
 	{
-		boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
-		boid.r += boid.vr;
+		
+		
 		boid.v.plusEqual(boid.a.multiply((float) (1.0/Config.FRAME_RATE)));
 		boid.v.truncate(Config.MAX_SPEED[boid.getType()]);
 		boid.vr += boid.ar;
+		boid.r += boid.vr;
+		boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
 		//smoothRotate(boid);
 	}
 	
 	private static float getNewOrientation(Boid boid)
 	{
 		if(boid.v.getLength()>0)
-			return (float) Math.toDegrees(Math.atan2(boid.v.x, -boid.v.y));
+			return (float) Math.toDegrees(Math.atan2(boid.v.x, -1*boid.v.y));
 		else
 			return boid.r;					
 	}

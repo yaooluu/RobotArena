@@ -73,7 +73,32 @@ public class Vec2D {
 		this.x = e.x;
 		this.y = e.y;
 	}
+	
+	public static float getAngleBetween(Vec2D v1, Vec2D v2) {
+		
+		float cosVal = v1.dotCross(v2) / (v1.getLength()*v2.getLength());
+		if(cosVal > 1.0) cosVal = 1.0f;
+		//System.out.println("Getting angle between:" + v1 + " and "+ v2 +", with cosVal="+cosVal);
+		return (float) (Math.acos(cosVal) * 180.0 / Math.PI);
+	}
 
+	public static float vecToR(Vec2D vec) {
+		if(vec.x == 0) {
+			if(vec.y > 0) return 180;
+			else return 0;
+		}else {		
+			
+			float sharp = (float) (180.0 / Math.PI * Math.atan(Math.abs(vec.y/vec.x)));
+			float angle = 0;
+			if(vec.x>0 && vec.y>0) angle = 90 + sharp;
+			else if(vec.x<0 && vec.y>0) angle = 270 - sharp;
+			else if(vec.x<0 && vec.y<0) angle = 270 + sharp;
+			else angle = 90 - sharp;
+			
+			return angle;
+		}
+	}
+	
 	public String toString() {
 		return "(" + x + "," + y + ")";
 	}

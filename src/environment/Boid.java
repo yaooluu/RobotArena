@@ -44,6 +44,21 @@ public class Boid {
 	public int getAuditory() {return auditory;}
 	public int getFuel() {return fuel;}
 	public int getMass() {return mass;}
+	
+	public Vec2D getOriVec() {
+		Vec2D oriVec = new Vec2D(0,0);
+		if(r == 0) oriVec = new Vec2D(0,-1);
+		else if(r == 90) oriVec = new Vec2D(1,0);
+		else if(r == 180) oriVec = new Vec2D(0,1);
+		else if(r == 270) oriVec = new Vec2D(-1,0);
+		else oriVec = new Vec2D((float)Math.sin(Math.toRadians(r)),
+				(float)Math.cos(Math.toRadians(r)) * -1.0f);
+		
+		//System.out.println("getOriVec: r=" + r);
+		//System.out.println("getOriVec: vec=" + oriVec);
+		
+		return oriVec;
+	}
 
 	public Boid(float x, float y, float r, int team, Config.BOID_TYPE type, int id) {
 		this.canvas = Config.canvas;
