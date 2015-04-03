@@ -76,8 +76,8 @@ public class Main extends PApplet {
 	}
 	
 	private void physicalCollision() {
-		
 
+		//physical collision between boids
 		for(int i=0;i<boids.size();i++) {
 			for(int j=0;j<boids.size();j++) {
 				if(i == j) continue;
