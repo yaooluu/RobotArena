@@ -24,7 +24,7 @@ public class PathLibrary {
 			//System.out.println("seeking next key point...");
 			index++;
 		}
-		System.out.println(path);
+		System.out.println("Current Path:" + path);
 		
 		if(index < path.size())
 			return graph.getNodePos(path.get(index)+1);
