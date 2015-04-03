@@ -30,7 +30,7 @@ public class RGB {
 	}
 	
 	public static boolean isRed(int rgb) {
-		if(Config.canvas.red(rgb) > 250
+		if(Config.canvas.red(rgb) > 200
 				&& Config.canvas.green(rgb) < 5 
 				&& Config.canvas.blue(rgb) < 5) {
 			return true;

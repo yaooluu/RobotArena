@@ -13,7 +13,7 @@ public class Attack {
 	public static void goAttack(Boid b1,Boid b2)
 	{		
 			//Steering behavior
-			st=Behavior.seek(b1, b2.pos);	
+			st=Behavior.seek(b1, b2.pos);
 			Behavior.changeAcc(b1, st);
 	}
 	

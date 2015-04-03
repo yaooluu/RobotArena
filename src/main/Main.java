@@ -46,7 +46,7 @@ public class Main extends PApplet {
 		
 		boids.add(new Boid(100, 100, 90, 0, Config.BOID_TYPE.scout, 1));
 		//boids.add(new Boid(200, 400, 90, 0, Config.BOID_TYPE.tank, 2));
-		boids.add(new Boid(700, 500, 270, 1, Config.BOID_TYPE.tank, 3));
+		boids.add(new Boid(600, 400, 270, 1, Config.BOID_TYPE.tank, 3));
 
 	}
 	
@@ -57,7 +57,7 @@ public class Main extends PApplet {
 		image(environment, 0, 0);
 		
 		Attack.goAttack(boids.get(0), boids.get(1));
-		Attack.goAttack(boids.get(1), boids.get(0));
+		//Attack.goAttack(boids.get(1), boids.get(0));
 		
 		for(int i=0;i<boids.size();i++) {
 			Boid b = boids.get(i);

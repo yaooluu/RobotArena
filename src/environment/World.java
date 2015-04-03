@@ -77,6 +77,7 @@ public class World {
 					graph.addConnection(j, i, cost);
 				}
 			}
+		System.out.println("Graph initialized with "+graph.order()+" nodes, " + graph.size()/2 + " edges.");
 		return graph;
 	}
 
