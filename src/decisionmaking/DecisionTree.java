@@ -10,17 +10,17 @@ public class DecisionTree {
 		do {
 			parent = index;
 			index = traverse(parent, b);
-		} while (index < 0);
+		} while (index > 0);
 		return getLeafAction(index);
 	}
 
-	public static String getLeafAction(int index) {
+	private static String getLeafAction(int index) {
 		String actiontable[] = { "evade", "attack", "redbuff", "bluebuff",
 				"trace", "wander", "lure", "ultimate", "gurad", "hide" };
 		return actiontable[(-index) - 1];
 	}
 
-	public static int traverse(int parent, Boid b) {
+	private static int traverse(int parent, Boid b) {
 		Boid enemy = b.getVisibleEnemy();
 		if (enemy == null)
 			enemy = b.getAudibleEnemy();
