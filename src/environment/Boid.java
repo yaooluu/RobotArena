@@ -159,12 +159,12 @@ public class Boid {
 	}
 	
 	public Vec2D getRedBuff() {
-		Vec2D v = new Vec2D(0, 0);
+		Vec2D v = new Vec2D(200, 100);
 		return v;
 	}
 	
 	public Vec2D getBlueBuff() {
-		Vec2D v = new Vec2D(0, 0);
+		Vec2D v = new Vec2D(200, 100);
 		return v;
 	}
 	
