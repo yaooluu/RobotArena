@@ -1,26 +1,69 @@
 package physics;
 
+import java.util.*;
+
 import main.Config;
 import environment.Boid;
+import environment.Wall;
+import environment.World;
 
 /**
  * @author Jianfeng Chen, Yao Lu
  * @contact jchen37@ncsu.edu, ylu31@ncsu.edu
- * @version 1.0, 1.1
+ * @version 1.0, 1.1, 1.2
  */
 public class Collision {
+	
+	public static void allCollision(List<Boid> boids) {
+		boidCollision(boids);
+		worldCollision(boids);
+	}
+	
+	//physical collision between boids
+	private static void boidCollision(List<Boid> boids) {
+
+		for(int i=0;i<boids.size();i++) {
+			for(int j=0;j<boids.size();j++) {
+				if(i == j) continue;
+				Collision.perform(boids.get(i), boids.get(j));
+			}
+		}
+	}
+	
+	//physical collision between boid and walls
+	private static void worldCollision(List<Boid> boids) {
+				
+		for(Boid b : boids) {
+			for(Wall w : World.getWalls()) {
+				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
+				if(dist < b.getSize()/2.0 + 4) {
+					if(w.vec.x == 0 && w.vec.y > 0) {
+						w.vec.multiply(Math.abs(b.v.y) * 2.8f);
+					}
+					else if(w.vec.x > 0 && w.vec.y == 0) {
+						w.vec.multiply(Math.abs(b.v.x) * 2.8f);
+					}
+					else {
+						w.vec.multiply(b.v.getLength() * 2.8f);
+					}
+					b.v.plusEqual(w.vec);
+					b.a.x = 0;
+					b.a.y = 0;
+				}
+			}
+		}
+	}
+	
 	/**
 	 * The velocity will be reset immediately as if collision happens Perfect
 	 * Elastic collision Equation from
 	 * http://www4.uwsp.edu/physastr/kmenning/Phys203/Lect17.html Velocity can
 	 * exceed the maximum speed.
 	 * 
-	 * @param b1
-	 *            the first boid
-	 * @param b2
-	 *            the second boid
+	 * @param b1 the first boid
+	 * @param b2 the second boid
 	 */
-	public static void perform(Boid b1, Boid b2) {
+	private static void perform(Boid b1, Boid b2) {
 		// check boids' distance, see if collision happens
 		int distance = (int) b1.pos.minus(b2.pos).getLength();
 		if (distance > (b1.getSize() + b2.getSize()) / 2)

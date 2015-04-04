@@ -5,7 +5,6 @@ import java.util.*;
 import decisionmaking.DecisionTree;
 import pathfinding.Graph;
 import physics.Collision;
-import physics.Vec2D;
 import processing.core.PApplet;
 import processing.core.PImage;
 import environment.*;
@@ -65,7 +64,7 @@ public class Main extends PApplet {
 			DecisionTree.PerformDecision(b);
 		}
 
-		physicalCollision();
+		Collision.allCollision(boids);
 		
 		//update boids' state
 		for(Boid b : boids) {
@@ -74,38 +73,8 @@ public class Main extends PApplet {
 		}
 	}
 	
-	private void physicalCollision() {
-		
-		//physical collision between boids
-		for(int i=0;i<boids.size();i++) {
-			for(int j=0;j<boids.size();j++) {
-				if(i == j) continue;
-				Collision.perform(boids.get(i), boids.get(j));
-			}
-		}
-		
-		//physical collision between boid and walls		
-		for(Boid b : boids) {
-			for(Wall w : World.getWalls()) {
-				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
-				if(dist < b.getSize()/2.0 + 4) {
-					if(w.vec.x == 0 && w.vec.y > 0) {
-						w.vec.multiply(Math.abs(b.v.y) * 2.8f);
-					}
-					else if(w.vec.x > 0 && w.vec.y == 0) {
-						w.vec.multiply(Math.abs(b.v.x) * 2.8f);
-					}
-					else {
-						w.vec.multiply(b.v.getLength() * 2.8f);
-					}
-					b.v.plusEqual(w.vec);
-					b.a.x = 0;
-					b.a.y = 0;
-				}
-			}
-		}
-	}
 	
+	/*
 	private void testBoidVision(Boid b) {
 		if(frameCount % 60 == 1) {
 			System.out.print(b.getId()+": ");
@@ -117,4 +86,5 @@ public class Main extends PApplet {
 			System.out.println(da==null?da:da.getId());
 		}
 	}
+	*/
 }

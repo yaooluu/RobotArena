@@ -27,10 +27,12 @@ public class DecisionTree {
 
 		case "redbuff":
 			Buff.goBuff(b, "red");
+			//Wander.wander(b);
 			break;
 			
 		case "bluebuff":
 			Buff.goBuff(b, "blue");
+			//Wander.wander(b);
 			break;
 			
 		case "trace":
