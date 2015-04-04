@@ -1,8 +1,6 @@
 package environment;
 
 import java.awt.Color;
-
-import processing.core.PApplet;
 import main.Config;
 
 public class RGB {
