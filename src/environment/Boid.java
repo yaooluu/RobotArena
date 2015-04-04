@@ -23,8 +23,6 @@ public class Boid {
 	public int status = 1;
 	
 	public float wanderOrientation = 0;
-	public float OldOrientation = 0;
-	public float NewOrientation = 0;
 	public boolean isRotate=true;
 	
 	//identify ally or enemy

@@ -137,12 +137,10 @@ public class Behavior {
 	{
 		if(boid.isRotate)
 		{
-			boid.OldOrientation=boid.r;
 			boid.isRotate=false;
 		}
-		boid.NewOrientation=getNewOrientation(boid);
 		//current orientation is equal to new orientation
-		float rDistance=boid.r-boid.NewOrientation;
+		float rDistance=boid.r-getNewOrientation(boid);
 		rDistance=(float) (rDistance%360);
 		if(rDistance>180)
 		{
@@ -152,8 +150,6 @@ public class Behavior {
 		{
 			rDistance+=360; 
 		}	
-		//bug here
-		if(boid.getId()==1)System.out.println("id:"+boid.getId()+" "+boid.r+" "+rDistance);
 		if(Math.abs(rDistance)<=5)
 		{
 			boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));		
@@ -161,7 +157,6 @@ public class Behavior {
 			boid.v.truncate(Config.MAX_SPEED[boid.getType()]);		
 			boid.isRotate=true;
 			boid.vr=0;
-			boid.r=boid.NewOrientation;
 		}
 		else
 		{
@@ -208,15 +203,6 @@ public class Behavior {
 			{
 				boid.vr=Config.MAX_ANGACC[boid.getType()];
 			}
-			/*
-			//boid.vr=rotation;
-			if(Math.abs(rotation)<5)
-			{
-				boid.vr=0;
-				boid.r=newOrientation;
-			} 
-			boid.r=newOrientation;
-			*/
 	}
 	
 	//collision avoidance
