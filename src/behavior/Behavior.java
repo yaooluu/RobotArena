@@ -152,9 +152,11 @@ public class Behavior {
 		{
 			rDistance+=360; 
 		}	
+		//bug here
+		if(boid.getId()==1)System.out.println("id:"+boid.getId()+" "+boid.r+" "+rDistance);
 		if(Math.abs(rDistance)<=5)
 		{
-			System.out.println(boid.r+" "+rDistance);
+			
 			boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));		
 			boid.v.plusEqual(boid.a.multiply((float) (1.0/Config.FRAME_RATE)));
 			boid.v.truncate(Config.MAX_SPEED[boid.getType()]);		
@@ -191,7 +193,7 @@ public class Behavior {
 			newOrientation=getNewOrientation(boid);
 
 		//	rotation=newOrientation-boid.r;
-			rotation=newOrientation-boid.OldOrientation;
+			rotation=newOrientation-boid.r;
 			rotation=(float) (rotation%360);
 			if(rotation>180)
 			{
@@ -202,7 +204,7 @@ public class Behavior {
 				rotation+=360; 
 			}
 		//stop and rotate
-			boid.vr=rotation*Config.MAX_ANGACC[boid.getType()]/1000;
+			boid.vr=rotation;
 			if(boid.vr>Config.MAX_ANGACC[boid.getType()])
 			{
 				boid.vr=Config.MAX_ANGACC[boid.getType()];
