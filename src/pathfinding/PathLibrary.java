@@ -30,7 +30,7 @@ public class PathLibrary {
 				Vec2D p1 = graph.getNodePos(path.get(i));
 				Vec2D p2 = graph.getNodePos(path.get(j));
 				float len = pos.minus(p1).getLength() + pos.minus(p2).getLength();
-				if(len < p1.minus(p2).getLength() + 5) {
+				if(len < p1.minus(p2).getLength() + 1) {
 					curSeek = path.get(j);
 					break;
 				}			

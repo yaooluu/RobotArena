@@ -45,9 +45,9 @@ public class Behavior {
 			e.printStackTrace();
 		}//*/
 		
-		//new way to change direction, Yao Lu
-		
+
 		/*
+		//new way to change direction, Yao Lu	
 		float ang = Vec2D.getAngleBetween(boid.getOriVec(), targetPos.minus(boid.pos));
 		if(ang > 30) {
 			boid.r = Vec2D.vecToR(targetPos.minus(boid.pos));
@@ -58,7 +58,7 @@ public class Behavior {
 		//System.out.println("Boid.r:"+boid.r);
 		//System.out.println("ang:"+ang);
 		//System.out.println("Boid.r/vecToR:"+boid.r+"\n");
-		
+		//*/
 		return st;
 	}
 	
