@@ -154,7 +154,7 @@ public class Behavior {
 		}	
 		if(Math.abs(rDistance)<=5)
 		{
-			System.out.println(boid.r+" "+rDistance);
+			//System.out.println(boid.r+" "+rDistance);
 			boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));		
 			boid.v.plusEqual(boid.a.multiply((float) (1.0/Config.FRAME_RATE)));
 			boid.v.truncate(Config.MAX_SPEED[boid.getType()]);		

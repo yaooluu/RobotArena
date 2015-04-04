@@ -1,6 +1,7 @@
 package main;
 
 import java.util.*;
+
 import decisionmaking.DecisionTree;
 import pathfinding.Graph;
 import physics.Collision;
@@ -52,15 +53,16 @@ public class Main extends PApplet {
 	public void draw() {
 		background(255);
 		
+		
 		//draw the indoor environment
 		image(environment, 0, 0);
 		
-		Attack.goAttack(boids.get(0), boids.get(1));
-		Attack.goAttack(boids.get(1), boids.get(0));
+		//Attack.goAttack(boids.get(0), boids.get(1));
+		//Attack.goAttack(boids.get(1), boids.get(0));
 		
 		for(int i=0;i<boids.size();i++) {
 			Boid b = boids.get(i);
-			//DecisionTree.PerformDecision(b);
+			DecisionTree.PerformDecision(b);
 		}
 
 		physicalCollision();
