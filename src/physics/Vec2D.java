@@ -74,6 +74,13 @@ public class Vec2D {
 		this.y = e.y;
 	}
 	
+	public void drag(float maxLength) {
+		this.normalize();
+		Vec2D e = this.multiply(maxLength);
+		this.x = e.x;
+		this.y = e.y;
+	}
+	
 	public static float getAngleBetween(Vec2D v1, Vec2D v2) {
 		
 		float cosVal = v1.dotCross(v2) / (v1.getLength()*v2.getLength());
