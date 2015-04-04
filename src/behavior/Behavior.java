@@ -100,7 +100,7 @@ public class Behavior {
 	{
 		//
 		boid.a=st.a;
-		boid.a.truncate(Config.MAX_LINACC[boid.getType()]);
+		boid.a.drag(Config.MAX_LINACC[boid.getType()]);
 		boid.ar += st.ar;
 		if(boid.ar>Config.MAX_ANGACC[boid.getType()])
 			boid.ar=Config.MAX_ANGACC[boid.getType()];
@@ -111,7 +111,7 @@ public class Behavior {
 	{
 		//
 		boid.a.plusEqual(st.a);
-		boid.a.truncate(Config.MAX_LINACC[boid.getType()]);
+		boid.a.drag(Config.MAX_LINACC[boid.getType()]);
 		boid.ar += st.ar;
 		if(boid.ar>Config.MAX_ANGACC[boid.getType()])
 			boid.ar=Config.MAX_ANGACC[boid.getType()];
@@ -127,8 +127,7 @@ public class Behavior {
 		boid.vr += boid.ar;
 		boid.r += boid.vr;
 		boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
-		//System.out.println(boid.v.getLength());
-		System.out.println(boid.a.multiply((float) (1.0/Config.FRAME_RATE)).getLength());
+
 	}
 	
 	private static float getNewOrientation(Boid boid)
