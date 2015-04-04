@@ -202,7 +202,7 @@ public class Behavior {
 				rotation+=360; 
 			}
 		//stop and rotate
-			boid.vr=rotation/50;	
+			boid.vr=rotation/10;	
 			/*
 			//boid.vr=rotation;
 			if(Math.abs(rotation)<5)
