@@ -156,7 +156,6 @@ public class Behavior {
 		if(boid.getId()==1)System.out.println("id:"+boid.getId()+" "+boid.r+" "+rDistance);
 		if(Math.abs(rDistance)<=5)
 		{
-			
 			boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));		
 			boid.v.plusEqual(boid.a.multiply((float) (1.0/Config.FRAME_RATE)));
 			boid.v.truncate(Config.MAX_SPEED[boid.getType()]);		

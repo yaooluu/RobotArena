@@ -108,26 +108,32 @@ public class Boid {
 	}
 	
 	public Boid getVisibleEnemy() {
-		return searchBoid(this.vision, Integer.MAX_VALUE, true);
+		Boid b = searchBoid(this.vision, Integer.MAX_VALUE, true);
+		System.out.println(this + " sees enemy " + b);
+		return b;
 	}
 	
 	public Boid getAudibleEnemy() {
-		return searchBoid(360, this.auditory, true);
+		Boid b = searchBoid(360, this.auditory, true);
+		System.out.println(this + " hears enemy " + b);
+		return b;
 	}
 	
 	public Boid getDetectableAlly() {
 		Boid b =  searchBoid(this.vision, Integer.MAX_VALUE, false);
 		if(b==null) b = searchBoid(360, this.auditory, false);
+		System.out.println(this + " detects ally " + b);
 		return b;
 	}
 	
-	private Boid searchBoid(float angle,float range, boolean isEnemy) {
+	private Boid searchBoid(float vision,float auditory, boolean isEnemy) {
 		Boid boid = null;
 		float distance = Integer.MAX_VALUE;
 		
 		for(Boid b : Main.getBoids()) {
 			if(this.id == b.id || (this.team!=b.team) != isEnemy) continue;
-			
+			if(World.detectAccessible(this.pos, b.pos) == false) continue;
+			/*
 			float ang = 0;
 			float dx = b.pos.x - this.pos.x, dy = b.pos.y - this.pos.y;
 			float sharp = (float) (Math.atan(Math.abs(dx/dy)) * 180 / Math.PI);
@@ -135,10 +141,12 @@ public class Boid {
 			else if(dx<0 && dy>0) ang = 180 + sharp;
 			else if(dx<0 && dy<0) ang = 360 - sharp;
 			else ang = sharp;
-			
+			*/
+			float ang = Vec2D.getAngleBetween(b.pos.minus(this.pos), 
+					this.getOriVec());
 			float dist = b.pos.minus(this.pos).getLength();
-			if(dist < range && ( Math.abs(ang-this.r) < angle/2
-				 || (int)angle == 360)){
+			if(dist < auditory && ( ang < vision/2
+				 || (int)vision == 360)){
 				if(dist<distance) {
 					distance = dist;
 					boid = b;
@@ -160,6 +168,10 @@ public class Boid {
 	public Vec2D getBlueBuff() {
 		Vec2D v = new Vec2D(0, 0);
 		return v;
+	}
+	
+	public String toString() {
+		return "Boid(id="+this.id+", team="+this.team+", type="+this.type+")";
 	}
 	
 }

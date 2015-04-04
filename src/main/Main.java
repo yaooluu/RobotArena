@@ -1,6 +1,7 @@
 package main;
 
 import java.util.*;
+
 import decisionmaking.DecisionTree;
 import pathfinding.Graph;
 import physics.Collision;
@@ -51,6 +52,7 @@ public class Main extends PApplet {
 	
 	public void draw() {
 		background(255);
+		
 		
 		//draw the indoor environment
 		image(environment, 0, 0);
