@@ -1,7 +1,6 @@
 package main;
 
 import java.util.*;
-
 import decisionmaking.DecisionTree;
 import pathfinding.Graph;
 import physics.Collision;
@@ -63,8 +62,7 @@ public class Main extends PApplet {
 			Boid b = boids.get(i);
 			//Wander.wander(b);
 		}
-		
-		//System.out.println(boids.get(0).v.getLength());System.out.println(boids.get(0).v.getLength());
+			//System.out.println(boids.get(0).v.getLength());//System.out.println(boids.get(0).v.getLength());
 
 		physicalCollision();
 		
@@ -76,7 +74,7 @@ public class Main extends PApplet {
 	}
 	
 	private void physicalCollision() {
-
+		
 		//physical collision between boids
 		for(int i=0;i<boids.size();i++) {
 			for(int j=0;j<boids.size();j++) {

@@ -2,7 +2,6 @@ package behavior;
 
 
 import java.util.List;
-
 import main.Config;
 import main.Main;
 import environment.Boid;
@@ -128,7 +127,8 @@ public class Behavior {
 		boid.vr += boid.ar;
 		boid.r += boid.vr;
 		boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
-		//smoothRotate(boid);
+		//System.out.println(boid.v.getLength());
+		System.out.println(boid.a.multiply((float) (1.0/Config.FRAME_RATE)).getLength());
 	}
 	
 	private static float getNewOrientation(Boid boid)
