@@ -14,7 +14,9 @@ public class DecisionTree {
 		Boid enemy = b.getVisibleEnemy() != null ? b.getVisibleEnemy() : b
 				.getAudibleEnemy();
 		
-		switch (DecisionTree.makeDecision(b,1)) {
+		String decision = DecisionTree.makeDecision(b,1);
+		System.out.println(b + " has current desicion: " + decision);
+		switch (decision) {
 		case "attack":
 			Attack.goAttack(b, enemy);
 			break;
