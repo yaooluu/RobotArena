@@ -11,6 +11,8 @@ public class PathLibrary {
 
 	public static Vec2D getNextTarget(Vec2D pos, Vec2D targetPos) {
 		//if(true) return null;
+		if(World.detectAccessible(pos, targetPos) == true) return targetPos;
+		
 		Graph graph = Main.getGraph();
 		int start = World.quantize(pos);
 		int end = World.quantize(targetPos);

@@ -64,7 +64,7 @@ public class Main extends PApplet {
 		}
 			//System.out.println(boids.get(0).v.getLength());//System.out.println(boids.get(0).v.getLength());
 
-		physicalCollision();
+		//physicalCollision();
 		
 		//update boids' state
 		for(Boid b : boids) {

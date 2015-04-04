@@ -16,6 +16,9 @@ public class World {
 	private static List<Wall> walls = new ArrayList<Wall>();
 	public static List<Wall> getWalls() {return walls;}
 	
+	private static int[] pixels = null;
+	public static int[] getPixels() {return pixels;}
+	
 	private static int width = Config.SCREEN_WIDTH;
 	private static int height = Config.SCREEN_HEIGHT;
 
@@ -24,7 +27,7 @@ public class World {
 		PImage environment;
 		environment = parent.loadImage("../src/environment/Environment.png");
 		environment.loadPixels();
-		int pixels[] = environment.pixels;
+		pixels = environment.pixels;
 
 		int nodeIndex = 0;
 		System.out.println("Initializeing pixels[]...");
@@ -71,7 +74,7 @@ public class World {
 			for (int j = i + 1; j < V; j++) {
 				Vec2D u = graph.getNodePos(i);
 				Vec2D v = graph.getNodePos(j);
-				if (detectAccessible(u, v, pixels)) {
+				if (detectAccessible(u, v)) {
 					int cost = (int) u.minus(v).getLength();
 					graph.addConnection(i, j, cost);
 					graph.addConnection(j, i, cost);
@@ -104,7 +107,7 @@ public class World {
 		return result;
 	}
 
-	private static boolean detectAccessible(Vec2D u, Vec2D v, int[] pixels) {
+	public static boolean detectAccessible(Vec2D u, Vec2D v) {
 		int sampleRate = 100;
 		float dis = u.minus(v).getLength();
 		dis /= sampleRate;
