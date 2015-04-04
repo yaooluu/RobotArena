@@ -11,6 +11,8 @@ public class PathLibrary {
 
 	public static Vec2D getNextTarget(Vec2D pos, Vec2D targetPos) {
 		//if(true) return null;
+		if(World.detectAccessible(pos, targetPos) == true) return targetPos;
+		
 		Graph graph = Main.getGraph();
 		int start = World.quantize(pos);
 		int end = World.quantize(targetPos);
@@ -20,7 +22,7 @@ public class PathLibrary {
 		//System.out.println("calculating path...");
 
 		List<Integer> path = PathFinding.AStar(graph, start, end);
-		System.out.println("Current Path:" + path);
+		//System.out.println("Current Path:" + path);
 		
 		int curSeek = path.get(0);
 		for(int i=0;i<path.size()-1;i++) {
@@ -33,10 +35,10 @@ public class PathLibrary {
 					break;
 				}			
 			}
-			//if(curSeek != path.get(0)) break;
+			if(curSeek != path.get(0)) break;
 		}
 		
-		System.out.println("Current Seeking Point:" + curSeek);
+		//System.out.println("Current Seeking Point:" + curSeek);
 		
 		//if(curSeek == end) return targetPos;
 		return graph.getNodePos(curSeek);
