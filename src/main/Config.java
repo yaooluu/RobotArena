@@ -32,8 +32,8 @@ public class Config {
 	public static int[] BOID_FUEL = 		{100, 200, 300, 200, 200};
 	public static int[] BOID_MASS =			{200, 300, 600, 250, 350};
 	
-	public static float[] MAX_LINACC = 		{3000, 100, 300, 100, 300};
-	public static float[] MAX_ANGACC = 		{3000, 100, 100, 100, 100};
+	public static float[] MAX_LINACC = 		{300, 100, 300, 100, 300};
+	public static float[] MAX_ANGACC = 		{300, 100, 150, 100, 100};
 	public static float[] MAX_SPEED =  		{300, 150, 100, 200, 150};
 
 	public static Color[] TEAM_COLORS = {Color.RED, Color.BLUE, Color.GREEN,

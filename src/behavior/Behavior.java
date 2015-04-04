@@ -165,7 +165,7 @@ public class Behavior {
 		else
 		{
 			smoothRotate(boid);
-			boid.v=new Vec2D(0,0);
+			boid.v=boid.v.multiply(0f);
 			boid.r += boid.vr;
 			boid.vr += boid.ar;
 		}
@@ -202,7 +202,11 @@ public class Behavior {
 				rotation+=360; 
 			}
 		//stop and rotate
-			boid.vr=rotation/10;	
+			boid.vr=rotation*Config.MAX_ANGACC[boid.getType()]/1000;
+			if(boid.vr>Config.MAX_ANGACC[boid.getType()])
+			{
+				boid.vr=Config.MAX_ANGACC[boid.getType()];
+			}
 			/*
 			//boid.vr=rotation;
 			if(Math.abs(rotation)<5)
