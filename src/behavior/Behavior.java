@@ -47,13 +47,14 @@ public class Behavior {
 		
 		//new way to change direction, Yao Lu
 		
+		/*
 		float ang = Vec2D.getAngleBetween(boid.getOriVec(), targetPos.minus(boid.pos));
 		if(ang > 30) {
 			boid.r = Vec2D.vecToR(targetPos.minus(boid.pos));
 			boid.v = new Vec2D(0,0);
 			boid.a = new Vec2D(0,0);
 		}
-		
+		*/
 		//System.out.println("Boid.r:"+boid.r);
 		//System.out.println("ang:"+ang);
 		//System.out.println("Boid.r/vecToR:"+boid.r+"\n");
@@ -130,10 +131,53 @@ public class Behavior {
 
 	}
 	
+	
+//update velocity
+	public static void update2(Boid boid)
+	{
+		if(boid.isRotate)
+		{
+			boid.OldOrientation=boid.r;
+			boid.isRotate=false;
+		}
+		boid.NewOrientation=getNewOrientation(boid);
+		//current orientation is equal to new orientation
+		float rDistance=boid.r-boid.NewOrientation;
+		rDistance=(float) (rDistance%360);
+		if(rDistance>180)
+		{
+			rDistance-=360;
+		}
+		else if(rDistance<-180)
+		{
+			rDistance+=360; 
+		}	
+		if(Math.abs(rDistance)<=5)
+		{
+			System.out.println(boid.r+" "+rDistance);
+			boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));		
+			boid.v.plusEqual(boid.a.multiply((float) (1.0/Config.FRAME_RATE)));
+			boid.v.truncate(Config.MAX_SPEED[boid.getType()]);		
+			boid.isRotate=true;
+			boid.vr=0;
+			boid.r=boid.NewOrientation;
+		}
+		else
+		{
+			smoothRotate(boid);
+			boid.v=new Vec2D(0,0);
+			boid.r += boid.vr;
+			boid.vr += boid.ar;
+		}
+		
+	//	System.out.println("new r:"+boid.NewOrientation);
+	}
+	
+	
 	private static float getNewOrientation(Boid boid)
 	{
-		if(boid.v.getLength()>0)
-			return (float) Math.toDegrees(Math.atan2(boid.v.x, -1*boid.v.y));
+		if(boid.a.getLength()>0)
+			return (float) Math.toDegrees(Math.atan2(boid.a.x, -1*boid.a.y));
 		else
 			return boid.r;					
 	}
@@ -146,8 +190,8 @@ public class Behavior {
 			//get new orientation
 			newOrientation=getNewOrientation(boid);
 
-			rotation=newOrientation-boid.r;
-
+		//	rotation=newOrientation-boid.r;
+			rotation=newOrientation-boid.OldOrientation;
 			rotation=(float) (rotation%360);
 			if(rotation>180)
 			{
@@ -157,7 +201,9 @@ public class Behavior {
 			{
 				rotation+=360; 
 			}
-			
+		//stop and rotate
+			boid.vr=rotation/50;	
+			/*
 			//boid.vr=rotation;
 			if(Math.abs(rotation)<5)
 			{
@@ -165,6 +211,7 @@ public class Behavior {
 				boid.r=newOrientation;
 			} 
 			boid.r=newOrientation;
+			*/
 	}
 	
 	//collision avoidance

@@ -56,7 +56,7 @@ public class Main extends PApplet {
 		image(environment, 0, 0);
 		
 		Attack.goAttack(boids.get(0), boids.get(1));
-		//Attack.goAttack(boids.get(1), boids.get(0));
+		Attack.goAttack(boids.get(1), boids.get(0));
 		
 		for(int i=0;i<boids.size();i++) {
 			Boid b = boids.get(i);
@@ -64,11 +64,11 @@ public class Main extends PApplet {
 		}
 			//System.out.println(boids.get(0).v.getLength());//System.out.println(boids.get(0).v.getLength());
 
-		//physicalCollision();
+		physicalCollision();
 		
 		//update boids' state
 		for(Boid b : boids) {
-			Behavior.update(b);
+			Behavior.update2(b);
 			b.draw();
 		}
 	}
