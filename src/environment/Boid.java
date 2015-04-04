@@ -26,6 +26,7 @@ public class Boid {
 	public float OldOrientation = 0;
 	public float NewOrientation = 0;
 	public boolean isRotate=true;
+	
 	//identify ally or enemy
 	private int team = -1;
 	private int type = -1;
