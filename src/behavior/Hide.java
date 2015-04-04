@@ -5,6 +5,7 @@ import environment.Boid;
 
 public class Hide {
 	//find the closest hide position
+	@SuppressWarnings("unused")
 	private Vec2D findClosestHide()
 	{
 		Vec2D hidePos=new Vec2D(0,0);
