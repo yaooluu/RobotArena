@@ -60,7 +60,7 @@ public class Main extends PApplet {
 		
 		for(int i=0;i<boids.size();i++) {
 			Boid b = boids.get(i);
-			DecisionTree.PerformDecision(b);
+			//DecisionTree.PerformDecision(b);
 		}
 
 		physicalCollision();
