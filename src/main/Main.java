@@ -63,6 +63,8 @@ public class Main extends PApplet {
 		if(mouseVec != null)
 		{
 			Behavior.changeAcc(boids.get(0), Behavior.seek(boids.get(0), mouseVec));
+			//Behavior.changeAcc(boids.get(0), Behavior.arrive(boids.get(0), mouseVec));
+
 		}
 		
 		//Attack.goAttack(boids.get(0), boids.get(1));

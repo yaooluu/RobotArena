@@ -31,10 +31,10 @@ public class Buff {
 			}
 			b1.a=st.a;
 			b1.a.truncate(Config.MAX_LINACC[b1.getType()]);
-			if(st.a.getLength()<=0.5f)
+			if(st.a.getLength()<=0.01f)
 			{
-				b1.a.multiply(0f);
-				b1.v.multiply(0f);
+				b1.a=b1.a.multiply(0f);
+				b1.v=b1.v.multiply(0f);
 			}
 					
 	}

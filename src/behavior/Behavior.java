@@ -59,6 +59,12 @@ public class Behavior {
 		//System.out.println("ang:"+ang);
 		//System.out.println("Boid.r/vecToR:"+boid.r+"\n");
 		//*/
+		st=arrive(boid,targetPos);
+		if(st.a.getLength()<=0.01f)
+		{
+			boid.a=boid.a.multiply(0f);
+			boid.v=boid.v.multiply(0f);
+		}
 		return st;
 	}
 	
@@ -68,7 +74,7 @@ public class Behavior {
 	{
 		Steering st=new Steering();
 		Vec2D distance;
-		float arrivalRadius=15,decelerationRadius=30;
+		float arrivalRadius=4,decelerationRadius=10;
 		float timeToTarget=1f;
 		
 		distance=targetPos.minus(boid.pos);
@@ -93,7 +99,7 @@ public class Behavior {
 			goalVelocity.y=maxVelocity.y;
 			goalVelocity.multiply((distance.getLength()/decelerationRadius));		
 		}		
-		st.a=goalVelocity.minus(boid.v);
+		st.a=goalVelocity;
 		st.a.multiply(1/timeToTarget);
 		return st;
 	}
@@ -185,7 +191,6 @@ public class Behavior {
 			float rotation;
 			//get new orientation
 			newOrientation=getNewOrientation(boid);
-
 		//	rotation=newOrientation-boid.r;
 			rotation=newOrientation-boid.r;
 			rotation=(float) (rotation%360);
