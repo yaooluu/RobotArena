@@ -39,7 +39,7 @@ public class Wander {
 		//Steering behavior
 		Steering st;
 		st=Behavior.seek(boid, target);
-		Behavior.changeAcc(boid, st);
+		Behavior.addAcc(boid, st);
 		
 		//collision avoidance
 		st=Behavior.collisionAvoide(boid);

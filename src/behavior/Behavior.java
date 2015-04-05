@@ -136,14 +136,13 @@ public class Behavior {
 	//update velocity
 	public static void update(Boid boid)
 	{
-		
-		
+		System.out.println("a2 "+boid.a.toString());
+		boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
 		boid.v.plusEqual(boid.a.multiply((float) (1.0/Config.FRAME_RATE)));
 		boid.v.truncate(Config.MAX_SPEED[boid.getType()]);
 		boid.vr += boid.ar;
 		boid.r += boid.vr;
-		boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
-
+		
 	}
 	
 	
@@ -301,19 +300,27 @@ public class Behavior {
 		for(Boid b : boids) {
 			for(Border w : World.getBorders()) {
 				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
-				minDist=b.getSize()/2f+1f;
-				if(dist < minDist&&dist>b.getSize()/2) {
-					if(w.borderVec.x == 0 && w.borderVec.y > 0) {
-						w.borderVec=w.borderVec.multiply(Math.abs(b.v.y)*2.0f);
+				minDist=b.getSize()/2f+10f;
+				if(dist < minDist) {
+					if(w.borderVec.x == 0) {
+						w.borderVec=w.borderVec.multiply(Math.abs(b.v.y)*20.0f);
+						w.borderVec.x=b.v.x;
 					}
-					else if(w.borderVec.x > 0 && w.borderVec.y == 0) {
-						w.borderVec=w.borderVec.multiply(Math.abs(b.v.x)*2.0f);
+					else if(w.borderVec.y == 0) {
+						w.borderVec=w.borderVec.multiply(Math.abs(b.v.x)*20.0f);
+						w.borderVec.y=b.v.y;
 					}
 					else {
-						w.borderVec=w.borderVec.multiply(b.v.getLength()*2.0f);
+						w.borderVec=b.v;
+						w.borderVec.drag(Config.MAX_LINACC[b.getType()]);
 					}
 					if(w.borderVec.getLength()>0)
-						b.a=w.borderVec;
+						{b.a=w.borderVec;
+					//b.a.truncate(Config.MAX_LINACC[b.getType()]);
+					System.out.println("a "+b.a.toString());
+					System.out.println("v "+ b.v.toString());
+					break;
+					}
 				}
 			}
 		}

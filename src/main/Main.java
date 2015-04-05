@@ -79,7 +79,7 @@ public class Main extends PApplet {
 		Behavior.borderAvoide(boids);
 		//update boids' state
 		for(Boid b : boids) {
-			Behavior.update2(b);
+			Behavior.update(b);
 			b.draw();
 		}
 	}
