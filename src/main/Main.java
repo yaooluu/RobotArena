@@ -7,6 +7,7 @@ import pathfinding.Graph;
 import physics.Collision;
 import physics.Vec2D;
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PImage;
 import environment.*;
 import behavior.*;
@@ -22,7 +23,8 @@ public class Main extends PApplet {
 	PImage environment;
 	
 	//debug
-	Vec2D mouseVec = null;
+	private Vec2D mouseVec = null;
+	private boolean pause = false;
 	
 	public void setup() {
 		Config.canvas = this;
@@ -53,40 +55,57 @@ public class Main extends PApplet {
 
 	}
 	
-	public void draw() {
-		background(255);
-		smooth(8);
-				
-		//draw the indoor environment
-		image(environment, 0, 0);
+	public void draw() {	
+		//pause game when pressed space bar
+		if(pause == false) {
+			
+			background(255);
+			smooth(8);
+					
+			//draw the indoor environment
+			image(environment, 0, 0);
+			
+			if(mouseVec != null)
+			{
+				Behavior.addAcc(boids.get(0), Behavior.seek(boids.get(0), mouseVec));
+				//Behavior.changeAcc(boids.get(0), Behavior.arrive(boids.get(0), mouseVec));
+			}
+			
+			//Attack.goAttack(boids.get(0), boids.get(1));
+			//Attack.goAttack(boids.get(1), boids.get(0));
+			//Evade.evade(boids.get(1), boids.get(0));
+			//Wander.wander(boids.get(0));
+			for(int i=0;i<boids.size();i++) {
+				Boid b = boids.get(i);
+				//DecisionTree.PerformDecision(b);
+			}
+	
+			Collision.allCollision(boids);
+			Behavior.borderAvoide(boids);
+			//update boids' state
+			for(Boid b : boids) {
+				Behavior.update2(b);
+				b.draw();
+			}
 		
-		if(mouseVec != null)
-		{
-			Behavior.addAcc(boids.get(0), Behavior.seek(boids.get(0), mouseVec));
-			//Behavior.changeAcc(boids.get(0), Behavior.arrive(boids.get(0), mouseVec));
-		}
-		
-		//Attack.goAttack(boids.get(0), boids.get(1));
-		//Attack.goAttack(boids.get(1), boids.get(0));
-		//Evade.evade(boids.get(1), boids.get(0));
-		//Wander.wander(boids.get(0));
-		for(int i=0;i<boids.size();i++) {
-			Boid b = boids.get(i);
-			//DecisionTree.PerformDecision(b);
-		}
-
-		Collision.allCollision(boids);
-		Behavior.borderAvoide(boids);
-		//update boids' state
-		for(Boid b : boids) {
-			Behavior.update2(b);
-			b.draw();
+		}else {
+			PFont f = createFont("Georgia",20,true);
+			textFont(f,20);                 
+			fill(255,0,0);                        
+			text("Game Paused",30,30);
 		}
 	}
 	
 	public void mousePressed() {
-		System.out.println("Mouse clicked: ("+mouseX+", "+mouseY+")");
+		//System.out.println("Mouse clicked: ("+mouseX+", "+mouseY+")");
 		mouseVec = new Vec2D(mouseX, mouseY);
+	}
+	
+	public void keyPressed() {
+		//System.out.println("Key pressed: "+key);
+		if(key == ' ') {
+			pause = !pause;
+		}
 	}
 	
 	/*
