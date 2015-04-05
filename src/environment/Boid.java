@@ -23,7 +23,8 @@ public class Boid {
 	public int status = 1;
 	
 	public float wanderOrientation = 0;
-	public boolean isRotate=true;
+	public boolean isRotate = true;
+	public boolean isHittingWall = false;
 	
 	//identify ally or enemy
 	private int team = -1;
@@ -111,7 +112,7 @@ public class Boid {
 		//draw fuel here...
 		
 		if(Config.showVision == true) {
-			canvas.strokeWeight(1.2f);
+			canvas.strokeWeight(1.6f);
 			//draw boid's vision
 			float x1 = 0, y1 = 0, x2 = 50, y2 = -1*x2*Math.abs(PApplet.tan(vision/2));
 			for (int i = 5; i <= 20; i++) {
@@ -124,6 +125,7 @@ public class Boid {
 				  canvas.point(x, y);
 			}
 			//draw boid's auditory
+			canvas.strokeWeight(1.1f);
 			dashedCircle(auditory + size/2, 4, 6);
 		}
 

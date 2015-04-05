@@ -62,14 +62,14 @@ public class Main extends PApplet {
 		
 		if(mouseVec != null)
 		{
-			Behavior.changeAcc(boids.get(1), Behavior.seek(boids.get(1), mouseVec));
+			Behavior.addAcc(boids.get(0), Behavior.seek(boids.get(0), mouseVec));
 			//Behavior.changeAcc(boids.get(0), Behavior.arrive(boids.get(0), mouseVec));
 		}
 		
 		//Attack.goAttack(boids.get(0), boids.get(1));
 		//Attack.goAttack(boids.get(1), boids.get(0));
 		//Evade.evade(boids.get(1), boids.get(0));
-		Wander.wander(boids.get(0));
+		//Wander.wander(boids.get(0));
 		for(int i=0;i<boids.size();i++) {
 			Boid b = boids.get(i);
 			//DecisionTree.PerformDecision(b);
