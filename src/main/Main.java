@@ -5,6 +5,7 @@ import java.util.*;
 import decisionmaking.DecisionTree;
 import pathfinding.Graph;
 import physics.Collision;
+import physics.Vec2D;
 import processing.core.PApplet;
 import processing.core.PImage;
 import environment.*;
@@ -19,6 +20,9 @@ public class Main extends PApplet {
 	private static Graph graph = null;
 	public static Graph getGraph() {return graph;}
 	PImage environment;
+	
+	//debug
+	Vec2D mouseVec = null;
 	
 	public void setup() {
 		Config.canvas = this;
@@ -56,12 +60,18 @@ public class Main extends PApplet {
 		//draw the indoor environment
 		image(environment, 0, 0);
 		
+		if(mouseVec != null)
+		{
+			Behavior.changeAcc(boids.get(0), Behavior.seek(boids.get(0), mouseVec));
+		}
+		
 		//Attack.goAttack(boids.get(0), boids.get(1));
 		//Attack.goAttack(boids.get(1), boids.get(0));
-		Evade.evade(boids.get(1), boids.get(0));
+		//Evade.evade(boids.get(1), boids.get(0));
+		
 		for(int i=0;i<boids.size();i++) {
 			Boid b = boids.get(i);
-			DecisionTree.PerformDecision(b);
+			//DecisionTree.PerformDecision(b);
 		}
 
 		Collision.allCollision(boids);
@@ -73,6 +83,10 @@ public class Main extends PApplet {
 		}
 	}
 	
+	public void mousePressed() {
+		System.out.println("Mouse clicked: ("+mouseX+", "+mouseY+")");
+		mouseVec = new Vec2D(mouseX, mouseY);
+	}
 	
 	/*
 	private void testBoidVision(Boid b) {

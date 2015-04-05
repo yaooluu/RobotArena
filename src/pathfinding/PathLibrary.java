@@ -2,9 +2,8 @@ package pathfinding;
 
 import java.util.List;
 
-import environment.Boid;
-import environment.World;
-import main.Main;
+import environment.*;
+import main.*;
 import physics.*;
 
 public class PathLibrary {

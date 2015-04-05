@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import main.Config;
 import physics.Vec2D;
 
 public class Graph {
@@ -16,12 +15,12 @@ public class Graph {
 	}
 
 	private HashMap<Integer, List<Connection>> connectionLists = null;
-	private int screenWidth = 0;
+	//private int screenWidth = 0;
 
 	public Graph() {
 		nodePos = new HashMap<Integer, Vec2D>();
 		connectionLists = new HashMap<Integer, List<Connection>>();
-		screenWidth = Config.SCREEN_WIDTH;
+		//screenWidth = Config.SCREEN_WIDTH;
 	}
 
 	public void setNodePos(int nodeIndex, Vec2D pos) {
