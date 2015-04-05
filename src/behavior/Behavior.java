@@ -5,6 +5,9 @@ import java.util.List;
 import main.Config;
 import main.Main;
 import environment.Boid;
+import environment.Border;
+import environment.Wall;
+import environment.World;
 import pathfinding.PathLibrary;
 import physics.Vec2D;
 
@@ -61,6 +64,7 @@ public class Behavior {
 		//System.out.println("ang:"+ang);
 		//System.out.println("Boid.r/vecToR:"+boid.r+"\n");
 		//*/
+		
 		if(targetPos.equals(goalPos))
 		{
 			st=arrive(boid,goalPos);
@@ -163,7 +167,8 @@ public class Behavior {
 		}	
 		if(Math.abs(rDistance)<=5)
 		{
-			boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));		
+			boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
+			boid.a.truncate(Config.MAX_LINACC[boid.getType()]);
 			boid.v.plusEqual(boid.a.multiply((float) (1.0/Config.FRAME_RATE)));
 			boid.v.truncate(Config.MAX_SPEED[boid.getType()]);		
 			boid.isRotate=true;
@@ -215,7 +220,7 @@ public class Behavior {
 			}
 	}
 	
-	//collision avoidance
+	//collision avoidance，avoid other boids
 	public static Steering collisionAvoide(Boid boid)
 	{
 		List<Boid> boids=Main.getBoids();
@@ -285,4 +290,30 @@ public class Behavior {
 	}
 	
 	
+	//avoid border and traps
+	public static void borderAvoide(List<Boid> boids)
+	{
+		float minDist;
+	
+		for(Boid b : boids) {
+			for(Border w : World.getBorders()) {
+				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
+				minDist=b.getSize()/2f+10f;
+				if(dist < minDist) {
+					if(w.borderVec.x == 0 && w.borderVec.y > 0) {
+						w.borderVec=w.borderVec.multiply(Math.abs(b.v.y));
+					}
+					else if(w.borderVec.x > 0 && w.borderVec.y == 0) {
+						w.borderVec=w.borderVec.multiply(Math.abs(b.v.x));
+					}
+					else {
+						w.borderVec=w.borderVec.multiply(b.v.getLength());
+					}
+					if(w.borderVec.getLength()>0)
+						b.a=w.borderVec;
+				}
+			}
+		}
+		
+	}
 }

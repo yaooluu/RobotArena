@@ -1,5 +1,6 @@
 package behavior;
 
+import main.Config;
 import physics.Vec2D;
 import environment.Boid;
 
@@ -33,12 +34,12 @@ public class Wander {
 		target.x+=wanderRadius*Math.sin(Math.toRadians(targetOrientation));
 		target.y+=wanderRadius*Math.cos(Math.toRadians(targetOrientation));
 		//draw the target
-		//Boid b1 = new Boid(target.x, target.y, targetOrientation, 0, Config.BOID_TYPE.scout);
+		//Boid b1 = new Boid(target.x, target.y, targetOrientation, 0, Config.BOID_TYPE.scout,3);
 		
 		//Steering behavior
 		Steering st;
 		st=Behavior.seek(boid, target);
-		Behavior.addAcc(boid, st);
+		Behavior.changeAcc(boid, st);
 		
 		//collision avoidance
 		st=Behavior.collisionAvoide(boid);

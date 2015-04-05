@@ -69,14 +69,14 @@ public class Main extends PApplet {
 		//Attack.goAttack(boids.get(0), boids.get(1));
 		//Attack.goAttack(boids.get(1), boids.get(0));
 		//Evade.evade(boids.get(1), boids.get(0));
-		
+		Wander.wander(boids.get(0));
 		for(int i=0;i<boids.size();i++) {
 			Boid b = boids.get(i);
 			//DecisionTree.PerformDecision(b);
 		}
 
 		Collision.allCollision(boids);
-		
+		Behavior.borderAvoide(boids);
 		//update boids' state
 		for(Boid b : boids) {
 			Behavior.update2(b);
