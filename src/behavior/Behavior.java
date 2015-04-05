@@ -181,7 +181,7 @@ public class Behavior {
 			boid.r += boid.vr;
 			boid.vr += boid.ar;
 		}
-		
+		boid.v.truncate(Config.MAX_SPEED[boid.getType()]);	
 	//	System.out.println("new r:"+boid.NewOrientation);
 	}
 	
@@ -214,9 +214,12 @@ public class Behavior {
 			}
 		//stop and rotate
 			boid.vr=rotation;
-			if(boid.vr>Config.MAX_ANGACC[boid.getType()])
+			if(Math.abs(boid.vr)>Config.MAX_ANGACC[boid.getType()])
 			{
-				boid.vr=Config.MAX_ANGACC[boid.getType()];
+				if(rotation>0)
+					boid.vr=Config.MAX_ANGACC[boid.getType()];
+				else
+					boid.vr=-Config.MAX_ANGACC[boid.getType()];
 			}
 	}
 	
@@ -298,16 +301,16 @@ public class Behavior {
 		for(Boid b : boids) {
 			for(Border w : World.getBorders()) {
 				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
-				minDist=b.getSize()/2f+10f;
-				if(dist < minDist) {
+				minDist=b.getSize()/2f+1f;
+				if(dist < minDist&&dist>b.getSize()/2) {
 					if(w.borderVec.x == 0 && w.borderVec.y > 0) {
-						w.borderVec=w.borderVec.multiply(Math.abs(b.v.y));
+						w.borderVec=w.borderVec.multiply(Math.abs(b.v.y)*2.0f);
 					}
 					else if(w.borderVec.x > 0 && w.borderVec.y == 0) {
-						w.borderVec=w.borderVec.multiply(Math.abs(b.v.x));
+						w.borderVec=w.borderVec.multiply(Math.abs(b.v.x)*2.0f);
 					}
 					else {
-						w.borderVec=w.borderVec.multiply(b.v.getLength());
+						w.borderVec=w.borderVec.multiply(b.v.getLength()*2.0f);
 					}
 					if(w.borderVec.getLength()>0)
 						b.a=w.borderVec;
