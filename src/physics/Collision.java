@@ -2,7 +2,6 @@ package physics;
 
 import java.util.*;
 
-import behavior.Behavior;
 import main.Config;
 import environment.Boid;
 import environment.Wall;
@@ -58,7 +57,6 @@ public class Collision {
 					vec = minW.collisionVec.multiply(Math.abs(b.v.x) * factor);
 				}
 				else {
-					System.out.println("else");
 					vec = minW.collisionVec.multiply(b.v.getLength() * factor);
 				}
 	
