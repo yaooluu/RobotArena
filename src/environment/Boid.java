@@ -54,8 +54,7 @@ public class Boid {
 				(float)Math.cos(Math.toRadians(r)) * -1.0f);
 		
 		//System.out.println("getOriVec: r=" + r);
-		//System.out.println("getOriVec: vec=" + oriVec);
-		
+		//System.out.println("getOriVec: vec=" + oriVec);	
 		return oriVec;
 	}
 
@@ -131,15 +130,7 @@ public class Boid {
 		for(Boid b : Main.getBoids()) {
 			if(this.id == b.id || (this.team!=b.team) != isEnemy) continue;
 			if(World.detectAccessible(this.pos, b.pos) == false) continue;
-			/*
-			float ang = 0;
-			float dx = b.pos.x - this.pos.x, dy = b.pos.y - this.pos.y;
-			float sharp = (float) (Math.atan(Math.abs(dx/dy)) * 180 / Math.PI);
-			if(dx>=0 && dy>=0) ang = 180 - sharp;
-			else if(dx<0 && dy>0) ang = 180 + sharp;
-			else if(dx<0 && dy<0) ang = 360 - sharp;
-			else ang = sharp;
-			*/
+
 			float ang = Vec2D.getAngleBetween(b.pos.minus(this.pos), 
 					this.getOriVec());
 			float dist = b.pos.minus(this.pos).getLength();
@@ -155,17 +146,36 @@ public class Boid {
 	}
 
 	public int getBuffRange() {
-		return 0;
+		float range = Integer.MAX_VALUE;
+		for(Buff b : World.getBuffs()) {
+			float r = b.minus(this.pos).getLength();
+			if(r < range) range = r;
+		}
+		return (int)range;
 	}
 	
 	public Vec2D getRedBuff() {
-		Vec2D v = new Vec2D(200, 100);
-		return v;
+		return getBuff(0);
 	}
 	
 	public Vec2D getBlueBuff() {
-		Vec2D v = new Vec2D(200, 100);
-		return v;
+		return getBuff(1);
+	}
+	
+	private Vec2D getBuff(int type) {
+		float range = Integer.MAX_VALUE;
+		Vec2D buff = null;
+		
+		for(Buff b : World.getBuffs()) {
+			if(b.getType() != type) continue;
+			
+			float r = b.minus(this.pos).getLength();
+			if(r < range) {
+				range = r;
+				buff = b;
+			}
+		};
+		return buff;
 	}
 	
 	public String toString() {

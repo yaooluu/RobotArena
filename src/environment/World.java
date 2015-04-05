@@ -12,9 +12,13 @@ import processing.core.PImage;
 
 public class World {
 	
-	//store pixels position for map walls
+	//store walls
 	private static List<Wall> walls = new ArrayList<Wall>();
 	public static List<Wall> getWalls() {return walls;}
+
+	//store buffs
+	private static List<Buff> buffs = new ArrayList<Buff>();
+	public static List<Buff> getBuffs() {return buffs;}
 	
 	private static int[] pixels = null;
 	public static int[] getPixels() {return pixels;}
@@ -38,8 +42,8 @@ public class World {
 				//System.out.println(parent.red(curP)+","+parent.green(curP)+","+parent.blue(curP));
 				//System.out.println(curP);
 				
-				// scan Dirichlet Domain vertices (red)
-				if (RGB.isRed(curP)) {
+				// scan Dirichlet Domain vertices (green)
+				if (RGB.isGreen(curP)) {
 					graph.setNodePos(nodeIndex, new Vec2D(i, j));
 					nodeIndex++;
 				}
@@ -65,6 +69,13 @@ public class World {
 						walls.add(new Wall(i,j,vec));
 						//System.out.println(i+","+j+"find wall");
 					}
+				}
+				
+				//scan and store buff locations
+				if(RGB.isRed(curP) || RGB.isBlue(curP)) {
+					int type = 0;
+					if(RGB.isBlue(curP)) type = 1;
+					buffs.add(new Buff(i,j,type));
 				}
 			}
 

@@ -55,8 +55,7 @@ public class Main extends PApplet {
 	
 	public void draw() {
 		background(255);
-		
-		
+				
 		//draw the indoor environment
 		image(environment, 0, 0);
 		
@@ -64,10 +63,9 @@ public class Main extends PApplet {
 		{
 			Behavior.changeAcc(boids.get(0), Behavior.seek(boids.get(0), mouseVec));
 			//Behavior.changeAcc(boids.get(0), Behavior.arrive(boids.get(0), mouseVec));
-
 		}
 		
-		//Attack.goAttack(boids.get(0), boids.get(1));
+		Attack.goAttack(boids.get(0), boids.get(1));
 		//Attack.goAttack(boids.get(1), boids.get(0));
 		//Evade.evade(boids.get(1), boids.get(0));
 		

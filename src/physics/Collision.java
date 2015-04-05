@@ -37,16 +37,16 @@ public class Collision {
 			for(Wall w : World.getWalls()) {
 				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
 				if(dist < b.getSize()/2.0 + 4) {
-					if(w.vec.x == 0 && w.vec.y > 0) {
-						w.vec.multiply(Math.abs(b.v.y) * 2.8f);
+					if(w.collisionVec.x == 0 && w.collisionVec.y > 0) {
+						w.collisionVec.multiply(Math.abs(b.v.y) * 2.8f);
 					}
-					else if(w.vec.x > 0 && w.vec.y == 0) {
-						w.vec.multiply(Math.abs(b.v.x) * 2.8f);
+					else if(w.collisionVec.x > 0 && w.collisionVec.y == 0) {
+						w.collisionVec.multiply(Math.abs(b.v.x) * 2.8f);
 					}
 					else {
-						w.vec.multiply(b.v.getLength() * 2.8f);
+						w.collisionVec.multiply(b.v.getLength() * 2.8f);
 					}
-					b.v.plusEqual(w.vec);
+					b.v.plusEqual(w.collisionVec);
 					b.a.x = 0;
 					b.a.y = 0;
 				}
