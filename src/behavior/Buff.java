@@ -1,5 +1,6 @@
 package behavior;
 
+import main.Config;
 import environment.Boid;
 
 public class Buff {
@@ -13,7 +14,7 @@ public class Buff {
 				if(b1.getRedBuff()!=null)
 				{
 					st=Behavior.seek(b1, b1.getRedBuff());	
-					Behavior.addAcc(b1, st);
+					Behavior.changeAcc(b1, st);
 					st=Behavior.arrive(b1, b1.getRedBuff());
 				}
 					
@@ -23,14 +24,18 @@ public class Buff {
 				if(b1.getBlueBuff()!=null)
 				{
 					st=Behavior.seek(b1, b1.getBlueBuff());	
-					Behavior.addAcc(b1, st);
-					st=Behavior.arrive(b1, b1.getRedBuff());
+					Behavior.changeAcc(b1, st);
+					st=Behavior.arrive(b1, b1.getBlueBuff());
 				}
 					
 			}
-			
-			if(st.a.getLength()>0)
-					Behavior.changeAcc(b1, st);
-
+			b1.a=st.a;
+			b1.a.truncate(Config.MAX_LINACC[b1.getType()]);
+			if(st.a.getLength()<=0.5f)
+			{
+				b1.a.multiply(0f);
+				b1.v.multiply(0f);
+			}
+					
 	}
 }

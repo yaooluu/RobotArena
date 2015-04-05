@@ -48,6 +48,7 @@ public class Vec2D {
 
 	public void normalize() {
 		float l = this.getLength();
+		if(l==0)return;
 		this.x /= l;
 		this.y /= l;
 	}

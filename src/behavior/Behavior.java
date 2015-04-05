@@ -68,15 +68,16 @@ public class Behavior {
 	{
 		Steering st=new Steering();
 		Vec2D distance;
-		float arrivalRadius=8,decelerationRadius=60;
-		float timeToTarget=0.5f;
+		float arrivalRadius=15,decelerationRadius=30;
+		float timeToTarget=1f;
 		
 		distance=targetPos.minus(boid.pos);
 		Vec2D goalVelocity=new Vec2D(0,0);
 		Vec2D maxVelocity=new Vec2D(distance.x,distance.y);
-		maxVelocity.normalize();
-		maxVelocity.multiply((Config.MAX_SPEED[boid.getType()]));
 		
+		maxVelocity.truncate(Config.MAX_SPEED[boid.getType()]);
+
+			
 		if(distance.getLength()<=arrivalRadius)
 		{
 			return st;
@@ -91,10 +92,9 @@ public class Behavior {
 			goalVelocity.x=maxVelocity.x;
 			goalVelocity.y=maxVelocity.y;
 			goalVelocity.multiply((distance.getLength()/decelerationRadius));		
-
-			st.a=goalVelocity.minus(boid.v);
-			st.a.multiply(1/timeToTarget);
 		}		
+		st.a=goalVelocity.minus(boid.v);
+		st.a.multiply(1/timeToTarget);
 		return st;
 	}
 	public static void changeAcc(Boid boid,Steering st)
