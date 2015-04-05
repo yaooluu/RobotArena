@@ -14,6 +14,9 @@ public class Config {
 	public static int TILE_SIZE = 2;
 	public static int MAX_FUEL = 100;
 	
+	//draw boid's vision and auditory on screen
+	public static boolean showVision = true;
+	
 	//number of boids per team
 	public static int[] TEAM_SIZE = {1, 1};
 	

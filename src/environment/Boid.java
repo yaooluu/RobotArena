@@ -93,24 +93,71 @@ public class Boid {
 		canvas.translate(pos.x, pos.y);
 		canvas.rotate(PApplet.radians(r));
 
+		//draw body lower
 		canvas.fill(0);
-		canvas.ellipse(0, 0, size, size);		//draw body
-		
-		
+		canvas.ellipse(0, 0, size, size);		
+				
 		if(rgb != null) {
 			canvas.fill(rgb.r, rgb.g, rgb.b);
 		}
 		
-		//canvas.ellipse(0, 0, size/4, size/4);		//draw body
+		//draw body upper
 		float upper = size / 3;
 		canvas.rect(-1*upper/2, -1*upper/2 + faceWidth, upper, upper + faceWidth, 3);
 		
-		canvas.rect(-1 * faceWidth/2, -0.9f * size/2, faceWidth, size * 0.5f);	//draw facing
+		//draw facing
+		canvas.rect(-1 * faceWidth/2, -0.9f * size/2, faceWidth, size * 0.5f);	
 		
 		//draw fuel here...
+		
+		if(Config.showVision == true) {
+			canvas.strokeWeight(1.2f);
+			//draw boid's vision
+			float x1 = 0, y1 = 0, x2 = 50, y2 = -1*x2*Math.abs(PApplet.tan(vision/2));
+			for (int i = 5; i <= 20; i++) {
+				  float x = PApplet.lerp(x1, x2, i/10.0f);
+				  float y = PApplet.lerp(y1, y2, i/10.0f);
+				  canvas.point(x, y);
+				  
+				  x = PApplet.lerp(x1, -1 * x2, i/10.0f);
+				  y = PApplet.lerp(y1, y2, i/10.0f);
+				  canvas.point(x, y);
+			}
+			//draw boid's auditory
+			dashedCircle(auditory + size/2, 4, 6);
+		}
 
 		canvas.popMatrix();
 	}
+	
+	/**
+	 * Draw dotted circle.
+	 * function from: http://www.openprocessing.org/sketch/28215
+	 */
+	private void dashedCircle(float radius, int dashWidth, int dashSpacing) {
+		
+	    int steps = 200;
+	    int dashPeriod = dashWidth + dashSpacing;
+	    boolean lastDashed = false;
+	    for(int i = 0; i < steps; i++) {
+	      boolean curDashed = (i % dashPeriod) < dashWidth;
+	      if(curDashed && !lastDashed) {
+	        canvas.beginShape();
+	      }
+	      if(!curDashed && lastDashed) {
+	    	  canvas.endShape();
+	      }
+	      if(curDashed) {
+	        float theta = PApplet.map(i, 0, steps, 0, PApplet.TWO_PI);
+	        canvas.vertex(PApplet.cos(theta) * radius, PApplet.sin(theta) * radius);
+	      }
+	      lastDashed = curDashed;
+	    }
+	    if(lastDashed) {
+	    	canvas.endShape();
+	    }
+	}
+
 	
 	public Boid getVisibleEnemy() {
 		Boid b = searchBoid(this.vision, Integer.MAX_VALUE, true);
