@@ -96,11 +96,16 @@ public class Boid {
 		canvas.fill(0);
 		canvas.ellipse(0, 0, size, size);		//draw body
 		
+		
 		if(rgb != null) {
 			canvas.fill(rgb.r, rgb.g, rgb.b);
 		}
 		
-		canvas.rect(-1 * faceWidth/2, -1*size/2, faceWidth, size*3/5);	//draw facing
+		//canvas.ellipse(0, 0, size/4, size/4);		//draw body
+		float upper = size / 3;
+		canvas.rect(-1*upper/2, -1*upper/2 + faceWidth, upper, upper + faceWidth, 3);
+		
+		canvas.rect(-1 * faceWidth/2, -0.9f * size/2, faceWidth, size * 0.5f);	//draw facing
 		
 		//draw fuel here...
 
