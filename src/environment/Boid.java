@@ -81,11 +81,12 @@ public class Boid {
 	
 	public void draw() {
 		if(canvas == null) return;
+		float faceWidth = size / 15.0f;
 		
 		canvas.noStroke();
 		if(rgb != null) {
 			canvas.stroke(rgb.r, rgb.g, rgb.b);
-			canvas.strokeWeight(1.5f);
+			canvas.strokeWeight(0.5f + faceWidth);
 		}
 				
 		canvas.pushMatrix();
@@ -95,9 +96,11 @@ public class Boid {
 		canvas.fill(0);
 		canvas.ellipse(0, 0, size, size);		//draw body
 		
-		if(rgb != null)
-			canvas.fill(rgb.r, rgb.g, rgb.b);	
-		canvas.rect(-1, -1*size/2, 2, size*3/5);	//draw facing
+		if(rgb != null) {
+			canvas.fill(rgb.r, rgb.g, rgb.b);
+		}
+		
+		canvas.rect(-1 * faceWidth/2, -1*size/2, faceWidth, size*3/5);	//draw facing
 		
 		//draw fuel here...
 

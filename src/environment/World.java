@@ -15,6 +15,10 @@ public class World {
 	//store walls
 	private static List<Wall> walls = new ArrayList<Wall>();
 	public static List<Wall> getWalls() {return walls;}
+	
+	//store borders
+	private static List<Border> borders = new ArrayList<Border>();
+	public static List<Border> getBorders() {return borders;}
 
 	//store buffs
 	private static List<Buff> buffs = new ArrayList<Buff>();
@@ -36,21 +40,19 @@ public class World {
 		int nodeIndex = 0;
 		System.out.println("Initializeing pixels[]...");
 
-		for (int i = 0; i < width; i++)
+		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				int curP = pixels[j * width + i];
-				//System.out.println(parent.red(curP)+","+parent.green(curP)+","+parent.blue(curP));
-				//System.out.println(curP);
+				int pix = pixels[j * width + i];
 				
 				// scan Dirichlet Domain vertices (green)
-				if (RGB.isGreen(curP)) {
+				if (RGB.isGreen(pix)) {
 					graph.setNodePos(nodeIndex, new Vec2D(i, j));
 					nodeIndex++;
 				}
 				
-				//scan and store walls (black)
+				//scan and store walls (black) and borders (grey)
 				if (i>0 && i<width-1 && j>0 && j<height-1
-						&& RGB.isBlack(curP)) {
+						&& (RGB.isBlack(pix) || RGB.isGrey(pix))) {
 					
 					//only store margin of wall, and it's vector
 					int top = pixels[j * width + i - width];
@@ -66,18 +68,22 @@ public class World {
 					if(RGB.isWhite(right)) {vec.x = 1;count++;}
 					
 					if(count>0) {
-						walls.add(new Wall(i,j,vec));
-						//System.out.println(i+","+j+"find wall");
+						if(RGB.isBlack(pix))
+							walls.add(new Wall(i,j,vec));
+						else 
+							borders.add(new Border(i,j,vec));
 					}
 				}
 				
 				//scan and store buff locations
-				if(RGB.isRed(curP) || RGB.isBlue(curP)) {
+				if(RGB.isRed(pix) || RGB.isBlue(pix)) {
 					int type = 0;
-					if(RGB.isBlue(curP)) type = 1;
+					if(RGB.isBlue(pix)) type = 1;
 					buffs.add(new Buff(i,j,type));
 				}
+				
 			}
+		}
 
 		// create the edges in Dirichlet Domain
 		int V = graph.getNodeCount();
