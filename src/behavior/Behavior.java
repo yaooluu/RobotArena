@@ -26,6 +26,8 @@ public class Behavior {
 	{
 
 		Steering st;
+		Vec2D goalPos;
+		goalPos=new Vec2D(targetPos);
 
 		Vec2D newTarget = PathLibrary.getNextTarget(boid.pos, targetPos);
 		if(newTarget != null) targetPos = newTarget;
@@ -59,11 +61,14 @@ public class Behavior {
 		//System.out.println("ang:"+ang);
 		//System.out.println("Boid.r/vecToR:"+boid.r+"\n");
 		//*/
-		st=arrive(boid,targetPos);
-		if(st.a.getLength()<=0.01f)
+		if(targetPos.equals(goalPos))
 		{
-			boid.a=boid.a.multiply(0f);
-			boid.v=boid.v.multiply(0f);
+			st=arrive(boid,goalPos);
+			if(st.a.getLength()<=0.01f)
+			{
+				boid.a=boid.a.multiply(0f);
+				boid.v=boid.v.multiply(0f);
+			}
 		}
 		return st;
 	}
