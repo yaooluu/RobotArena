@@ -117,7 +117,7 @@ public class Main extends PApplet {
 				String buffText = "Red";
 				if(buff.getType() == 1) buffText = "Blue";
 				buffText += " in " + buff.countdown + " sec(s)";
-				drawText(buffText, buff.x - 20, buff.y, "Georgia", 15, buff.getRGB());
+				drawText(buffText, buff.x - 40, buff.y, "Georgia", 15, buff.getRGB());
 			}
 			else {
 				float x = buff.x, y = buff.y, size = 10;

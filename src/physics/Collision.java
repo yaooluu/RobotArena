@@ -33,7 +33,7 @@ public class Collision {
 	
 	//physical collision between boid and walls
 	private static void worldCollision(List<Boid> boids) {
-		float factor = 1.1f, threshold = 2;
+		float factor = 1.0f, threshold = 2;
 		for(Boid b : boids) {
 			
 			Wall minW = null;
@@ -60,11 +60,12 @@ public class Collision {
 					vec = minW.collisionVec.multiply(Math.abs(b.v.x) * factor);
 				}
 				else {
+					minW.collisionVec.truncate(.9f);
 					vec = minW.collisionVec.multiply(b.v.getLength() * factor);
 				}
 	
 				b.v.plusEqual(vec);
-				b.v.truncate(Config.MAX_SPEED[b.getType()] / 2);
+				b.v.truncate(Config.MAX_SPEED[b.getType()]);
 				b.a = new Vec2D(0, 0);
 				
 				minW.collisionVec.drag(b.getSize()/2 + threshold + 1);
