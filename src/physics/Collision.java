@@ -32,24 +32,38 @@ public class Collision {
 	
 	//physical collision between boid and walls
 	private static void worldCollision(List<Boid> boids) {
-				
+		float factor = 1.0f;
 		for(Boid b : boids) {
-			for(Wall w : World.getWalls()) {
+			
+			Wall minW = null;
+			float minD = Integer.MAX_VALUE;
+			for(Wall w : World.getWalls()) {	
 				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
-				if(dist < b.getSize()/2.0 + 4) {
-					if(w.collisionVec.x == 0 && w.collisionVec.y > 0) {
-						w.collisionVec.multiply(Math.abs(b.v.y) * 2.8f);
-					}
-					else if(w.collisionVec.x > 0 && w.collisionVec.y == 0) {
-						w.collisionVec.multiply(Math.abs(b.v.x) * 2.8f);
-					}
-					else {
-						w.collisionVec.multiply(b.v.getLength() * 2.8f);
-					}
-					b.v.plusEqual(w.collisionVec);
-					b.a.x = 0;
-					b.a.y = 0;
+				if(dist < minD && dist < b.getSize()/2.0 + 2) {							
+					minD = dist;
+					minW = w;
 				}
+			}			
+			
+			if(minW != null) {
+				b.isHittingWall = true;
+				Vec2D vec = new Vec2D(0,0);			
+				float x = Math.abs(minW.collisionVec.x);
+				float y = Math.abs(minW.collisionVec.y);
+				if(x < 0.1 && y > 0.9) {
+					vec = minW.collisionVec.multiply(Math.abs(b.v.y) * factor);
+				}
+				else if(y < 0.1 && x > 0.9) {
+					vec = minW.collisionVec.multiply(Math.abs(b.v.x) * factor);
+				}
+				else {
+					vec = minW.collisionVec.multiply(b.v.getLength() * factor);
+				}
+	
+				b.v.plusEqual(vec);
+				b.v.truncate(Config.MAX_SPEED[b.getType()]);
+				//b.a = new Vec2D(0, 0);
+				
 			}
 		}
 	}
@@ -86,6 +100,7 @@ public class Collision {
 		//System.out.println("calculated: "+b1.v.getLength() +","+b2.v.getLength());
 	}
 
+	/*
 	public static void main(String[] args) {
 		Boid b1 = new Boid(20, 30, 2, 2, Config.BOID_TYPE.scout, 1);
 		Boid b2 = new Boid(30, 20, 2, 2, Config.BOID_TYPE.scout, 2);
@@ -94,5 +109,5 @@ public class Collision {
 		Collision.perform(b1, b2);
 		System.out.println(b1.v);
 		System.out.println(b2.v);
-	}
+	}*/
 }

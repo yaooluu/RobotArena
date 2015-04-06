@@ -9,7 +9,7 @@ public class Evade {
 			//Steering behavior
 			st=Behavior.seek(b2, b1.pos);	
 			Behavior.addAcc(b1, st);
-			st=Behavior.collisionAvoide(b1);
+			st=Behavior.collisionAvoid(b1);
 			Behavior.addAcc(b1, st);
 	}
 }

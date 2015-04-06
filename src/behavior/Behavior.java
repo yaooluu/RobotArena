@@ -164,7 +164,7 @@ public class Behavior {
 		{
 			rDistance+=360; 
 		}	
-		if(Math.abs(rDistance)<=5)
+		if(Math.abs(rDistance)<=8)
 		{
 			boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
 			boid.a.truncate(Config.MAX_LINACC[boid.getType()]);
@@ -223,7 +223,7 @@ public class Behavior {
 	}
 	
 	//collision avoidance，avoid other boids
-	public static Steering collisionAvoide(Boid boid)
+	public static Steering collisionAvoid(Boid boid)
 	{
 		List<Boid> boids=Main.getBoids();
 		Steering st=new Steering();
@@ -293,36 +293,42 @@ public class Behavior {
 	
 	
 	//avoid border and traps
-	public static void borderAvoide(List<Boid> boids)
+	public static void borderAvoid(List<Boid> boids)
 	{
-		float minDist;
-	
+		float avoidDist,minDist;
+		Vec2D avoidVec=new Vec2D(0,0);
 		for(Boid b : boids) {
 			for(Border w : World.getBorders()) {
 				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
-				minDist=b.getSize()/2f+10f;
-				if(dist < minDist) {
-					if(w.borderVec.x == 0) {
-						w.borderVec=w.borderVec.multiply(Math.abs(b.v.y)*20.0f);
-						w.borderVec.x=b.v.x;
-					}
-					else if(w.borderVec.y == 0) {
-						w.borderVec=w.borderVec.multiply(Math.abs(b.v.x)*20.0f);
-						w.borderVec.y=b.v.y;
-					}
-					else {
-						w.borderVec=b.v;
-						w.borderVec.drag(Config.MAX_LINACC[b.getType()]);
-					}
-					if(w.borderVec.getLength()>0)
-						{b.a=w.borderVec;
-					//b.a.truncate(Config.MAX_LINACC[b.getType()]);
-					System.out.println("a "+b.a.toString());
-					System.out.println("v "+ b.v.toString());
-					break;
+				avoidDist=b.getSize()/2f+10f;
+				if(dist < avoidDist && Vec2D.getAngleBetween(b.v, w.borderVec)<=90) {
+					minDist=dist;
+					avoidVec=w.borderVec;
+					System.out.println("mindist:"+dist);
 					}
 				}
+			if(avoidVec.getLength()>0)
+			{
+				if(avoidVec.x == 0) {
+					avoidVec=avoidVec.multiply(Math.abs(b.v.y)*20.0f);
+					avoidVec.x=b.v.x;
+				}
+				else if(avoidVec.y == 0) {
+					avoidVec=avoidVec.multiply(Math.abs(b.v.x)*20.0f);
+					avoidVec.y=b.v.y;
+				}
+				else {
+					avoidVec=b.v.multiply(-1f);				
+				}	
+				avoidVec.drag(Config.MAX_LINACC[b.getType()]);
+				b.a=avoidVec;
+				//b.a.truncate(Config.MAX_LINACC[b.getType()]);
+				System.out.println("a "+b.a.toString());
+				System.out.println("v "+ b.v.toString());
+				avoidVec.x=0;
+				avoidVec.y=0;
 			}
+			
 		}
 		
 	}

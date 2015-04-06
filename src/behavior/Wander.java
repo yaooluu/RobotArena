@@ -16,11 +16,12 @@ public class Wander {
 	{
 		float wanderOffset=40;
 	  float wanderRadius=120;
-	  float wanderRate=10f;
+	  float wanderRate=3f;
 	  
 		Vec2D target = new Vec2D(0,0);
 		float targetOrientation;
 		boid.wanderOrientation+=randomBinomial()*wanderRate;
+
 		boid.wanderOrientation%=360;
 
 		targetOrientation=boid.wanderOrientation+boid.r;
@@ -34,7 +35,7 @@ public class Wander {
 		target.x+=wanderRadius*Math.sin(Math.toRadians(targetOrientation));
 		target.y+=wanderRadius*Math.cos(Math.toRadians(targetOrientation));
 		//draw the target
-		//Boid b1 = new Boid(target.x, target.y, targetOrientation, 0, Config.BOID_TYPE.scout,3);
+		Boid b1 = new Boid(target.x, target.y, targetOrientation, 0, Config.BOID_TYPE.scout,3);
 		
 		//Steering behavior
 		Steering st;
@@ -42,7 +43,7 @@ public class Wander {
 		Behavior.addAcc(boid, st);
 		
 		//collision avoidance
-		st=Behavior.collisionAvoide(boid);
+		st=Behavior.collisionAvoid(boid);
 		Behavior.addAcc(boid, st);
 	}
 	
