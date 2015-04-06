@@ -63,6 +63,7 @@ public class Collision {
 				b.v.plusEqual(vec);
 				b.v.truncate(Config.MAX_SPEED[b.getType()]);
 				b.a = new Vec2D(0, 0);
+				//b.a.plusEqual(vec);
 				
 			}
 		}
