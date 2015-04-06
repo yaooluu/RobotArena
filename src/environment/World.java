@@ -151,13 +151,18 @@ public class World {
 					int pix = pixels[(int)b.pos.y * width + (int)b.pos.x];
 					if(RGB.isGrey(pix) == true) {
 						safe = false;
+						//System.out.println("Boid Fall!!!!!!!!!!!");
 					}
 				}
-				if(!safe) break;
+				if(!safe) {
+					tmpList.add(b);
+					break;
+				}
 			}		
-			if(safe) tmpList.add(b);
+			//if(safe) tmpList.add(b);
 		}
-		boids = tmpList;
+		//boids = tmpList;
+		boids.removeAll(tmpList);
 		//System.out.println(boids);
 	}
 }
