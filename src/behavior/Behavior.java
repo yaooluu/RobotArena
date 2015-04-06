@@ -149,7 +149,7 @@ public class Behavior {
 //update velocity
 	public static void update2(Boid boid)
 	{
-		System.out.println("a3"+boid.a.toString());
+		//System.out.println("update:a"+boid.a.toString());
 		if(boid.isRotate)
 		{
 			boid.isRotate=false;
@@ -300,6 +300,7 @@ public class Behavior {
 		Vec2D avoidVec=new Vec2D(0,0);
 		for(Boid b : boids) {
 			avoidDist=b.getSize()/2f+20f;
+			avoidVec=new Vec2D(0,0);
 			for(Border w : World.getBorders()) {
 				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
 				
@@ -328,13 +329,12 @@ public class Behavior {
 				avoidVec.drag(Config.MAX_LINACC[b.getType()]);
 				b.a=avoidVec;
 				//b.a.truncate(Config.MAX_LINACC[b.getType()]);
-				System.out.println("a "+b.a.toString());
-				System.out.println("v "+ b.v.toString());
-				avoidVec.x=0;
-				avoidVec.y=0;
+				//System.out.println("a "+b.a.toString());
+			///System.out.println("v "+ b.v.toString());
 			}
 			
 		}
+		//System.out.println("xa2 "+boids.get(0).a.toString());
 		
 	}
 }

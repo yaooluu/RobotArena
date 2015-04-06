@@ -85,8 +85,6 @@ public class Main extends PApplet {
 			//update boids' state
 			for(Boid b : boids) {
 				Behavior.update2(b);
-				System.out.println("a2 "+b.a.toString());
-				System.out.println("v2 "+ b.v.toString());
 				b.draw();
 			}
 			}
