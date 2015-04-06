@@ -273,7 +273,7 @@ public class Behavior {
 		float avoidDist,minDist=1000f;
 		Vec2D avoidVec=new Vec2D(0,0);
 		for(Boid b : boids) {
-			avoidDist=b.getSize()/2f+20f;
+			avoidDist=b.getSize()/4;
 			avoidVec=new Vec2D(0,0);
 			for(Border w : World.getBorders()) {
 				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
@@ -285,8 +285,9 @@ public class Behavior {
 					//System.out.println("Vector:"+avoidVec.toString());
 				//	System.out.println("Velocity:"+b.v.toString());
 					//System.out.println("degree:"+Vec2D.getAngleBetween(b.v, w.borderVec));
-					}
 				}
+			}
+			
 			if(avoidVec.getLength()>0)
 			{
 				if(avoidVec.x == 0) {
