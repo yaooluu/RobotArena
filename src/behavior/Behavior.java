@@ -149,6 +149,7 @@ public class Behavior {
 //update velocity
 	public static void update2(Boid boid)
 	{
+		System.out.println("a3"+boid.a.toString());
 		if(boid.isRotate)
 		{
 			boid.isRotate=false;
@@ -295,16 +296,20 @@ public class Behavior {
 	//avoid border and traps
 	public static void borderAvoid(List<Boid> boids)
 	{
-		float avoidDist,minDist;
+		float avoidDist,minDist=1000f;
 		Vec2D avoidVec=new Vec2D(0,0);
 		for(Boid b : boids) {
+			avoidDist=b.getSize()/2f+20f;
 			for(Border w : World.getBorders()) {
 				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
-				avoidDist=b.getSize()/2f+10f;
-				if(dist < avoidDist && Vec2D.getAngleBetween(b.v, w.borderVec)<=90) {
+				
+				if(dist<avoidDist && dist < minDist && Vec2D.getAngleBetween(b.v, w.borderVec)>90) {
 					minDist=dist;
 					avoidVec=w.borderVec;
-					System.out.println("mindist:"+dist);
+					//System.out.println("mindist:"+dist);
+					//System.out.println("Vector:"+avoidVec.toString());
+				//	System.out.println("Velocity:"+b.v.toString());
+					//System.out.println("degree:"+Vec2D.getAngleBetween(b.v, w.borderVec));
 					}
 				}
 			if(avoidVec.getLength()>0)

@@ -1,7 +1,6 @@
 package main;
 
 import java.util.*;
-
 import decisionmaking.DecisionTree;
 import pathfinding.Graph;
 import physics.Collision;
@@ -51,7 +50,7 @@ public class Main extends PApplet {
 		
 		boids.add(new Boid(100, 100, 90, 0, Config.BOID_TYPE.scout, 1));
 		//boids.add(new Boid(200, 400, 90, 0, Config.BOID_TYPE.tank, 2));
-		boids.add(new Boid(600, 400, 270, 1, Config.BOID_TYPE.tank, 3));
+		//boids.add(new Boid(600, 400, 270, 1, Config.BOID_TYPE.tank, 3));
 
 	}
 	
@@ -74,9 +73,10 @@ public class Main extends PApplet {
 			//Attack.goAttack(boids.get(0), boids.get(1));
 			//Attack.goAttack(boids.get(1), boids.get(0));
 			//Evade.evade(boids.get(1), boids.get(0));
-			Wander.wander(boids.get(1));
+			Wander.wander(boids.get(0));
 			for(int i=0;i<boids.size();i++) {
 				Boid b = boids.get(i);
+				//Wander.wander(b);
 				//DecisionTree.PerformDecision(b);
 			}
 	
@@ -85,6 +85,8 @@ public class Main extends PApplet {
 			//update boids' state
 			for(Boid b : boids) {
 				Behavior.update2(b);
+				System.out.println("a2 "+b.a.toString());
+				System.out.println("v2 "+ b.v.toString());
 				b.draw();
 			}
 			}
