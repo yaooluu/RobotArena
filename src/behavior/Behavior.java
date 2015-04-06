@@ -273,7 +273,7 @@ public class Behavior {
 		float avoidDist,minDist=1000f;
 		Vec2D avoidVec=new Vec2D(0,0);
 		for(Boid b : boids) {
-			avoidDist=b.getSize()/2f+20f;
+			avoidDist=b.getSize()/2f+10f;
 			avoidVec=new Vec2D(0,0);
 			for(Border w : World.getBorders()) {
 				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
@@ -290,11 +290,11 @@ public class Behavior {
 			if(avoidVec.getLength()>0)
 			{
 				if(avoidVec.x == 0) {
-					avoidVec=avoidVec.multiply(Math.abs(b.v.y)*20.0f);
+					avoidVec=avoidVec.multiply(Math.abs(b.v.y)*2.0f);
 					avoidVec.x=b.v.x;
 				}
 				else if(avoidVec.y == 0) {
-					avoidVec=avoidVec.multiply(Math.abs(b.v.x)*20.0f);
+					avoidVec=avoidVec.multiply(Math.abs(b.v.x)*2.0f);
 					avoidVec.y=b.v.y;
 				}
 				else {
