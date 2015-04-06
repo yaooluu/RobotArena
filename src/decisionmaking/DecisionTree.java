@@ -164,7 +164,7 @@ public class DecisionTree {
 			double t = Math.random();
 			if (t < 0.1)
 				return -3;
-			if (t < 0.5)
+			if (t < 0.8)
 				return -6;
 			else
 				return -10;
