@@ -10,7 +10,6 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 import environment.*;
-import environment.Buff;
 import behavior.*;
 
 @SuppressWarnings("serial")
@@ -26,6 +25,7 @@ public class Main extends PApplet {
 	//debug
 	private Vec2D mouseVec = null;
 	private boolean pause = false;
+	private static int mod = 1;
 	
 	public void setup() {
 		Config.canvas = this;
@@ -48,11 +48,15 @@ public class Main extends PApplet {
 				Boid b = new Boid(100+400*i, 20*(j+1), 90+180*i, i, Config.BOID_TYPE.scout, id);	
 				boids.add(b);
 			}			
-		}*/
+		}//*/
 		
-		boids.add(new Boid(150, 150, 90, 1, Config.BOID_TYPE.tank, 1));
-		//boids.add(new Boid(200, 400, 90, 0, Config.BOID_TYPE.tank, 2));
-		boids.add(new Boid(600, 400, 270, 0, Config.BOID_TYPE.scout, 3));
+		boids.add(new Boid(100, 150, 90, 0, Config.BOID_TYPE.scout, 1));
+		boids.add(new Boid(100, 250, 90, 0, Config.BOID_TYPE.soldier, 2));
+		boids.add(new Boid(100, 350, 90, 0, Config.BOID_TYPE.tank, 3));
+		
+		boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
+		boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
+		boids.add(new Boid(700, 400, 270, 1, Config.BOID_TYPE.tank, 6));
 	}
 	
 	public void draw() {	
@@ -66,12 +70,12 @@ public class Main extends PApplet {
 			
 			if(mouseVec != null)
 			{
-				Behavior.addAcc(boids.get(0), Behavior.seek(boids.get(0), mouseVec));
+				//Behavior.addAcc(boids.get(0), Behavior.seek(boids.get(0), mouseVec));
 				//Behavior.changeAcc(boids.get(0), Behavior.arrive(boids.get(0), mouseVec));
 			}
 			
-//			Attack.goAttack(boids.get(0), boids.get(1));
-			Attack.goAttack(boids.get(1), boids.get(0));
+			//Attack.goAttack(boids.get(0), boids.get(1));
+			//Attack.goAttack(boids.get(1), boids.get(0));
 			
 			//Evade.evade(boids.get(1), boids.get(0));
 			//Wander.wander(boids.get(0));
@@ -87,7 +91,10 @@ public class Main extends PApplet {
 				else
 					Wander.wander(b);
 				//*/
-				if(frameCount % 120 == 0)
+				//if(frameCount % 120 == 0)
+				if(frameCount % mod != 0) continue;
+				
+				mod = (int)Math.random()*90 + 30;
 				DecisionTree.PerformDecision(b);
 			}
 	
@@ -96,7 +103,7 @@ public class Main extends PApplet {
 			
 			for(Boid b : boids) {
 				b.addBreadcrumb();
-				b.showBreadcrumbs();
+				//b.showBreadcrumbs();
 				Behavior.update2(b);
 				b.draw();
 			}

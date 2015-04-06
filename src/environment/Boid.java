@@ -116,13 +116,14 @@ public class Boid {
 			canvas.strokeWeight(1.6f);
 			//draw boid's vision
 			float x1 = 0, y1 = 0, x2 = 50, y2 = -1*x2*Math.abs(PApplet.tan(vision/2));
-			for (int i = 5; i <= 20; i++) {
-				  float x = PApplet.lerp(x1, x2, i/10.0f);
-				  float y = PApplet.lerp(y1, y2, i/10.0f);
+			float amt = 10;
+			for (int i = 5; i <= 15; i++) {
+				  float x = PApplet.lerp(x1, x2, i/amt);
+				  float y = PApplet.lerp(y1, y2, i/amt);
 				  canvas.point(x, y);
 				  
-				  x = PApplet.lerp(x1, -1 * x2, i/10.0f);
-				  y = PApplet.lerp(y1, y2, i/10.0f);
+				  x = PApplet.lerp(x1, -1 * x2, i/amt);
+				  y = PApplet.lerp(y1, y2, i/amt);
 				  canvas.point(x, y);
 			}
 			//draw boid's auditory
