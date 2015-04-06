@@ -15,8 +15,9 @@ import environment.World;
 public class Collision {
 	
 	public static void allCollision(List<Boid> boids) {
-		boidCollision(boids);
+		
 		worldCollision(boids);
+		boidCollision(boids);
 	}
 	
 	//physical collision between boids
@@ -99,6 +100,7 @@ public class Collision {
 		b2.pos.plusEqual(b2.v.multiply((float) (1.0/Config.FRAME_RATE)));
 		
 		//System.out.println("calculated: "+b1.v.getLength() +","+b2.v.getLength());
+		//System.out.println("calculated: "+b1.v +", "+b2.v+"\n");
 	}
 
 	/*

@@ -205,6 +205,7 @@ public class Boid {
 	public int getBuffRange() {
 		float range = Integer.MAX_VALUE;
 		for(Buff b : World.getBuffs()) {
+			if(b.countdown > 0) continue;
 			float r = b.minus(this.pos).getLength();
 			if(r < range) range = r;
 		}
@@ -221,10 +222,10 @@ public class Boid {
 	
 	private Vec2D getBuff(int type) {
 		float range = Integer.MAX_VALUE;
-		Vec2D buff = null;
+		Vec2D buff = new Vec2D(pos.x+1, pos.y+1);
 		
 		for(Buff b : World.getBuffs()) {
-			if(b.getType() != type) continue;
+			if(b.getType() != type || b.countdown > 0) continue;
 			
 			float r = b.minus(this.pos).getLength();
 			if(r < range) {
@@ -236,7 +237,8 @@ public class Boid {
 	}
 	
 	public String toString() {
-		return "Boid(id="+this.id+", team="+this.team+", type="+this.type+")";
+		//return "Boid(id="+this.id+", team="+this.team+", type="+this.type+")";
+		return "Boid "+this.id;
 	}
 	
 }

@@ -3,7 +3,7 @@ package behavior;
 import main.Config;
 import environment.Boid;
 
-public class Buff {
+public class GetBuff {
 //current version
 	public static void goBuff(Boid b1, String type)
 	{		

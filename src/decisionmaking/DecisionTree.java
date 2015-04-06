@@ -2,7 +2,7 @@ package decisionmaking;
 
 import main.Config;
 import behavior.Attack;
-import behavior.Buff;
+import behavior.GetBuff;
 import behavior.Evade;
 import behavior.Trace;
 import behavior.Wander;
@@ -17,8 +17,8 @@ public class DecisionTree {
 		String decision = DecisionTree.makeDecision(b,1);
 		
 		//debug
-		//if(Config.canvas.frameCount % 60 == 1) 
-		System.out.println(b + " has current desicion: " + decision);
+		if(Config.canvas.frameCount % 60 == 1) 
+		System.out.println(b + " desicion: " + decision);
 		
 		switch (decision) {
 		case "attack":
@@ -30,12 +30,12 @@ public class DecisionTree {
 			break;
 
 		case "redbuff":
-			Buff.goBuff(b, "red");
+			GetBuff.goBuff(b, "red");
 			//Wander.wander(b);
 			break;
 			
 		case "bluebuff":
-			Buff.goBuff(b, "blue");
+			GetBuff.goBuff(b, "blue");
 			//Wander.wander(b);
 			break;
 			

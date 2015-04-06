@@ -98,6 +98,7 @@ public class World {
 				}
 			}
 		System.out.println("Graph initialized with "+graph.order()+" nodes, " + graph.size()/2 + " edges.");
+		System.out.println("Found " + buffs.size() + " buffs on map.");
 		return graph;
 	}
 
@@ -145,25 +146,13 @@ public class World {
 	public static void detectFallOff(List<Boid> boids) {
 		List<Boid> tmpList = new ArrayList<Boid>();
 		for(Boid b : boids) {
-			boolean safe = true;
-			for (int i = 0; i < width; i++) {
-				for (int j = 0; j < height; j++) {
-					int pix = pixels[(int)b.pos.y * width + (int)b.pos.x];
-					if(RGB.isGrey(pix) == true) {
-						safe = false;
-						//System.out.println("Boid Fall!!!!!!!!!!!");
-					}
-				}
-				if(!safe) {
-					tmpList.add(b);
-					break;
-				}
+			int pix = pixels[(int)b.pos.y * width + (int)b.pos.x];
+			if(RGB.isGrey(pix) == true) {
+				System.out.println(b.pos + " is Out of stage!!!!!");
+				tmpList.add(b);
 			}		
-			//if(safe) tmpList.add(b);
 		}
-		//boids = tmpList;
 		boids.removeAll(tmpList);
-		//System.out.println(boids);
 	}
 }
 
