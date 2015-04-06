@@ -80,14 +80,14 @@ public class Main extends PApplet {
 			
 			for(int i=0;i<boids.size();i++) {
 				Boid b = boids.get(i);
-				///*//
+				/*//
 				if(boids.size()>1) 
 					Attack.goAttack(boids.get(i), boids.get((i+1)%2));
 				else
 					Wander.wander(b);
 				//*/
-				//if(frameCount % 10 == 1)
-				//DecisionTree.PerformDecision(b);
+				if(frameCount % 120 == 0)
+				DecisionTree.PerformDecision(b);
 			}
 	
 			Collision.allCollision(boids);

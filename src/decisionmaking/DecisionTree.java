@@ -18,7 +18,7 @@ public class DecisionTree {
 		String decision = DecisionTree.makeDecision(b,1);
 		
 		//debug
-		if(Config.canvas.frameCount % 60 == 1) 
+		//if(Config.canvas.frameCount % 60 == 1) 
 		System.out.println(b + " desicion: " + decision);
 		
 		switch (decision) {
