@@ -50,7 +50,7 @@ public class Main extends PApplet {
 		
 		boids.add(new Boid(100, 100, 90, 0, Config.BOID_TYPE.scout, 1));
 		//boids.add(new Boid(200, 400, 90, 0, Config.BOID_TYPE.tank, 2));
-		boids.add(new Boid(600, 100, 270, 1, Config.BOID_TYPE.tank, 3));
+		boids.add(new Boid(600, 400, 270, 1, Config.BOID_TYPE.tank, 3));
 	}
 	
 	public void draw() {	
@@ -69,10 +69,10 @@ public class Main extends PApplet {
 				//Behavior.changeAcc(boids.get(0), Behavior.arrive(boids.get(0), mouseVec));
 			}
 			
-			//Attack.goAttack(boids.get(0), boids.get(1));
-			//Attack.goAttack(boids.get(1), boids.get(0));
+			Attack.goAttack(boids.get(0), boids.get(1));
+			Attack.goAttack(boids.get(1), boids.get(0));
 			//Evade.evade(boids.get(1), boids.get(0));
-			Wander.wander(boids.get(0));
+			//Wander.wander(boids.get(0));
 			for(int i=0;i<boids.size();i++) {
 				Boid b = boids.get(i);
 				//Wander.wander(b);
@@ -86,9 +86,8 @@ public class Main extends PApplet {
 				Behavior.update2(b);
 				b.draw();
 			}
-			}
-		
-			else {
+			
+		} else {
 			PFont f = createFont("Georgia",20,true);
 			textFont(f,20);                 
 			fill(255,0,0);                        
