@@ -50,9 +50,9 @@ public class Main extends PApplet {
 			}			
 		}*/
 		
-		boids.add(new Boid(150, 150, 90, 0, Config.BOID_TYPE.scout, 1));
+		boids.add(new Boid(150, 150, 90, 1, Config.BOID_TYPE.tank, 1));
 		//boids.add(new Boid(200, 400, 90, 0, Config.BOID_TYPE.tank, 2));
-		boids.add(new Boid(600, 400, 270, 1, Config.BOID_TYPE.tank, 3));
+		boids.add(new Boid(600, 400, 270, 0, Config.BOID_TYPE.scout, 3));
 	}
 	
 	public void draw() {	
@@ -70,21 +70,21 @@ public class Main extends PApplet {
 				//Behavior.changeAcc(boids.get(0), Behavior.arrive(boids.get(0), mouseVec));
 			}
 			
-			//Attack.goAttack(boids.get(0), boids.get(1));
-			//Attack.goAttack(boids.get(1), boids.get(0));
+//			Attack.goAttack(boids.get(0), boids.get(1));
+			Attack.goAttack(boids.get(1), boids.get(0));
 			
 			//Evade.evade(boids.get(1), boids.get(0));
 			//Wander.wander(boids.get(0));
 			//Trace.trace(boids.get(0), boids.get(1));
-			//GetBuff.goBuff(boids.get(0), "blue");
+			//GetBuff.goBuff(boids.get(0), "red");
 			
 			for(int i=0;i<boids.size();i++) {
 				Boid b = boids.get(i);
 				///*//
-				if(boids.size()>1) 
-					Attack.goAttack(boids.get(i), boids.get((i+1)%2));
-				else
-					Wander.wander(b);
+//				if(boids.size()>1) 
+//					Attack.goAttack(boids.get(i), boids.get((i+1)%2));
+//				else
+//					Wander.wander(b);
 				//*/
 				//if(frameCount % 10 == 1)
 				//DecisionTree.PerformDecision(b);
@@ -94,6 +94,8 @@ public class Main extends PApplet {
 			Behavior.borderAvoid(boids);
 			
 			for(Boid b : boids) {
+				b.addBreadcrumb();
+				b.showBreadcrumbs();
 				Behavior.update2(b);
 				b.draw();
 			}

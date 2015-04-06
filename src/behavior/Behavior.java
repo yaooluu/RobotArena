@@ -266,7 +266,6 @@ public class Behavior {
 		
 	}
 	
-	
 	//avoid border and traps
 	public static void borderAvoid(List<Boid> boids)
 	{
@@ -280,7 +279,7 @@ public class Behavior {
 				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
 				
 				if(dist<avoidDist && dist < minDist && Vec2D.getAngleBetween(b.v, w.borderVec)>90) {
-					minDist=dist;
+					minDist=dist;	
 					avoidVec=w.borderVec;
 					//System.out.println("mindist:"+dist);
 					//System.out.println("Vector:"+avoidVec.toString());

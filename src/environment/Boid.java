@@ -1,5 +1,6 @@
 package environment;
 
+import java.util.LinkedList;
 import main.*;
 import physics.*;
 import processing.core.PApplet;
@@ -245,4 +246,43 @@ public class Boid {
 		return "Boid "+this.id;
 	}
 	
+	
+	//split bread crumbs:
+	class Breadcrumbs{
+		float x,y;
+		float size;
+		Breadcrumbs(float x, float y,float size){
+			this.x=x;
+			this.y=y;
+			this.size=size;
+		}
+	}
+	
+	private LinkedList<Breadcrumbs> breadcrumbs=new LinkedList<Breadcrumbs>();
+	
+	public void addBreadcrumb()
+	{
+	//leave breadcrumbs
+		if(this.v.getLength()>0.01)
+		{
+			Breadcrumbs bd=new Breadcrumbs(this.pos.x,
+					this.pos.y,2);
+			breadcrumbs.add(bd);
+		}
+	}
+	public void showBreadcrumbs()
+	{
+		if(breadcrumbs.size()>1)
+		{
+			
+			for(Breadcrumbs b:breadcrumbs)
+			{
+				canvas.noStroke();
+				canvas.fill(rgb.r, rgb.g, rgb.b);
+				
+				canvas.ellipse(b.x, b.y, b.size,b.size);
+				
+			}
+		}
+	}
 }
