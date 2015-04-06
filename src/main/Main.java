@@ -69,23 +69,25 @@ public class Main extends PApplet {
 				//Behavior.changeAcc(boids.get(0), Behavior.arrive(boids.get(0), mouseVec));
 			}
 			
-			//Attack.goAttack(boids.get(0), boids.get(1));
-			//Attack.goAttack(boids.get(1), boids.get(0));
+			Attack.goAttack(boids.get(0), boids.get(1));
+			Attack.goAttack(boids.get(1), boids.get(0));
 			//Evade.evade(boids.get(1), boids.get(0));
 			//Wander.wander(boids.get(0));
 			for(int i=0;i<boids.size();i++) {
 				Boid b = boids.get(i);
 				//Wander.wander(b);
-				DecisionTree.PerformDecision(b);
+				//DecisionTree.PerformDecision(b);
 			}
 	
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
-			//update boids' state
+			
 			for(Boid b : boids) {
 				Behavior.update2(b);
 				b.draw();
 			}
+			
+			World.detectFallOff(boids);
 			
 		} else {
 			PFont f = createFont("Georgia",20,true);
