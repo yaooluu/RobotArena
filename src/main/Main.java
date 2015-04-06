@@ -77,6 +77,7 @@ public class Main extends PApplet {
 			//Wander.wander(boids.get(0));
 			for(int i=0;i<boids.size();i++) {
 				Boid b = boids.get(i);
+				Wander.wander(b);
 				//DecisionTree.PerformDecision(b);
 			}
 	

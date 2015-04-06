@@ -9,17 +9,26 @@ public class Wander {
 	private static float randomBinomial()
 	{
 		//Random random = new Random(System.currentTimeMillis());
-		return (float)(Math.random()-Math.random());
+		return (float)Math.random();
+		//return (float)(Math.random()-Math.random());
 	}
+	
+	private static int mod = 1;
 	
 	public static void wander(Boid boid)
 	{
+		//float ran = randomBinomial();
+		if(Config.canvas.frameCount % mod != 0) return;
+		
+		mod = (int)Math.random()*90 + 30;
+		
 		float wanderOffset=40;
-	  float wanderRadius=120;
-	  float wanderRate=10f;
+		float wanderRadius=120;
+		float wanderRate=10f;
 	  
 		Vec2D target = new Vec2D(0,0);
 		float targetOrientation;
+		
 		boid.wanderOrientation+=randomBinomial()*wanderRate;
 		boid.wanderOrientation%=360;
 
@@ -39,11 +48,15 @@ public class Wander {
 		//Steering behavior
 		Steering st;
 		st=Behavior.seek(boid, target);
-		Behavior.changeAcc(boid, st);
+		//Behavior.changeAcc(boid, st);
+		Behavior.addAcc(boid, st);
 		
 		//collision avoidance
 		st=Behavior.collisionAvoide(boid);
 		Behavior.addAcc(boid, st);
 	}
 	
+	public static void wander2(Boid b) {
+		
+	}
 }
