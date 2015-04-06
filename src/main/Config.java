@@ -33,14 +33,14 @@ public class Config {
 	};
 	
 	public static int[] BOID_SIZE = 		{15, 20, 35, 25, 25};
-	public static int[] BOID_VISION = 		{120, 60, 30, 90, 90};
+	public static int[] BOID_VISION = 		{120, 90, 90, 90, 90};
 	public static int[] BOID_AUDITORY = 	{30, 15, 10, 20, 20};
 	public static int[] BOID_FUEL = 		{100, 200, 300, 200, 200};
 	public static int[] BOID_MASS =			{200, 300, 600, 250, 350};
 	
 
 	public static float[] MAX_LINACC = 		{200, 100, 300, 100, 300};
-	public static float[] MAX_ANGACC = 		{5, 100, 2, 100, 100};
+	public static float[] MAX_ANGACC = 		{5, 4, 2, 100, 100};
 	public static float[] MAX_SPEED =  		{200, 150, 100, 200, 150};
 
 	public static Color[] TEAM_COLORS = {Color.RED, Color.BLUE, Color.GREEN,
