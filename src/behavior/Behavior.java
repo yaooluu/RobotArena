@@ -6,7 +6,6 @@ import main.Config;
 import main.Main;
 import environment.Boid;
 import environment.Border;
-import environment.Wall;
 import environment.World;
 import pathfinding.PathLibrary;
 import physics.Vec2D;
@@ -41,29 +40,6 @@ public class Behavior {
 		//clip velocity
 		st.a.truncate(Config.MAX_LINACC[boid.getType()]);
 		st.ar=0;
-		
-		/*
-		try {
-			System.out.println("frame:"+Config.canvas.frameCount);
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}//*/
-		
-
-		/*
-		//new way to change direction, Yao Lu	
-		float ang = Vec2D.getAngleBetween(boid.getOriVec(), targetPos.minus(boid.pos));
-		if(ang > 30) {
-			boid.r = Vec2D.vecToR(targetPos.minus(boid.pos));
-			boid.v = new Vec2D(0,0);
-			boid.a = new Vec2D(0,0);
-		}
-		*/
-		//System.out.println("Boid.r:"+boid.r);
-		//System.out.println("ang:"+ang);
-		//System.out.println("Boid.r/vecToR:"+boid.r+"\n");
-		//*/
 		
 		if(targetPos.equals(goalPos))
 		{
@@ -136,7 +112,6 @@ public class Behavior {
 	//update velocity
 	public static void update(Boid boid)
 	{
-		System.out.println("a2 "+boid.a.toString());
 		boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
 		boid.v.plusEqual(boid.a.multiply((float) (1.0/Config.FRAME_RATE)));
 		boid.v.truncate(Config.MAX_SPEED[boid.getType()]);
@@ -149,7 +124,6 @@ public class Behavior {
 //update velocity
 	public static void update2(Boid boid)
 	{
-		//System.out.println("update:a"+boid.a.toString());
 		if(boid.isRotate)
 		{
 			boid.isRotate=false;

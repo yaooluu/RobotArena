@@ -134,7 +134,8 @@ public class World {
 			int y = (int) (t.y);
 			if ((x == u.x && y == u.y) || (x == v.x && y == v.y))
 				continue;
-			if (pixels[y * width + x] != -1) { //white color
+			if (RGB.isBlack(pixels[y * width + x]) == true
+					|| RGB.isGrey(pixels[y * width + x]) == true) { //white color
 				return false;
 			}
 		}
