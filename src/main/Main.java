@@ -31,7 +31,7 @@ public class Main extends PApplet {
 		Config.canvas = this;
 		boids = new ArrayList<Boid>();
 		
-		environment=loadImage("../src/environment/GameEnvironment.png");
+		environment=loadImage("../src/environment/GE1.png");
 		
 		
 		graph = World.createGraphFromImage(this);
@@ -50,9 +50,9 @@ public class Main extends PApplet {
 			}			
 		}*/
 		
-		boids.add(new Boid(150, 150, 90, 1, Config.BOID_TYPE.tank, 1));
+		boids.add(new Boid(150, 150, 90, 0, Config.BOID_TYPE.scout, 1));
 		//boids.add(new Boid(200, 400, 90, 0, Config.BOID_TYPE.tank, 2));
-		boids.add(new Boid(600, 400, 270, 0, Config.BOID_TYPE.scout, 3));
+		boids.add(new Boid(600, 400, 270, 1, Config.BOID_TYPE.tank, 3));
 	}
 	
 	public void draw() {	
@@ -71,12 +71,12 @@ public class Main extends PApplet {
 			}
 			
 //			Attack.goAttack(boids.get(0), boids.get(1));
-			Attack.goAttack(boids.get(1), boids.get(0));
+//			Attack.goAttack(boids.get(1), boids.get(0));
 			
-			//Evade.evade(boids.get(1), boids.get(0));
-			//Wander.wander(boids.get(0));
+		//Evade.evade(boids.get(1), boids.get(0));
+			Wander.wander(boids.get(0));
 			//Trace.trace(boids.get(0), boids.get(1));
-			//GetBuff.goBuff(boids.get(0), "red");
+//			GetBuff.goBuff(boids.get(0), "blue");
 			
 			for(int i=0;i<boids.size();i++) {
 				Boid b = boids.get(i);
@@ -87,8 +87,8 @@ public class Main extends PApplet {
 				else
 					Wander.wander(b);
 				//*/
-				if(frameCount % 120 == 0)
-				DecisionTree.PerformDecision(b);
+				//if(frameCount % 120 == 0)
+				//DecisionTree.PerformDecision(b);
 			}
 	
 			Collision.allCollision(boids);
@@ -96,7 +96,8 @@ public class Main extends PApplet {
 			
 			for(Boid b : boids) {
 				b.addBreadcrumb();
-				b.showBreadcrumbs();
+//				if(b.getId()==1)
+					b.showBreadcrumbs();
 				Behavior.update2(b);
 				b.draw();
 			}

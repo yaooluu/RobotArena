@@ -141,10 +141,11 @@ public class Behavior {
 		}	
 		if(Math.abs(rDistance)<=8)
 		{
-			boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
+			//boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
 			boid.a.truncate(Config.MAX_LINACC[boid.getType()]);
 			boid.v.plusEqual(boid.a.multiply((float) (1.0/Config.FRAME_RATE)));
 			boid.v.truncate(Config.MAX_SPEED[boid.getType()]);		
+			boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
 			boid.isRotate=true;
 			boid.vr=0;
 		}
@@ -219,7 +220,7 @@ public class Behavior {
 		
 		for(Boid t:boids)
 		{
-			if(t!=boid)
+			if(t!=boid && t.getTeam()==boid.getTeam())
 			{
 				relativePosition=boid.pos.minus(t.pos);
 				relativeVelocity=boid.v.minus(t.v);
@@ -301,7 +302,7 @@ public class Behavior {
 				else {
 					avoidVec=b.v.multiply(-1f);				
 				}	
-				avoidVec.drag(Config.MAX_LINACC[b.getType()]);
+				//avoidVec.drag(Config.MAX_LINACC[b.getType()]);
 				b.a=avoidVec;
 				//b.a.truncate(Config.MAX_LINACC[b.getType()]);
 				//System.out.println("a "+b.a.toString());
