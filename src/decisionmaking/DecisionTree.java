@@ -15,7 +15,11 @@ public class DecisionTree {
 				.getAudibleEnemy();
 		
 		String decision = DecisionTree.makeDecision(b,1);
+		
+		//debug
+		//if(Config.canvas.frameCount % 60 == 1) 
 		System.out.println(b + " has current desicion: " + decision);
+		
 		switch (decision) {
 		case "attack":
 			Attack.goAttack(b, enemy);

@@ -163,20 +163,20 @@ public class Boid {
 	
 	public Boid getVisibleEnemy() {
 		Boid b = searchBoid(this.vision, Integer.MAX_VALUE, true);
-		System.out.println(this + " sees enemy " + b);
+		//if(canvas.frameCount % 60 == 1) System.out.println(this + " sees enemy " + b);
 		return b;
 	}
 	
 	public Boid getAudibleEnemy() {
 		Boid b = searchBoid(360, this.auditory, true);
-		System.out.println(this + " hears enemy " + b);
+		//if(canvas.frameCount % 60 == 1) System.out.println(this + " hears enemy " + b);
 		return b;
 	}
 	
 	public Boid getDetectableAlly() {
 		Boid b =  searchBoid(this.vision, Integer.MAX_VALUE, false);
 		if(b==null) b = searchBoid(360, this.auditory, false);
-		System.out.println(this + " detects ally " + b);
+		//if(canvas.frameCount % 60 == 1) System.out.println(this + " detects ally " + b);
 		return b;
 	}
 	
