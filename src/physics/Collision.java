@@ -10,7 +10,7 @@ import environment.World;
 /**
  * @author Jianfeng Chen, Yao Lu
  * @contact jchen37@ncsu.edu, ylu31@ncsu.edu
- * @version 1.0, 1.1, 1.2
+ * @version 1.0, 1.1, 1.2, 1.3
  */
 public class Collision {
 	
@@ -33,21 +33,23 @@ public class Collision {
 	
 	//physical collision between boid and walls
 	private static void worldCollision(List<Boid> boids) {
-		float factor = 1.1f;
+		float factor = 1.1f, threshold = 2;
 		for(Boid b : boids) {
 			
 			Wall minW = null;
 			float minD = Integer.MAX_VALUE;
 			for(Wall w : World.getWalls()) {	
 				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
-				if(dist < minD && dist < b.getSize()/2.0 + 2) {							
+				if(dist < minD && dist < b.getSize()/2.0 + threshold) {							
 					minD = dist;
 					minW = w;
 				}
 			}			
 			
 			if(minW != null) {
-				b.isHittingWall = true;
+				//b.isHittingWall = true;
+				//System.out.println("Colliding at "+minW + ", with vector "+minW.collisionVec);
+				
 				Vec2D vec = new Vec2D(0,0);			
 				float x = Math.abs(minW.collisionVec.x);
 				float y = Math.abs(minW.collisionVec.y);
@@ -62,10 +64,15 @@ public class Collision {
 				}
 	
 				b.v.plusEqual(vec);
-				b.v.truncate(Config.MAX_SPEED[b.getType()]);
+				b.v.truncate(Config.MAX_SPEED[b.getType()] / 2);
 				b.a = new Vec2D(0, 0);
-				//b.a.plusEqual(vec);
 				
+				minW.collisionVec.drag(b.getSize()/2 + threshold + 1);
+				b.pos = minW.plus(minW.collisionVec);
+				
+				
+				
+				//b.a.plusEqual(vec);				
 			}
 		}
 	}
@@ -95,6 +102,9 @@ public class Collision {
 				v2.multiply((m2 - m1) / (m1 + m2)));
 		b1.v = new Vec2D(v11);
 		b2.v = new Vec2D(v22);
+		
+		//seperate them immediately
+		b1.pos = b2.pos.plus(b1.pos.minus(b2.pos).multiply(1.1f));
 		
 		b1.pos.plusEqual(b1.v.multiply((float) (1.0/Config.FRAME_RATE)));
 		b2.pos.plusEqual(b2.v.multiply((float) (1.0/Config.FRAME_RATE)));

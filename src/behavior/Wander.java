@@ -20,10 +20,9 @@ public class Wander {
 		//float ran = randomBinomial();
 		if(Config.canvas.frameCount % mod != 0) return;
 		
-		mod = (int)Math.random()*90 + 30;
+		mod = (int)Math.random()*90 + 60;
 		
 		float wanderOffset=40;
-
 		float wanderRadius=120;
 		float wanderRate=30f;
 

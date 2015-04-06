@@ -4,6 +4,7 @@ import main.Config;
 import behavior.Attack;
 import behavior.GetBuff;
 import behavior.Evade;
+import behavior.Hide;
 import behavior.Trace;
 import behavior.Wander;
 import environment.Boid;
@@ -60,7 +61,7 @@ public class DecisionTree {
 			break;
 			
 		case "hide":
-			//TODO
+			Hide.hide(b);
 			break;
 		}
 	}

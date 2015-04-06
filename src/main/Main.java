@@ -75,17 +75,19 @@ public class Main extends PApplet {
 			
 			//Evade.evade(boids.get(1), boids.get(0));
 			//Wander.wander(boids.get(0));
+			//Trace.trace(boids.get(0), boids.get(1));
 			//GetBuff.goBuff(boids.get(0), "blue");
+			
 			for(int i=0;i<boids.size();i++) {
 				Boid b = boids.get(i);
-				/*//
+				///*//
 				if(boids.size()>1) 
 					Attack.goAttack(boids.get(i), boids.get((i+1)%2));
 				else
 					Wander.wander(b);
 				//*/
 				//if(frameCount % 10 == 1)
-				DecisionTree.PerformDecision(b);
+				//DecisionTree.PerformDecision(b);
 			}
 	
 			Collision.allCollision(boids);
@@ -159,6 +161,10 @@ public class Main extends PApplet {
 		//System.out.println("Key pressed: "+key);
 		if(key == ' ') {
 			pause = !pause;
+		}
+		
+		else if(key == 'v') {
+			Config.showVision = !Config.showVision;
 		}
 	}
 	

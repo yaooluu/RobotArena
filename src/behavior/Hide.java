@@ -12,11 +12,12 @@ public class Hide {
 		
 		return hidePos;
 	}
-	public static void evade(Boid b1,Vec2D hidePos)
+	public static void hide(Boid b1)
 	{		
 			//Steering behavior
 			Steering st=null;
-			st=Behavior.seek(b1, hidePos);	
+			st=Behavior.seek(b1, b1.findHide());	
 			Behavior.addAcc(b1, st);
+			
 	}
 }

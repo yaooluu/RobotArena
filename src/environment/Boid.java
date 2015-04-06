@@ -236,6 +236,10 @@ public class Boid {
 		return buff;
 	}
 	
+	public Vec2D findHide() {
+		return pos;
+	}
+	
 	public String toString() {
 		//return "Boid(id="+this.id+", team="+this.team+", type="+this.type+")";
 		return "Boid "+this.id;
