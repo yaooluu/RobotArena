@@ -141,6 +141,25 @@ public class World {
 		}
 		return true;
 	}
+
+	public static void detectFallOff(List<Boid> boids) {
+		List<Boid> tmpList = new ArrayList<Boid>();
+		for(Boid b : boids) {
+			boolean safe = true;
+			for (int i = 0; i < width; i++) {
+				for (int j = 0; j < height; j++) {
+					int pix = pixels[(int)b.pos.y * width + (int)b.pos.x];
+					if(RGB.isGrey(pix) == true) {
+						safe = false;
+					}
+				}
+				if(!safe) break;
+			}		
+			if(safe) tmpList.add(b);
+		}
+		boids = tmpList;
+		//System.out.println(boids);
+	}
 }
 
 /*

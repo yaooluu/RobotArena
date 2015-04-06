@@ -32,7 +32,7 @@ public class Collision {
 	
 	//physical collision between boid and walls
 	private static void worldCollision(List<Boid> boids) {
-		float factor = 1.0f;
+		float factor = 1.1f;
 		for(Boid b : boids) {
 			
 			Wall minW = null;
