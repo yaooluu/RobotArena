@@ -1,6 +1,7 @@
 package decisionmaking;
 
 import main.Config;
+import main.Main;
 import environment.Boid;
 
 public class DecisionTree {
@@ -11,7 +12,8 @@ public class DecisionTree {
 		String decision = b.curBehavior;
 		
 		//if don't have current behavior, generate one
-		if(decision.equals("")) {
+		if(decision.equals("") || 
+				(b.curEnemy != null && !Main.getBoids().contains(b.curEnemy))) {
 			decision = DecisionTree.makeDecision(b,1);
 			
 			b.curEnemy = b.getVisibleEnemy();
