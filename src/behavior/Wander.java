@@ -53,9 +53,13 @@ public class Wander {
 		//collision avoidance
 		st=Behavior.collisionAvoid(boid);
 		Behavior.addAcc(boid, st);
+		
+		//behavior finished (wander) (test)
+		boid.wanderChangeCount++;
+		if(boid.curBehavior.equals("wander") && boid.wanderChangeCount > 1) {
+			boid.wanderChangeCount = 0;
+			boid.curBehavior = "";
+		}
 	}
 	
-	public static void wander2(Boid b) {
-		
-	}
 }

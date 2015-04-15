@@ -1,51 +1,57 @@
 package decisionmaking;
 
 import main.Config;
-import behavior.Attack;
-import behavior.GetBuff;
-import behavior.Evade;
-import behavior.Hide;
-import behavior.Trace;
-import behavior.Wander;
 import environment.Boid;
 
 public class DecisionTree {
 
 	public static void PerformDecision(Boid b){
-		Boid enemy = b.getVisibleEnemy() != null ? b.getVisibleEnemy() : b
-				.getAudibleEnemy();
+		Boid enemy = null;
 		
-		String decision = DecisionTree.makeDecision(b,1);
+		//if has current behavior, maintain it
+		String decision = b.curBehavior;
+		
+		//if don't have current behavior, generate one
+		if(decision.equals("")) {
+			decision = DecisionTree.makeDecision(b,1);
+			
+			enemy = b.getVisibleEnemy();
+			if(enemy == null)
+				enemy = b.getAudibleEnemy();
+		
+			System.out.println(b + " desicion: " + decision);
+		}
 		
 		//debug
 		//if(Config.canvas.frameCount % 60 == 1) 
-		System.out.println(b + " desicion: " + decision);
+		//System.out.println(b + " desicion: " + decision);
 		
 		switch (decision) {
 		case "attack":
-			Attack.goAttack(b, enemy);
+			if(enemy != null)
+				b.attack(enemy);
 			break;
 
 		case "evade":
-			Evade.evade(b, enemy);
+			if(enemy != null)
+				b.evade(enemy);
 			break;
 
 		case "redbuff":
-			GetBuff.goBuff(b, "red");
-			//Wander.wander(b);
+			b.getBuff("red");
 			break;
 			
 		case "bluebuff":
-			GetBuff.goBuff(b, "blue");
-			//Wander.wander(b);
+			b.getBuff("blue");
 			break;
 			
 		case "trace":
-			Trace.trace(b, enemy);
+			if(enemy != null)
+				b.trace(enemy);
 			break;
 			
 		case "wander":
-			Wander.wander(b);
+			b.wander();
 			break;
 			
 		case "lure":
@@ -61,7 +67,7 @@ public class DecisionTree {
 			break;
 			
 		case "hide":
-			Hide.hide(b);
+			b.hide();
 			break;
 		}
 	}

@@ -1,6 +1,8 @@
 package environment;
 
-import java.util.LinkedList;
+import java.util.*;
+
+import behavior.*;
 import main.*;
 import physics.*;
 import processing.core.PApplet;
@@ -22,6 +24,8 @@ public class Boid {
 	
 	//offensive, defensive
 	public int status = 1;
+	public String curBehavior = "";
+	public int wanderChangeCount = 0;
 	
 	public float wanderOrientation = 0;
 	public boolean isRotate = true;
@@ -247,6 +251,38 @@ public class Boid {
 		return "Boid "+this.id;
 	}
 	
+	/* #########################  Boid Behaviors   ######################### */
+	public void attack(Boid enemy) {
+		curBehavior = "attack";
+		Attack.goAttack(this, enemy);
+	}
+	
+	public void evade(Boid enemy) {
+		curBehavior = "evade";
+		Evade.evade(this, enemy);
+	}
+	
+	public void getBuff(String type) {
+		curBehavior = "redBuff";
+		if(type.equals("blue"))
+			curBehavior = "blueBuff";
+		GetBuff.goBuff(this, type);
+	}
+	
+	public void trace(Boid enemy) {
+		curBehavior = "trace";
+		Trace.trace(this, enemy);
+	}
+	
+	public void wander() {
+		curBehavior = "wander";
+		Wander.wander(this);
+	}
+	
+	public void hide() {
+		curBehavior = "hide";
+		Hide.hide(this);
+	}
 	
 	//split bread crumbs:
 	class Breadcrumbs{

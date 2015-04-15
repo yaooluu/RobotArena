@@ -12,9 +12,13 @@ public class Attack {
 	//current version
 	public static void goAttack(Boid b1,Boid b2)
 	{		
-			//Steering behavior
-			st=Behavior.seek(b1, b2.pos);
-			Behavior.changeAcc(b1, st);
+		//behavior finish (attack)
+		//implemented in Collision.java
+		
+		//Steering behavior
+		st=Behavior.seek(b1, b2.pos);
+		Behavior.changeAcc(b1, st);
+		
 	}
 	
 }

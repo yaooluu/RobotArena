@@ -32,8 +32,7 @@ public class Main extends PApplet {
 		boids = new ArrayList<Boid>();
 		
 		environment=loadImage("../src/environment/GE.png");
-		
-		
+			
 		graph = World.createGraphFromImage(this);
 		
 		size(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
@@ -48,8 +47,7 @@ public class Main extends PApplet {
 				Boid b = new Boid(100+400*i, 20*(j+1), 90+180*i, i, Config.BOID_TYPE.scout, id);	
 				boids.add(b);
 			}			
-		}//*/
-		
+		}//*/	
 
 		boids.add(new Boid(100, 150, 90, 0, Config.BOID_TYPE.scout, 1));
 		boids.add(new Boid(100, 250, 90, 0, Config.BOID_TYPE.soldier, 2));
@@ -64,44 +62,20 @@ public class Main extends PApplet {
 	public void draw() {	
 		//pause game when pressed space bar
 		if(pause == false) {
-			
 			background(255);
 			smooth(8);
 			
 			drawEnvironment();
 			
-			if(mouseVec != null)
-			{
-				//Behavior.addAcc(boids.get(0), Behavior.seek(boids.get(0), mouseVec));
-				//Behavior.changeAcc(boids.get(0), Behavior.arrive(boids.get(0), mouseVec));
-			}
-			
-
-			//Attack.goAttack(boids.get(0), boids.get(1));
-			//Attack.goAttack(boids.get(1), boids.get(0));
-
-			
-		//Evade.evade(boids.get(1), boids.get(0));
-			Wander.wander(boids.get(0));
-			//Trace.trace(boids.get(0), boids.get(1));
-//			GetBuff.goBuff(boids.get(0), "blue");
+			/* if(mouseVec != null) {}*/
 			
 			for(int i=0;i<boids.size();i++) {
 				Boid b = boids.get(i);
 
-				/*//
-				if(boids.size()>1) 
-					Attack.goAttack(boids.get(i), boids.get((i+1)%2));
-				else
-					Wander.wander(b);
-				//*/
-
-				//if(frameCount % 120 == 0)
-				if(frameCount % mod != 0) continue;
+				//if(frameCount % mod != 0) continue;
+				//mod = (int)Math.random()*90 + 30;
 				
-				mod = (int)Math.random()*90 + 30;
 				DecisionTree.PerformDecision(b);
-
 			}
 	
 			Collision.allCollision(boids);
@@ -109,7 +83,6 @@ public class Main extends PApplet {
 			
 			for(Boid b : boids) {
 				b.addBreadcrumb();
-
 				//b.showBreadcrumbs();
 
 				Behavior.update2(b);

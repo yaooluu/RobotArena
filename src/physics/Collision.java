@@ -93,6 +93,10 @@ public class Collision {
 		if (distance > (b1.getSize() + b2.getSize()) / 2)
 			return;
 		
+		//behavior finish (attack)
+		if(b1.curBehavior.equals("attack")) b1.curBehavior = "";
+		if(b2.curBehavior.equals("attack")) b2.curBehavior = "";
+		
 		float m1 = b1.getMass();
 		float m2 = b2.getMass();
 		Vec2D v1 = b1.v;

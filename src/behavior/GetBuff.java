@@ -17,7 +17,11 @@ public class GetBuff {
 					Behavior.changeAcc(b1, st);
 					st=Behavior.arrive(b1, b1.getRedBuff());
 				}
-					
+				else {
+					//behavior finish (redBuff)
+					if(b1.curBehavior.equals("redBuff"))
+						b1.curBehavior = "";
+				}
 			}
 			else if(type.equals("blue"))
 			{
@@ -26,6 +30,11 @@ public class GetBuff {
 					st=Behavior.seek(b1, b1.getBlueBuff());	
 					Behavior.changeAcc(b1, st);
 					st=Behavior.arrive(b1, b1.getBlueBuff());
+				}
+				else {
+					//behavior finish (blueBuff)
+					if(b1.curBehavior.equals("blueBuff"))
+						b1.curBehavior = "";
 				}
 					
 			}
@@ -36,6 +45,5 @@ public class GetBuff {
 				b1.a=b1.a.multiply(0f);
 				b1.v=b1.v.multiply(0f);
 			}
-					
 	}
 }
