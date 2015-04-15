@@ -34,6 +34,9 @@ public class Behavior {
 		Vec2D newTarget = PathLibrary.getNextTarget(boid.pos, targetPos);
 		if(newTarget != null) targetPos = newTarget;
 		
+		//System.out.println("Seeking: "+targetPos); 
+		Config.canvas.ellipse(targetPos.x, targetPos.y, 10, 10);
+		
 		st=new Steering();
 		//Steering behavior
 		st.a=targetPos.minus(boid.pos);
@@ -274,7 +277,7 @@ public class Behavior {
 		Vec2D avoidVec=new Vec2D(0,0);
 		for(Boid b : boids) {
 
-			avoidDist=b.getSize()/4;
+			avoidDist=b.getSize()/2;
 			avoidVec=new Vec2D(0,0);
 			for(Border w : World.getBorders()) {
 				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
