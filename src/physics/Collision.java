@@ -33,47 +33,49 @@ public class Collision {
 	
 	//physical collision between boid and walls
 	private static void worldCollision(List<Boid> boids) {
-		float factor = 1.1f, threshold = 2;
+		float threshold = 2;
+		
 		for(Boid b : boids) {
 			
-			Wall minW = null;
+			Wall nearestWall = null;
 			float minD = Integer.MAX_VALUE;
 			for(Wall w : World.getWalls()) {	
 				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
 				if(dist < minD && dist < b.getSize()/2.0 + threshold) {							
 					minD = dist;
-					minW = w;
+					nearestWall = w;
 				}
 			}			
 			
-			if(minW != null) {
-				//b.isHittingWall = true;
+			if(nearestWall != null) {
 				//System.out.println("Colliding at "+minW + ", with vector "+minW.collisionVec);
+				float factor = 1.0f;
 				
 				Vec2D vec = new Vec2D(0,0);			
-				float x = Math.abs(minW.collisionVec.x);
-				float y = Math.abs(minW.collisionVec.y);
+				float x = Math.abs(nearestWall.collisionVec.x);
+				float y = Math.abs(nearestWall.collisionVec.y);
 				if(x < 0.1 && y > 0.9) {
-					vec = minW.collisionVec.multiply(Math.abs(b.v.y) * factor);
+					vec = nearestWall.collisionVec.multiply(Math.abs(b.v.y) * factor);
 				}
 				else if(y < 0.1 && x > 0.9) {
-					vec = minW.collisionVec.multiply(Math.abs(b.v.x) * factor);
+					vec = nearestWall.collisionVec.multiply(Math.abs(b.v.x) * factor);
 				}
 				else {
-					minW.collisionVec.truncate(.1f);
-					vec = minW.collisionVec.multiply(b.v.getLength() * factor);
+					//nearestWall.collisionVec.truncate(.1f);
+					//vec = nearestWall.collisionVec.multiply(b.v.getLength() * factor);
+					vec = b.pos.multiply(1);
 				}
 	
 				b.v.plusEqual(vec);
 				b.v.truncate(Config.MAX_SPEED[b.getType()]);
+				b.v = b.v.multiply(0.2f);
+				
 				b.a = new Vec2D(0, 0);
 				
-				minW.collisionVec.drag(b.getSize()/2 + threshold + 1);
-				b.pos = minW.plus(minW.collisionVec);
+				nearestWall.collisionVec.drag(b.getSize()/2 + threshold + 1);
+				b.pos = nearestWall.plus(nearestWall.collisionVec.multiply(1.1f));
 				
-				
-				
-				//b.a.plusEqual(vec);				
+								
 			}
 		}
 	}

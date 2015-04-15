@@ -230,7 +230,7 @@ public class Boid {
 	
 	private Vec2D getBuff(int type) {
 		float range = Integer.MAX_VALUE;
-		Vec2D buff = new Vec2D(pos.x+1, pos.y+1);
+		Vec2D buff = new Vec2D(pos.x, pos.y);
 		
 		for(Buff b : World.getBuffs()) {
 			if(b.getType() != type || b.countdown > 0) continue;
@@ -265,9 +265,9 @@ public class Boid {
 	}
 	
 	public void getBuff(String type) {
-		curBehavior = "redBuff";
+		curBehavior = "redbuff";
 		if(type.equals("blue"))
-			curBehavior = "blueBuff";
+			curBehavior = "bluebuff";
 		GetBuff.goBuff(this, type);
 	}
 	

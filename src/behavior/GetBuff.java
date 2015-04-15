@@ -5,45 +5,50 @@ import environment.Boid;
 
 public class GetBuff {
 //current version
-	public static void goBuff(Boid b1, String type)
+	public static void goBuff(Boid b, String type)
 	{		
 			//Steering behavior
 			Steering st=null;
 			if(type.equals("red"))
 			{
-				if(b1.getRedBuff()!=null)
+				if(b.getRedBuff().minus(b.pos).getLength() > 2)
 				{
-					st=Behavior.seek(b1, b1.getRedBuff());	
-					Behavior.changeAcc(b1, st);
-					st=Behavior.arrive(b1, b1.getRedBuff());
+					st=Behavior.seek(b, b.getRedBuff());	
+					Behavior.changeAcc(b, st);
+					st=Behavior.arrive(b, b.getRedBuff());
 				}
 				else {
-					//behavior finish (redBuff)
-					if(b1.curBehavior.equals("redBuff"))
-						b1.curBehavior = "";
+					//behavior finish (redbuff)
+					if(b.curBehavior.equals("redbuff")) {
+						//System.out.println("Red got or missed.");
+						b.curBehavior = "";
+					}
 				}
 			}
 			else if(type.equals("blue"))
 			{
-				if(b1.getBlueBuff()!=null)
+				if(b.getBlueBuff().minus(b.pos).getLength() > 2)
 				{
-					st=Behavior.seek(b1, b1.getBlueBuff());	
-					Behavior.changeAcc(b1, st);
-					st=Behavior.arrive(b1, b1.getBlueBuff());
+					st=Behavior.seek(b, b.getBlueBuff());	
+					Behavior.changeAcc(b, st);
+					st=Behavior.arrive(b, b.getBlueBuff());
 				}
 				else {
-					//behavior finish (blueBuff)
-					if(b1.curBehavior.equals("blueBuff"))
-						b1.curBehavior = "";
+					//behavior finish (bluebuff)
+					if(b.curBehavior.equals("bluebuff")) {
+						//System.out.println("Blue got or missed.");
+						b.curBehavior = "";
+					}
 				}
 					
 			}
-			b1.a=st.a;
-			b1.a.truncate(Config.MAX_LINACC[b1.getType()]);
+			if(st == null) return;
+			b.a=st.a;
+			b.a.truncate(Config.MAX_LINACC[b.getType()]);
 			if(st.a.getLength()<=0.01f)
 			{
-				b1.a=b1.a.multiply(0f);
-				b1.v=b1.v.multiply(0f);
+				b.a=b.a.multiply(0f);
+				b.v=b.v.multiply(0f);
 			}
 	}
 }
