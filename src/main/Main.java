@@ -74,8 +74,8 @@ public class Main extends PApplet {
 
 				//if(frameCount % mod != 0) continue;
 				//mod = (int)Math.random()*90 + 30;
-				
-				DecisionTree.PerformDecision(b);
+				b.wander();
+				//DecisionTree.PerformDecision(b);
 			}
 	
 			Collision.allCollision(boids);

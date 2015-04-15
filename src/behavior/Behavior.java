@@ -274,7 +274,7 @@ public class Behavior {
 		Vec2D avoidVec=new Vec2D(0,0);
 		for(Boid b : boids) {
 
-			avoidDist=b.getSize()/4;
+			avoidDist=b.getSize()/2;
 			avoidVec=new Vec2D(0,0);
 			for(Border w : World.getBorders()) {
 				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
