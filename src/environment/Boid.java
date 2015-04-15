@@ -22,6 +22,8 @@ public class Boid {
 	public Vec2D a = new Vec2D(0,0);
 	public float ar = 0;
 	
+	public Boid curEnemy = null;
+	
 	//offensive, defensive
 	public int status = 1;
 	public String curBehavior = "";

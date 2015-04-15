@@ -6,7 +6,6 @@ import environment.Boid;
 public class DecisionTree {
 
 	public static void PerformDecision(Boid b){
-		Boid enemy = null;
 		
 		//if has current behavior, maintain it
 		String decision = b.curBehavior;
@@ -15,9 +14,9 @@ public class DecisionTree {
 		if(decision.equals("")) {
 			decision = DecisionTree.makeDecision(b,1);
 			
-			enemy = b.getVisibleEnemy();
-			if(enemy == null)
-				enemy = b.getAudibleEnemy();
+			b.curEnemy = b.getVisibleEnemy();
+			if(b.curEnemy == null)
+				b.curEnemy = b.getAudibleEnemy();
 		
 			System.out.println(b + " desicion: " + decision);
 		}
@@ -28,13 +27,13 @@ public class DecisionTree {
 		
 		switch (decision) {
 		case "attack":
-			if(enemy != null)
-				b.attack(enemy);
+			if(b.curEnemy != null)
+				b.attack(b.curEnemy);
 			break;
 
 		case "evade":
-			if(enemy != null)
-				b.evade(enemy);
+			if(b.curEnemy != null)
+				b.evade(b.curEnemy);
 			break;
 
 		case "redbuff":
@@ -46,8 +45,8 @@ public class DecisionTree {
 			break;
 			
 		case "trace":
-			if(enemy != null)
-				b.trace(enemy);
+			if(b.curEnemy != null)
+				b.trace(b.curEnemy);
 			break;
 			
 		case "wander":
