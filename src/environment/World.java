@@ -189,6 +189,32 @@ public class World {
 		}
 		boids.removeAll(tmpList);
 	}
+
+	public static void updateShelterStatus(List<Boid> boids) {
+		//update shelter taken status
+		for(Shelter s : shelters) {
+			boolean taken = false;			
+			for(Boid b : boids) {
+				if(s.minus(b.pos).getLength() < 5) {
+					taken = true;
+					break;
+				}
+			}
+			s.isTaken = taken;
+		}
+		
+		//updata boid hiding status
+		for(Boid b : boids) {
+			int curShelter = -1;
+			for(int i=0;i<shelters.size();i++) {
+				if(shelters.get(i).minus(b.pos).getLength() < 5) {
+					curShelter = i;
+					break;
+				}
+			}
+			b.curShelter = curShelter;
+		}
+	}
 }
 
 /*

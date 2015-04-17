@@ -15,16 +15,17 @@ public class Hide {
 	}*/
 	public static void hide(Boid b1)
 	{		
-		Vec2D shelterPos = b1.findHide();
+		Vec2D shelter = b1.findHide();
+		
 		//behavior finish (hide)
-		if(b1.pos.minus(shelterPos).getLength() < 5) {
+		if(shelter == null || b1.pos.minus(shelter).getLength() < 5) {
 			if(b1.curBehavior.equals("hide"))
 				b1.curBehavior = "";
 		}
 		
 		//Steering behavior
 		Steering st=null;
-		st=Behavior.seek(b1, shelterPos);	
+		st=Behavior.seek(b1, shelter);	
 		Behavior.addAcc(b1, st);
 			
 	}
