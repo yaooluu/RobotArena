@@ -38,7 +38,8 @@ public class Wander {
 		
 		
 		target.x=(float) (boid.pos.x+wanderOffset*Math.sin(Math.toRadians(boid.r)));
-		target.y=(float) (boid.pos.y+wanderOffset*Math.cos(Math.toRadians(boid.r)));
+		//orientation's coordinate is not the same as the canvas, so here should use minus instead of plus
+		target.y=(float) (boid.pos.y-wanderOffset*Math.cos(Math.toRadians(boid.r)));
 		
 		target.x+=wanderRadius*Math.sin(Math.toRadians(targetOrientation));
 		target.y+=wanderRadius*Math.cos(Math.toRadians(targetOrientation));

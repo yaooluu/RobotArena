@@ -27,6 +27,9 @@ public class Main extends PApplet {
 	private boolean pause = false;
 	private static int mod = 1;
 	
+	
+	//player
+	private Player player;
 	public void setup() {
 		Config.canvas = this;
 		boids = new ArrayList<Boid>();
@@ -56,7 +59,7 @@ public class Main extends PApplet {
 		//boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
 		//boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
 		//boids.add(new Boid(700, 400, 270, 1, Config.BOID_TYPE.tank, 6));
-
+		player=new Player(100, 250, 90, 0, Config.BOID_TYPE.scout, 1);
 	}
 	
 	public void draw() {	
@@ -89,7 +92,9 @@ public class Main extends PApplet {
 					}
 				//DecisionTree.PerformDecision(b);
 			}
-	
+			player.move();
+			player.b.draw();
+			//boids.add(player.b);
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
 			
@@ -97,8 +102,8 @@ public class Main extends PApplet {
 				//b.addBreadcrumb();
 				//b.showBreadcrumbs();
 
-				Behavior.update2(b);
-				b.draw();
+				if(b!=player.b){Behavior.update2(b);
+				b.draw();}
 			}
 			
 			World.detectFallOff(boids);
