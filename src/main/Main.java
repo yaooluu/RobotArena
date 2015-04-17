@@ -29,6 +29,8 @@ public class Main extends PApplet {
 	
 	//player
 	private Player player;
+	public static boolean[] arrowKeys = new boolean[4];
+	
 	public void setup() {
 		Config.canvas = this;
 		boids = new ArrayList<Boid>();
@@ -58,8 +60,7 @@ public class Main extends PApplet {
 		//boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
 		//boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
 		//boids.add(new Boid(700, 400, 270, 1, Config.BOID_TYPE.tank, 6));
-		//player=new Player(100, 250, 90, 0, Config.BOID_TYPE.scout, 1);
-		//boids.add(player.b);
+		player=new Player(boids.get(0));
 	}
 	
 	public void draw() {	
@@ -74,8 +75,8 @@ public class Main extends PApplet {
 			{
 				mouseVec = new Vec2D(mouseX, mouseY);
 				
-				//for(Boid b : boids)
-					//b.curPath.clear();
+				for(Boid b : boids)
+					b.curPath.clear();
 				
 			}
 			if(mouseVec!=null)ellipse(mouseVec.x, mouseVec.y, 30, 30);
@@ -88,16 +89,14 @@ public class Main extends PApplet {
 				//mod = (int)Math.random()*90 + 30;
 				//if(i==0)b.wander();
 				if(mouseVec!=null)
-					{
 					Attack.goAttack(b, mouseVec);
 					
-					}
 				//DecisionTree.PerformDecision(b);
 			}
-			//player.move();
+			player.move();
 			//player.b.draw();
 			
-			//player.controlTeam(boids);
+		 	//player.controlTeam(boids);
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
 
@@ -105,8 +104,8 @@ public class Main extends PApplet {
 				//b.addBreadcrumb();
 				//b.showBreadcrumbs();
 
-				//if(b!=player.b){Behavior.update2(b);}
-				Behavior.update2(b);
+				if(b!=player.b){Behavior.update2(b);}
+				//Behavior.update2(b);
 				b.draw();
 				
 				//if(b.curBehavior.equals(""))
@@ -181,6 +180,33 @@ public class Main extends PApplet {
 		
 		else if(key == 'v') {
 			Config.showVision = !Config.showVision;
+		}
+		
+		else if(key == PApplet.CODED) {
+			if(keyCode == UP)
+				arrowKeys[0] = true;
+			if(keyCode == DOWN)
+				arrowKeys[1] = true;
+			if(keyCode == LEFT) {System.out.println("Left pressed.");
+				arrowKeys[2] = true;
+			}
+			if(keyCode == RIGHT){System.out.println("Right pressed.");
+				arrowKeys[3] = true;
+			}
+		}
+		
+	}
+	
+	public void keyReleased() {
+		if(key == PApplet.CODED) {
+			if(keyCode == UP)
+				arrowKeys[0] = false;
+			if(keyCode == DOWN)
+				arrowKeys[1] = false;
+			if(keyCode == LEFT)
+				arrowKeys[2] = false;
+			if(keyCode == RIGHT)
+				arrowKeys[3] = false;
 		}
 	}
 	

@@ -13,16 +13,53 @@ public class Player {
 	
 	private PApplet canvas = null;
 	
+	/*
 	Player(float x, float y, float r, int team, Config.BOID_TYPE type, int id)
 	{
 		b=new Boid(x, y, r, team, type, id);
 		canvas=Config.canvas;
+	}*/
+	
+	Player(Boid b) {
+		this.b = b;
+		canvas = Config.canvas;
 	}
+	
+	void move()
+	{
+		b.r%=360;
+		if(Main.arrowKeys[0]) {		//acceleration		
+			b.a.x=(float)Math.sin(Math.toRadians(b.r));
+			b.a.y=-(float)Math.cos(Math.toRadians(b.r));
+			b.a.drag(Config.MAX_LINACC[b.getType()]);			
+			b.vr=0;
+			Behavior.update(b);			
+		}
+		if(Main.arrowKeys[2]) {	//counter clockwise rotate
+			//System.out.println("Left.");
+			b.vr=-Config.MAX_ANGACC[b.getType()];	
+			b.v=b.v.multiply(0f);
+			b.a=b.a.multiply(0f);
+			Behavior.update(b);
+			
+		}
+		if(Main.arrowKeys[3]) {	//clockwise rotate 	
+			//System.out.println("Right.");
+			b.vr=Config.MAX_ANGACC[b.getType()];	
+			b.v=b.v.multiply(0f);
+			b.a=b.a.multiply(0f);
+			Behavior.update(b);			
+		}
+	}
+	
+	
+	/*
 	void move()
 	{
 		if(canvas.keyPressed)
 		{
-			b.r%=360;
+			//System.out.println("In key Pressed function.");
+			//b.r%=360;
 
 			if(canvas.key == canvas.CODED)
 			{
@@ -60,7 +97,7 @@ public class Player {
 		}
 		
 	}
-	
+	*/
 	void controlTeam(List<Boid> boids)
 	{
 		if(canvas.keyPressed)
