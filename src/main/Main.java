@@ -77,7 +77,7 @@ public class Main extends PApplet {
 			}
 			if(mouseVec!=null)ellipse(mouseVec.x, mouseVec.y, 20, 20);
 			/* if(mouseVec != null) {}*/
-			/*
+			///*
 			for(int i=0;i<boids.size();i++) {
 				Boid b = boids.get(i);
 				
@@ -90,13 +90,13 @@ public class Main extends PApplet {
 				//if(mouseVec!=null)
 					//Attack.goAttack(b, mouseVec);
 				
-				//if(b != player.b)
-				//DecisionTree.PerformDecision(b);
-			}*/
+				if(b != player.b)
+				DecisionTree.PerformDecision(b);
+			}//*/
 			
 			//Trace.trace(boids.get(1), player.b);
 			//boids.get(1).trace(player.b);
-			boids.get(1).getBuff("blue");
+			//boids.get(3).getBuff("red");
 			player.move();
 			//player.b.draw();
 			

@@ -27,7 +27,7 @@ public class Player {
 	
 	void move()
 	{
-		b.r%=360;
+		//b.r%=360;
 		
 		//acceleration
 		if(Main.arrowKeys[0]) {				

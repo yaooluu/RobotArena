@@ -2,6 +2,7 @@ package behavior;
 
 import physics.Vec2D;
 import environment.Boid;
+import environment.World;
 
 public class Hide {
 	/*
@@ -16,6 +17,8 @@ public class Hide {
 	public static void hide(Boid b1)
 	{		
 		Vec2D shelter = b1.findHide();
+		if(b1.curShelter != -1)
+			shelter = World.getShelters().get(b1.curShelter);
 		
 		//behavior finish (hide)
 		if(shelter == null || b1.pos.minus(shelter).getLength() < 5) {
