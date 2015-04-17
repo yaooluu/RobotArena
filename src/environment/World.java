@@ -125,11 +125,13 @@ public class World {
 		return result;
 	}
 
+	//use 1-ray casting to detect accessible
 	public static boolean detectAccessible(Vec2D u, Vec2D v) {
 		int sampleRate = 100;
 		float dis = u.minus(v).getLength();
 		dis /= sampleRate;
 		for (int i = 0; i < sampleRate; i++) {
+			
 			Vec2D t = v.minus(u).getUnitVec().multiply(dis * i).plus(u);
 			int x = (int) (t.x);
 			int y = (int) (t.y);
@@ -139,6 +141,9 @@ public class World {
 					|| RGB.isGrey(pixels[y * width + x]) == true) { //white color
 				return false;
 			}
+			
+			//debug
+			Config.canvas.ellipse(t.x, t.y, 1.5f, 1.5f);
 		}
 		return true;
 	}
@@ -152,7 +157,7 @@ public class World {
 		
 		Vec2D offset = new Vec2D(x, y);
 		offset.truncate(1);
-		offset = offset.multiply(b.getSize()/2 + 3);
+		offset = offset.multiply(b.getSize()/2 + 5);
 				
 		boolean leftRay = detectAccessible(b.pos.plus(offset), v.plus(offset));
 		

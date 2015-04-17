@@ -146,7 +146,7 @@ public class Behavior {
 		{
 			rDistance+=360; 
 		}	
-		if(Math.abs(rDistance)<=8)
+		if(Math.abs(rDistance)<=2)
 		{
 			//boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
 			boid.a.truncate(Config.MAX_LINACC[boid.getType()]);
