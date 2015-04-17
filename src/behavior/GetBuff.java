@@ -42,13 +42,14 @@ public class GetBuff {
 				}
 					
 			}
+			/*
 			if(st == null) return;
-			b.a=st.a;
-			b.a.truncate(Config.MAX_LINACC[b.getType()]);
+			st.a.truncate(Config.MAX_LINACC[b.getType()]);
 			if(st.a.getLength()<=0.01f)
 			{
 				b.a=b.a.multiply(0f);
 				b.v=b.v.multiply(0f);
 			}
+			*/
 	}
 }
