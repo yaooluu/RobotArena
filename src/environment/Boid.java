@@ -97,6 +97,12 @@ public class Boid {
 			canvas.stroke(rgb.r, rgb.g, rgb.b);
 			canvas.strokeWeight(0.5f + faceWidth);
 		}
+		
+		
+		if(Config.drawBoidIds) {
+			canvas.fill(rgb.r, rgb.g, rgb.b);
+			canvas.text(id, pos.x + size / 2, pos.y - size / 2);
+		}
 				
 		canvas.pushMatrix();
 		canvas.translate(pos.x, pos.y);
@@ -122,7 +128,7 @@ public class Boid {
 		
 		//draw fuel here...
 		
-		if(Config.showVision == true) {
+		if(Config.drawBoidVision) {
 			canvas.strokeWeight(1.6f);
 			//draw boid's vision
 			float x1 = 0, y1 = 0, x2 = 50, y2 = -1*x2*Math.abs(PApplet.tan(vision/2));
@@ -244,7 +250,7 @@ public class Boid {
 				range = r;
 				buff = b;
 			}
-		};
+		}
 		return buff;
 	}
 	

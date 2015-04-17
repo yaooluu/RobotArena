@@ -20,7 +20,7 @@ public class DecisionTree {
 			if(b.curEnemy == null)
 				b.curEnemy = b.getAudibleEnemy();
 		
-			System.out.println(b + " desicion: " + decision);
+			System.out.println(b + ": " + decision);
 		}
 		
 		//debug

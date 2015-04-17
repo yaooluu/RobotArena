@@ -14,9 +14,6 @@ public class Config {
 	public static int TILE_SIZE = 2;
 	public static int MAX_FUEL = 100;
 	
-	//draw boid's vision and auditory on screen
-	public static boolean showVision = true;
-	
 	//buff countdown time (seconds)
 	public static int BUFF_COUNTDOWN = 15;
 	
@@ -41,9 +38,16 @@ public class Config {
 
 	public static float[] MAX_LINACC = 		{200, 100, 80, 100, 300};
 	public static float[] MAX_ANGACC = 		{5, 3, 1, 3, 3};
-	public static float[] MAX_SPEED =  		{300, 150, 100, 200, 150};
+	public static float[] MAX_SPEED =  		{200, 150, 100, 200, 150};
 
 	public static Color[] TEAM_COLORS = {Color.RED, Color.BLUE, Color.GREEN,
 										Color.MAGENTA, Color.ORANGE};
+
+	//debug parameters
+	public static boolean drawRayCasting = false;
+	public static boolean drawKeyPoints = true;
+	
+	public static boolean drawBoidVision = true;
+	public static boolean drawBoidIds = true;
 	
 }

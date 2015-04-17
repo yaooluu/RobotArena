@@ -144,7 +144,8 @@ public class World {
 			}
 			
 			//debug
-			Config.canvas.ellipse(t.x, t.y, 1.5f, 1.5f);
+			if(Config.drawRayCasting)
+				Config.canvas.ellipse(t.x, t.y, 1.5f, 1.5f);
 		}
 		return true;
 	}

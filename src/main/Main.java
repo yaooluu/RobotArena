@@ -33,10 +33,8 @@ public class Main extends PApplet {
 	
 	public void setup() {
 		Config.canvas = this;
-		boids = new ArrayList<Boid>();
-		
-		environment=loadImage("../src/environment/GameEnvironment.png");
-			
+		boids = new ArrayList<Boid>();	
+		environment=loadImage("../src/environment/GameEnvironment.png");			
 		graph = World.createGraphFromImage(this);
 		
 		size(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
@@ -57,7 +55,7 @@ public class Main extends PApplet {
 		//boids.add(new Boid(100, 250, 90, 0, Config.BOID_TYPE.soldier, 2));
 		//boids.add(new Boid(100, 350, 90, 0, Config.BOID_TYPE.tank, 3));
 		
-		//boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
+		boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
 		//boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
 		//boids.add(new Boid(700, 400, 270, 1, Config.BOID_TYPE.tank, 6));
 		player=new Player(boids.get(0));
@@ -67,23 +65,24 @@ public class Main extends PApplet {
 		//pause game when pressed space bar
 		if(pause == false) {
 			background(255);
-			smooth(8);
-			
+			smooth(8);		
 			drawEnvironment();
 			
 			if(this.mousePressed)
 			{
-				mouseVec = new Vec2D(mouseX, mouseY);
-				
+				mouseVec = new Vec2D(mouseX, mouseY);		
 				for(Boid b : boids)
 					b.curPath.clear();
 				
 			}
-			if(mouseVec!=null)ellipse(mouseVec.x, mouseVec.y, 30, 30);
+			if(mouseVec!=null)ellipse(mouseVec.x, mouseVec.y, 20, 20);
 			/* if(mouseVec != null) {}*/
 			
 			for(int i=0;i<boids.size();i++) {
 				Boid b = boids.get(i);
+				
+				if(b.curBehavior.equals(""))
+					b.curPath.clear();
 
 				//if(frameCount % mod != 0) continue;
 				//mod = (int)Math.random()*90 + 30;
@@ -93,6 +92,7 @@ public class Main extends PApplet {
 					
 				//DecisionTree.PerformDecision(b);
 			}
+			//boids.get(1).getBuff("red");
 			player.move();
 			//player.b.draw();
 			
@@ -179,20 +179,18 @@ public class Main extends PApplet {
 		}
 		
 		else if(key == 'v') {
-			Config.showVision = !Config.showVision;
+			Config.drawBoidVision = !Config.drawBoidVision;
 		}
 		
 		else if(key == PApplet.CODED) {
 			if(keyCode == UP)
 				arrowKeys[0] = true;
-			if(keyCode == DOWN)
+			else if(keyCode == DOWN)
 				arrowKeys[1] = true;
-			if(keyCode == LEFT) {System.out.println("Left pressed.");
+			else if(keyCode == LEFT)
 				arrowKeys[2] = true;
-			}
-			if(keyCode == RIGHT){System.out.println("Right pressed.");
+			else if(keyCode == RIGHT)
 				arrowKeys[3] = true;
-			}
 		}
 		
 	}
@@ -201,11 +199,11 @@ public class Main extends PApplet {
 		if(key == PApplet.CODED) {
 			if(keyCode == UP)
 				arrowKeys[0] = false;
-			if(keyCode == DOWN)
+			else if(keyCode == DOWN)
 				arrowKeys[1] = false;
-			if(keyCode == LEFT)
+			else if(keyCode == LEFT)
 				arrowKeys[2] = false;
-			if(keyCode == RIGHT)
+			else if(keyCode == RIGHT)
 				arrowKeys[3] = false;
 		}
 	}

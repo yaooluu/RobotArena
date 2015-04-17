@@ -1,7 +1,5 @@
 package pathfinding;
 
-import java.util.List;
-
 import environment.*;
 import main.*;
 import physics.*;
@@ -13,29 +11,26 @@ public class PathLibrary {
 		Graph graph = Main.getGraph();
 		
 		//debug, draw key points on path
-		for(int i=0;i<b.curPath.size();i++) {
-			Vec2D vec = graph.getNodePos(b.curPath.get(i));
-			//Config.canvas.fill(255,0,0);
-			Config.canvas.ellipse(vec.x, vec.y, 5, 5);
-			Config.canvas.text(b.curPath.get(i), vec.x + 3, vec.y - 3);
+		if(Config.drawKeyPoints) {
+			for(int i=0;i<b.curPath.size();i++) {
+				Vec2D vec = graph.getNodePos(b.curPath.get(i));
+				//Config.canvas.fill(255,0,0);
+				Config.canvas.ellipse(vec.x, vec.y, 5, 5);
+				Config.canvas.text(b.curPath.get(i), vec.x + 3, vec.y - 3);
+			}
 		}
 		
 		if(World.detectAccessible(b, targetPos) == true) {
-			if(b.curPath.size() > 0) 
-				b.curPath.clear();
+			//if(b.curPath.size() > 0) 
+				//b.curPath.clear();
 			return targetPos;
 		}
 
 		int start = World.quantize(b.pos);
 		int end = World.quantize(targetPos);
 		
-		if(b.curPath.size() == 0) {
-			//System.out.println("Recalculating path...");
-			b.curPath = PathFinding.AStar(graph, start, end);
-		}
+		b.curPath = PathFinding.AStar(graph, start, end);
 			
-		//System.out.println("Original Path:" + b.curPath);
-		
 		//filter key points, find the farthest reachable one
 		while(b.curPath.size() >= 2) {
 			Vec2D vec = graph.getNodePos(b.curPath.get(1));
@@ -44,11 +39,10 @@ public class PathLibrary {
 			else break;
 		}		
 
-		//System.out.println("Optimized Path:" + b.curPath);
-
 		return graph.getNodePos(b.curPath.get(0));
 	}
 
+	/*
 	public static Vec2D getNextTarget(Vec2D pos, Vec2D targetPos) {
 		//if(true) return null;
 		if(World.detectAccessible(pos, targetPos) == true) return targetPos;
@@ -83,5 +77,6 @@ public class PathLibrary {
 		//if(curSeek == end) return targetPos;
 		return graph.getNodePos(curSeek);
 	}
+	*/
 
 }
