@@ -74,8 +74,8 @@ public class Main extends PApplet {
 			{
 				mouseVec = new Vec2D(mouseX, mouseY);
 				
-				for(Boid b : boids)
-					b.curPath.clear();
+				//for(Boid b : boids)
+					//b.curPath.clear();
 				
 			}
 			if(mouseVec!=null)ellipse(mouseVec.x, mouseVec.y, 30, 30);
