@@ -23,18 +23,19 @@ public class Player {
 		if(canvas.keyPressed)
 		{
 			b.r%=360;
-			if(canvas.key == 'A' || canvas.key == 'a')
+
+			if(canvas.key == canvas.CODED)
 			{
-				//acceleration
-				b.a.x=(float)Math.sin(Math.toRadians(b.r));
-				b.a.y=-(float)Math.cos(Math.toRadians(b.r));
-				b.a.drag(Config.MAX_LINACC[b.getType()]);
-				
-				b.vr=0;
-				Behavior.update(b);
-			}
-			else if(canvas.key == canvas.CODED)
-			{
+				if(canvas.keyCode == canvas.UP)
+						{
+							//acceleration
+							b.a.x=(float)Math.sin(Math.toRadians(b.r));
+							b.a.y=-(float)Math.cos(Math.toRadians(b.r));
+							b.a.drag(Config.MAX_LINACC[b.getType()]);
+							
+							b.vr=0;
+							Behavior.update(b);
+						}
 	
 				if(canvas.keyCode == canvas.LEFT)
 				{
