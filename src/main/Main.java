@@ -84,16 +84,16 @@ public class Main extends PApplet {
 
 				//if(frameCount % mod != 0) continue;
 				//mod = (int)Math.random()*90 + 30;
-				//b.wander();
+				b.wander();
 				if(mouseVec!=null)
 					{
-					Attack.goAttack(b, mouseVec);
+//					Attack.goAttack(b, mouseVec);
 					
 					}
 				//DecisionTree.PerformDecision(b);
 			}
 			player.move();
-			player.b.draw();
+			//player.b.draw();
 			
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
@@ -102,8 +102,8 @@ public class Main extends PApplet {
 				//b.addBreadcrumb();
 				//b.showBreadcrumbs();
 
-				if(b!=player.b){Behavior.update2(b);
-				b.draw();}
+				if(b!=player.b){Behavior.update2(b);}
+				b.draw();
 			}
 			
 			World.detectFallOff(boids);
