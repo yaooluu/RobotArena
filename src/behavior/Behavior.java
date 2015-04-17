@@ -31,16 +31,16 @@ public class Behavior {
 		Vec2D goalPos;
 		goalPos=new Vec2D(targetPos);
 
-		Vec2D newTarget = PathLibrary.getNextTarget(boid.pos, targetPos);
+		Vec2D newTarget = PathLibrary.getNextTarget(boid, targetPos);
 		if(newTarget != null) targetPos = newTarget;
 		
-		System.out.println("Seeking: "+targetPos); 
+		//System.out.println("Seeking: "+targetPos); 
 		Config.canvas.ellipse(targetPos.x, targetPos.y, 10, 10);
 		
 		st=new Steering();
 		//Steering behavior
 		st.a=targetPos.minus(boid.pos);
-		System.out.println("Seeking: "+st.a.getLength()); 
+		//System.out.println("Seeking: "+st.a.getLength()); 
 		//clip velocity
 		st.a.truncate(Config.MAX_LINACC[boid.getType()]);
 		st.ar=0;

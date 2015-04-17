@@ -89,7 +89,7 @@ public class Vec2D {
 		//System.out.println("Getting angle between:" + v1 + " and "+ v2 +", with cosVal="+cosVal);
 		return (float) (Math.acos(cosVal) * 180.0 / Math.PI);
 	}
-
+	
 	public static float vecToR(Vec2D vec) {
 		if(vec.x == 0) {
 			if(vec.y > 0) return 180;

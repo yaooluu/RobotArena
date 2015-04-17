@@ -23,6 +23,7 @@ public class Boid {
 	public float ar = 0;
 	
 	public Boid curEnemy = null;
+	public List<Integer> curPath = new ArrayList<Integer>();
 	
 	//offensive, defensive
 	public int status = 1;
@@ -99,6 +100,9 @@ public class Boid {
 				
 		canvas.pushMatrix();
 		canvas.translate(pos.x, pos.y);
+
+		if(r > 180) r = r - 360;
+		if(r < -180) r = r + 360;
 		canvas.rotate(PApplet.radians(r));
 
 		//draw body lower

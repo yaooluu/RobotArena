@@ -74,6 +74,8 @@ public class Main extends PApplet {
 			{
 				mouseVec = new Vec2D(mouseX, mouseY);
 				
+				for(Boid b : boids)
+					b.curPath.clear();
 				
 			}
 			if(mouseVec!=null)ellipse(mouseVec.x, mouseVec.y, 30, 30);
@@ -105,6 +107,9 @@ public class Main extends PApplet {
 
 				if(b!=player.b){Behavior.update2(b);}
 				b.draw();
+				
+				//if(b.curBehavior.equals(""))
+					//b.curPath = null;
 			}
 			
 			World.detectFallOff(boids);

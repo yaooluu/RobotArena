@@ -142,6 +142,24 @@ public class World {
 		}
 		return true;
 	}
+	
+	public static boolean detectAccessible(Boid b, Vec2D v) {			 
+		float x = -1 * v.minus(b.pos).y;
+		float y = v.minus(b.pos).x;
+
+		boolean middleRay = detectAccessible(b.pos, v);
+		
+		Vec2D offset = new Vec2D(x, y);
+		offset.truncate(1);
+		offset = offset.multiply(b.getSize()/2 + 3);
+				
+		boolean leftRay = detectAccessible(b.pos.plus(offset), v.plus(offset));
+		
+		offset = offset.multiply(-1);
+		boolean rightRay = detectAccessible(b.pos.plus(offset), v.plus(offset));
+			
+		return (middleRay && leftRay && rightRay);
+	}
 
 	public static void detectFallOff(List<Boid> boids) {
 		List<Boid> tmpList = new ArrayList<Boid>();
