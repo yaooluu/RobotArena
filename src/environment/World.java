@@ -23,7 +23,10 @@ public class World {
 	//store buffs
 	private static List<Buff> buffs = new ArrayList<Buff>();
 	public static List<Buff> getBuffs() {return buffs;}
-	
+
+	//store hides
+	private static List<Shelter> shelters = new ArrayList<Shelter>();
+	public static List<Shelter> getShelters() {return shelters;}
 	
 	private static int[] pixels = null;
 	public static int[] getPixels() {return pixels;}
@@ -83,6 +86,11 @@ public class World {
 					buffs.add(new Buff(i,j,type));
 				}
 				
+				//scan and store shelter locations
+				if(RGB.isPurple(pix)) {
+					shelters.add(new Shelter(i,j));
+				}
+				
 			}
 		}
 
@@ -100,6 +108,7 @@ public class World {
 			}
 		System.out.println("Graph initialized with "+graph.order()+" nodes, " + graph.size()/2 + " edges.");
 		System.out.println("Found " + buffs.size() + " buffs on map.");
+		System.out.println("Found " + shelters.size() + " shelters on map.");
 		return graph;
 	}
 

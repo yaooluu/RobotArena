@@ -255,7 +255,18 @@ public class Boid {
 	}
 	
 	public Vec2D findHide() {
-		return pos;
+		float range = Integer.MAX_VALUE;
+		Vec2D shelter = pos;
+		for(Shelter s : World.getShelters()) {
+			if(s.isTaken) continue;
+			
+			float r = s.minus(this.pos).getLength();
+			if(r < range) {
+				range = r;
+				shelter = s;
+			}
+		}
+		return shelter;
 	}
 	
 	public String toString() {

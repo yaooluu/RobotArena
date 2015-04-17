@@ -21,7 +21,7 @@ public class RGB {
 		return new RGB(c.getRed(), c.getGreen(), c.getBlue());
 	}
 	
-	//color for blank space
+	//rgb(255,255,255)  for blank space
 	public static boolean isWhite(int rgb) {
 		if(Config.canvas.red(rgb) > 250 
 				&& Config.canvas.green(rgb) > 250
@@ -31,7 +31,7 @@ public class RGB {
 		else return false;
 	}
 	
-	//color(100,100,100) for wall 
+	//rgb(100,100,100) for wall 
 	public static boolean isBlack(int rgb) {
 		if(Math.abs(Config.canvas.red(rgb) - 100) < threshold 
 				&& Math.abs(Config.canvas.green(rgb) - 100) < threshold 
@@ -41,7 +41,7 @@ public class RGB {
 		else return false;
 	}
 	
-	//color(200,200,200) for border/trap
+	//rgb(200,200,200) for border/trap
 	public static boolean isGrey(int rgb) {
 		if(Math.abs(Config.canvas.red(rgb) - 200) < threshold 
 				&& Math.abs(Config.canvas.green(rgb) - 200) < threshold 
@@ -51,7 +51,7 @@ public class RGB {
 		else return false;
 	}
 	
-	//color(255,0,0) for red buff
+	//rgb(255,0,0) for red buff
 	public static boolean isRed(int rgb) {
 		if(Math.abs(Config.canvas.red(rgb) - 255) < threshold 
 				&& Math.abs(Config.canvas.green(rgb) - 0) < threshold 
@@ -61,7 +61,7 @@ public class RGB {
 		else return false;
 	}
 	
-	//color(0,0,255) for blue buff
+	//rgb(0,0,255) for blue buff
 	public static boolean isBlue(int rgb) {
 		if(Math.abs(Config.canvas.red(rgb) - 0) < threshold 
 				&& Math.abs(Config.canvas.green(rgb) - 0) < threshold 
@@ -71,11 +71,21 @@ public class RGB {
 		else return false;
 	}
 	
-	//color(0,255,0) for Dirichlet point
+	//rgb(0,255,0) for Dirichlet point
 	public static boolean isGreen(int rgb) {
 		if(Math.abs(Config.canvas.red(rgb) - 0) < threshold 
 				&& Math.abs(Config.canvas.green(rgb) - 255) < threshold 
 				&& Math.abs(Config.canvas.blue(rgb) - 0) < threshold) {
+			return true;
+		}
+		else return false;
+	}
+	
+	//rgb(255,0,255) for hide point
+	public static boolean isPurple(int rgb) {
+		if(Math.abs(Config.canvas.red(rgb) - 255) < threshold 
+				&& Math.abs(Config.canvas.green(rgb) - 0) < threshold 
+				&& Math.abs(Config.canvas.blue(rgb) - 255) < threshold) {
 			return true;
 		}
 		else return false;

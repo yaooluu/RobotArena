@@ -1,5 +1,6 @@
 package behavior;
 
+import physics.Vec2D;
 import environment.Boid;
 
 public class Hide {
@@ -14,15 +15,16 @@ public class Hide {
 	}*/
 	public static void hide(Boid b1)
 	{		
+		Vec2D shelterPos = b1.findHide();
 		//behavior finish (hide)
-		if(b1.pos.minus(b1.findHide()).getLength() < 5) {
+		if(b1.pos.minus(shelterPos).getLength() < 5) {
 			if(b1.curBehavior.equals("hide"))
 				b1.curBehavior = "";
 		}
 		
 		//Steering behavior
 		Steering st=null;
-		st=Behavior.seek(b1, b1.findHide());	
+		st=Behavior.seek(b1, shelterPos);	
 		Behavior.addAcc(b1, st);
 			
 	}
