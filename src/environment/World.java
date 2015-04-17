@@ -143,6 +143,7 @@ public class World {
 		return true;
 	}
 	
+	//use 3-ray casting to detect accessible
 	public static boolean detectAccessible(Boid b, Vec2D v) {			 
 		float x = -1 * v.minus(b.pos).y;
 		float y = v.minus(b.pos).x;
