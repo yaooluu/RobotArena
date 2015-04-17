@@ -34,7 +34,7 @@ public class Behavior {
 		Vec2D newTarget = PathLibrary.getNextTarget(boid.pos, targetPos);
 		if(newTarget != null) targetPos = newTarget;
 		
-		//System.out.println("Seeking: "+targetPos); 
+		System.out.println("Seeking: "+targetPos); 
 		Config.canvas.ellipse(targetPos.x, targetPos.y, 10, 10);
 		
 		st=new Steering();
