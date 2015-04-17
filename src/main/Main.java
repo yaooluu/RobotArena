@@ -52,7 +52,7 @@ public class Main extends PApplet {
 		}//*/	
 
 		boids.add(new Boid(100, 150, 90, 0, Config.BOID_TYPE.scout, 1));
-		//boids.add(new Boid(100, 250, 90, 0, Config.BOID_TYPE.soldier, 2));
+		boids.add(new Boid(100, 250, 90, 0, Config.BOID_TYPE.soldier, 2));
 		//boids.add(new Boid(100, 350, 90, 0, Config.BOID_TYPE.tank, 3));
 		
 		//boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
@@ -84,7 +84,7 @@ public class Main extends PApplet {
 
 				//if(frameCount % mod != 0) continue;
 				//mod = (int)Math.random()*90 + 30;
-				b.wander();
+				if(i==0)b.wander();
 				if(mouseVec!=null)
 					{
 //					Attack.goAttack(b, mouseVec);
@@ -95,6 +95,7 @@ public class Main extends PApplet {
 			player.move();
 			//player.b.draw();
 			
+			player.controlTeam(boids);
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
 

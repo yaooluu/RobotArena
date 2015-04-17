@@ -1,5 +1,7 @@
 package main;
 
+import java.util.List;
+import behavior.Attack;
 import behavior.Behavior;
 import physics.Vec2D;
 import processing.core.PApplet;
@@ -56,6 +58,53 @@ public class Player {
 			}
 		}
 		
+	}
+	
+	void controlTeam(List<Boid> boids)
+	{
+		if(canvas.keyPressed)
+		{
+			System.out.println(canvas.key);
+			switch(canvas.key)
+			{
+			case '1':
+				
+				if(canvas.mousePressed)
+				{
+					Vec2D target = new Vec2D(canvas.mouseX, canvas.mouseY);				
+					Attack.goAttack(boids.get(0), target);
+				}
+				break;		
+			case '2':
+				if(canvas.mousePressed)
+				{
+					Vec2D target = new Vec2D(canvas.mouseX, canvas.mouseY);				
+					Attack.goAttack(boids.get(1), target);
+				}
+				break;	
+			case '3':
+				if(canvas.mousePressed)
+				{
+					Vec2D target = new Vec2D(canvas.mouseX, canvas.mouseY);				
+					Attack.goAttack(boids.get(2), target);
+				}
+				break;	
+			case '4':
+				if(canvas.mousePressed)
+				{
+					Vec2D target = new Vec2D(canvas.mouseX, canvas.mouseY);				
+					Attack.goAttack(boids.get(3), target);
+				}
+				break;	
+			case '5':
+				if(canvas.mousePressed)
+				{
+					Vec2D target = new Vec2D(canvas.mouseX, canvas.mouseY);				
+					Attack.goAttack(boids.get(4), target);
+				}
+				break;	
+			}
+		}
 	}
 	
 }
