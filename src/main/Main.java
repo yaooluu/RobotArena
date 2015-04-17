@@ -52,12 +52,12 @@ public class Main extends PApplet {
 		}//*/	
 
 		boids.add(new Boid(100, 150, 90, 0, Config.BOID_TYPE.scout, 1));
-		//boids.add(new Boid(100, 250, 90, 0, Config.BOID_TYPE.soldier, 2));
-		//boids.add(new Boid(100, 350, 90, 0, Config.BOID_TYPE.tank, 3));
+		boids.add(new Boid(100, 250, 90, 0, Config.BOID_TYPE.soldier, 2));
+		boids.add(new Boid(100, 350, 90, 0, Config.BOID_TYPE.tank, 3));
 		
 		boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
-		//boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
-		//boids.add(new Boid(700, 400, 270, 1, Config.BOID_TYPE.tank, 6));
+		boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
+		boids.add(new Boid(700, 400, 270, 1, Config.BOID_TYPE.tank, 6));
 		player=new Player(boids.get(0));
 	}
 	
@@ -89,8 +89,9 @@ public class Main extends PApplet {
 				//if(i==0)b.wander();
 				if(mouseVec!=null)
 					Attack.goAttack(b, mouseVec);
-					
-				//DecisionTree.PerformDecision(b);
+				
+				if(b != player.b)
+				DecisionTree.PerformDecision(b);
 			}
 			//boids.get(1).getBuff("red");
 			player.move();

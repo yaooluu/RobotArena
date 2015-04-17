@@ -28,14 +28,18 @@ public class Player {
 	void move()
 	{
 		b.r%=360;
-		if(Main.arrowKeys[0]) {		//acceleration		
+		
+		//acceleration
+		if(Main.arrowKeys[0]) {				
 			b.a.x=(float)Math.sin(Math.toRadians(b.r));
 			b.a.y=-(float)Math.cos(Math.toRadians(b.r));
 			b.a.drag(Config.MAX_LINACC[b.getType()]);			
 			b.vr=0;
 			Behavior.update(b);			
 		}
-		if(Main.arrowKeys[2]) {	//counter clockwise rotate
+		
+		//counter clockwise rotate
+		if(Main.arrowKeys[2]) {	
 			//System.out.println("Left.");
 			b.vr=-Config.MAX_ANGACC[b.getType()];	
 			b.v=b.v.multiply(0f);
@@ -43,7 +47,9 @@ public class Player {
 			Behavior.update(b);
 			
 		}
-		if(Main.arrowKeys[3]) {	//clockwise rotate 	
+		
+		//clockwise rotate 
+		if(Main.arrowKeys[3]) {	
 			//System.out.println("Right.");
 			b.vr=Config.MAX_ANGACC[b.getType()];	
 			b.v=b.v.multiply(0f);

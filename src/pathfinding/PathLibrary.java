@@ -21,8 +21,7 @@ public class PathLibrary {
 		}
 		
 		if(World.detectAccessible(b, targetPos) == true) {
-			//if(b.curPath.size() > 0) 
-				//b.curPath.clear();
+			b.curPath.clear();
 			return targetPos;
 		}
 
