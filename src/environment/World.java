@@ -24,6 +24,7 @@ public class World {
 	private static List<Buff> buffs = new ArrayList<Buff>();
 	public static List<Buff> getBuffs() {return buffs;}
 	
+	
 	private static int[] pixels = null;
 	public static int[] getPixels() {return pixels;}
 	
