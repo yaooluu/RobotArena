@@ -40,15 +40,16 @@ public class Behavior {
 		st=new Steering();
 		//Steering behavior
 		st.a=targetPos.minus(boid.pos);
+		System.out.println("Seeking: "+st.a.getLength()); 
 		//clip velocity
 		st.a.truncate(Config.MAX_LINACC[boid.getType()]);
 		st.ar=0;
-		
 		if(targetPos.equals(goalPos))
 		{
 			st=arrive(boid,goalPos);
 			if(st.a.getLength()<=0.01f)
 			{
+				st.a.multiply(0);
 				boid.a=boid.a.multiply(0f);
 				boid.v=boid.v.multiply(0f);
 			}
@@ -94,8 +95,11 @@ public class Behavior {
 	public static void changeAcc(Boid boid,Steering st)
 	{
 		//
-		boid.a=st.a;
-		boid.a.drag(Config.MAX_LINACC[boid.getType()]);
+		if(st.a.getLength()>0.01f)
+		{
+			boid.a=st.a;
+			boid.a.drag(Config.MAX_LINACC[boid.getType()]);
+		}
 		boid.ar += st.ar;
 		if(boid.ar>Config.MAX_ANGACC[boid.getType()])
 			boid.ar=Config.MAX_ANGACC[boid.getType()];

@@ -67,6 +67,13 @@ public class Main extends PApplet {
 			
 			drawEnvironment();
 			
+			if(this.mousePressed)
+			{
+				mouseVec = new Vec2D(mouseX, mouseY);
+				
+				
+			}
+			if(mouseVec!=null)ellipse(mouseVec.x, mouseVec.y, 30, 30);
 			/* if(mouseVec != null) {}*/
 			
 			for(int i=0;i<boids.size();i++) {
@@ -74,7 +81,12 @@ public class Main extends PApplet {
 
 				//if(frameCount % mod != 0) continue;
 				//mod = (int)Math.random()*90 + 30;
-				b.wander();
+				//b.wander();
+				if(mouseVec!=null)
+					{
+					Attack.goAttack(b, mouseVec);
+					
+					}
 				//DecisionTree.PerformDecision(b);
 			}
 	
@@ -82,7 +94,7 @@ public class Main extends PApplet {
 			Behavior.borderAvoid(boids);
 			
 			for(Boid b : boids) {
-				b.addBreadcrumb();
+				//b.addBreadcrumb();
 				//b.showBreadcrumbs();
 
 				Behavior.update2(b);
@@ -146,6 +158,7 @@ public class Main extends PApplet {
 	public void mousePressed() {
 		//System.out.println("Mouse clicked: ("+mouseX+", "+mouseY+")");
 		mouseVec = new Vec2D(mouseX, mouseY);
+		
 	}
 	
 	public void keyPressed() {
