@@ -1,7 +1,6 @@
 package main;
 
 import java.util.*;
-
 import decisionmaking.DecisionTree;
 import pathfinding.Graph;
 import physics.Collision;
@@ -60,6 +59,7 @@ public class Main extends PApplet {
 		//boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
 		//boids.add(new Boid(700, 400, 270, 1, Config.BOID_TYPE.tank, 6));
 		player=new Player(100, 250, 90, 0, Config.BOID_TYPE.scout, 1);
+		boids.add(player.b);
 	}
 	
 	public void draw() {	
@@ -94,10 +94,10 @@ public class Main extends PApplet {
 			}
 			player.move();
 			player.b.draw();
-			//boids.add(player.b);
+			
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
-			
+
 			for(Boid b : boids) {
 				//b.addBreadcrumb();
 				//b.showBreadcrumbs();

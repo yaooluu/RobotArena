@@ -33,7 +33,7 @@ public class Player {
 			}
 			else if(canvas.key == canvas.CODED)
 			{
-				System.out.println("Rotate"+canvas.key);
+	
 				if(canvas.keyCode == canvas.LEFT)
 				{
 					//counter clockwise rotate
