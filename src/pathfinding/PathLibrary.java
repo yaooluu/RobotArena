@@ -9,12 +9,22 @@ import physics.*;
 public class PathLibrary {
 
 	public static Vec2D getNextTarget(Boid b, Vec2D targetPos) {
+		
+		Graph graph = Main.getGraph();
+		
+		//debug, draw key points on path
+		for(int i=0;i<b.curPath.size();i++) {
+			Vec2D vec = graph.getNodePos(b.curPath.get(i));
+			//Config.canvas.fill(255,0,0);
+			Config.canvas.ellipse(vec.x, vec.y, 5, 5);
+			Config.canvas.text(b.curPath.get(i), vec.x + 3, vec.y - 3);
+		}
+		
 		if(World.detectAccessible(b, targetPos) == true) {
 			b.curPath.clear();
 			return targetPos;
 		}
 		
-		Graph graph = Main.getGraph();
 		int start = World.quantize(b.pos);
 		int end = World.quantize(targetPos);
 		if(start == end) return targetPos;
@@ -50,14 +60,6 @@ public class PathLibrary {
 			if(b.curPath.size() > 0)
 				nextTarget = graph.getNodePos(b.curPath.get(0));
 			else nextTarget = null;
-		}
-		
-		//debug, draw key points on path
-		for(int i=0;i<b.curPath.size();i++) {
-			Vec2D vec = graph.getNodePos(b.curPath.get(i));
-			//Config.canvas.fill(255,0,0);
-			Config.canvas.ellipse(vec.x, vec.y, 5, 5);
-			Config.canvas.text(b.curPath.get(i), vec.x + 3, vec.y - 3);
 		}
 		
 		return nextTarget;
