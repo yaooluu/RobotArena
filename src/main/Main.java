@@ -52,7 +52,7 @@ public class Main extends PApplet {
 		}//*/	
 
 		boids.add(new Boid(100, 150, 90, 0, Config.BOID_TYPE.scout, 1));
-		boids.add(new Boid(100, 250, 0, 0, Config.BOID_TYPE.soldier, 2));
+		boids.add(new Boid(100, 250, 180, 0, Config.BOID_TYPE.soldier, 2));
 		boids.add(new Boid(100, 350, 90, 0, Config.BOID_TYPE.tank, 3));
 		
 		boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
@@ -77,7 +77,7 @@ public class Main extends PApplet {
 			}
 			if(mouseVec!=null)ellipse(mouseVec.x, mouseVec.y, 20, 20);
 			/* if(mouseVec != null) {}*/
-			/*
+			///*
 			for(int i=0;i<boids.size();i++) {
 				Boid b = boids.get(i);
 				
@@ -90,16 +90,16 @@ public class Main extends PApplet {
 				//if(mouseVec!=null)
 					//Attack.goAttack(b, mouseVec);
 				
-				if(b != player.b)
-				DecisionTree.PerformDecision(b);
+				//if(b != player.b)
+				//DecisionTree.PerformDecision(b);
 			}//*/
 			
 			//Trace.trace(boids.get(1), player.b);
 			//boids.get(1).trace(player.b);
 			//boids.get(0).attack(boids.get(1));
 			//boids.get(1).getBuff("blue");
-			//Ultimate.ultimate(boids.get(1));
-			Tackle.tackle(boids.get(1), boids.get(0));
+			Ultimate.ultimate(boids.get(1));
+			//Tackle.tackle(boids.get(1), boids.get(0));
 
 			//boids.get(3).getBuff("red");
 

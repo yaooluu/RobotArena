@@ -8,7 +8,7 @@ public class Ultimate {
 	public static void ultimate(Boid b)
 	{
 		//behavior finish (ultimate)
-		if(b.isHit) {
+		if(b.isHit&&b.v.getLength()>Config.MAX_SPEED[b.getType()]) {
 			b.isUlt=false;
 			if(b.curBehavior.equals("ultimate")) {
 				b.curBehavior = "";			
