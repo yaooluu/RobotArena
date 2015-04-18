@@ -37,8 +37,8 @@ public class Player {
 			Behavior.update(b);			
 		
 		} else {
-			b.a = new Vec2D(0,0);
-			b.v = new Vec2D(0,0);
+			b.v=b.v.multiply(0f);
+			b.a=b.a.multiply(0f);
 		}
 		
 		//counter clockwise rotate
