@@ -217,9 +217,7 @@ public class World {
 	}
 
 	public static void applyFriction(List<Boid> boids) {
-		//fraction factor
-		float f = 0.00005f; 
-		
+		float f = 0.00005f; 	//fraction factor
 		for(Boid b :boids) {
 			if(b.v.getLength() > 0) {
 				Vec2D friction = new Vec2D(b.v).multiply(f * b.getMass());
@@ -228,6 +226,22 @@ public class World {
 			}
 			else b.v = new Vec2D(0,0);
 		}		
+	}
+
+	public static void applyFuelConsumption(List<Boid> boids) {	
+		float f = 0.0005f;	//fuel consumption rate 
+		for(Boid b :boids) {
+			if(b.fuel > 0) {
+				if(b.v.getLength() > 3) {
+					float loss = f * b.v.getLength();
+					System.out.println(b.v);
+					System.out.println("Fuel loss rate: " + loss + " per frame");
+					b.fuel -= loss; 
+				}
+			}
+			else {b.fuel = 0;System.out.println("No fuel.");}
+		}	
+		
 	}
 }
 

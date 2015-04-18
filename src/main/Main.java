@@ -127,6 +127,7 @@ public class Main extends PApplet {
 			World.detectFallOff(boids);
 			World.updateShelterStatus(boids);
 			World.applyFriction(boids);
+			World.applyFuelConsumption(boids);
 			drawGrass();
 		} else {
 			drawText("Game Paused", 30, 30, "Georgia", 20, new RGB(255,0,0));
