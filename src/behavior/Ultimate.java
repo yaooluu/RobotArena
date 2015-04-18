@@ -7,15 +7,17 @@ import environment.Boid;
 public class Ultimate {
 
 	public static void ultimate(Boid b)
-	{
+	{	
 		//behavior finish (ultimate)
-		if(b.isHit&&b.v.getLength()>Config.MAX_SPEED[b.getType()]) {
+		if(b.isHit) {
 			b.isUlt=false;
+			
 			if(b.curBehavior.equals("ultimate")) {
 				b.curBehavior = "";			
-				return;
+				return;	
 			}
 		}
+		
 		b.isUlt=true;
 		Vec2D vibrate;
 		if(b.accRotate<1080)
@@ -27,9 +29,15 @@ public class Ultimate {
 			b.v=b.v.multiply(0f);
 			b.accRotate+=b.vr;	
 			
-			b.pos.plusEqual(vibrate);
-	
+			b.pos.plusEqual(vibrate);	
 			
+			//decrease fuel
+			float threshold = Config.LOW_FUEL_RATE * Config.BOID_FUEL[b.getType()];
+			if(b.fuel > threshold) {
+				b.fuel = Config.BOID_FUEL[b.getType()]
+						- (b.accRotate/1080) * (1-Config.LOW_FUEL_RATE)
+						* Config.BOID_FUEL[b.getType()];
+			}
 		}
 		else if(!b.isHit)
 		{
@@ -40,7 +48,6 @@ public class Ultimate {
 			//b.pos.plusEqual(b.v.multiply((float) (1.0/Config.FRAME_RATE)));
 			//finish ultimate
 			b.curBehavior = "";		
-
 		}
 		
 	}

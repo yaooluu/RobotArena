@@ -20,7 +20,7 @@ public class Main extends PApplet {
 	
 	private static Graph graph = null;
 	public static Graph getGraph() {return graph;}
-	PImage environment,test;
+	PImage environment,grassMask;
 	
 	//debug
 	private Vec2D mouseVec = null;
@@ -36,7 +36,7 @@ public class Main extends PApplet {
 		Config.canvas = this;
 		boids = new ArrayList<Boid>();	
 		environment=loadImage("../src/environment/GameEnvironment.png");			
-		test=loadImage("../src/environment/grass.png");		
+		grassMask=loadImage("../src/environment/Grass.png");		
 		
 		graph = World.createGraphFromImage(this);
 		
@@ -54,13 +54,13 @@ public class Main extends PApplet {
 			}			
 		}//*/	
 
-		boids.add(new Boid(100, 150, 90, 0, Config.BOID_TYPE.scout, 1));
-		boids.add(new Boid(100, 250, 180, 0, Config.BOID_TYPE.soldier, 2));
-		boids.add(new Boid(100, 350, 90, 0, Config.BOID_TYPE.tank, 3));
+		boids.add(new Boid(100, 150, 90, 0, Config.BOID_TYPE.tank, 1));
+		//boids.add(new Boid(100, 250, 180, 0, Config.BOID_TYPE.soldier, 2));
+		//boids.add(new Boid(100, 350, 90, 0, Config.BOID_TYPE.tank, 3));
 		
 		boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
-		boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
-		boids.add(new Boid(700, 400, 270, 1, Config.BOID_TYPE.tank, 6));
+		//boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
+		//boids.add(new Boid(700, 400, 270, 1, Config.BOID_TYPE.tank, 6));
 		player=new Player(boids.get(0));
 	}
 	
@@ -69,11 +69,8 @@ public class Main extends PApplet {
 		if(pause == false) {
 			background(255);
 			smooth(8);	
-			tint(255,255);
-			image(environment,0,0);
+
 			drawEnvironment();
-			tint(255,150);
-			image(test,0,0);
 
 			mainLogic();
 
@@ -110,7 +107,7 @@ public class Main extends PApplet {
 		for(Boid b : boids) {				
 			if(b!=player.b) {
 				DecisionTree.PerformDecision(b);
-			
+				
 				if(b.fuel > 0)
 					Behavior.update2(b);
 				else {
@@ -161,6 +158,8 @@ public class Main extends PApplet {
 
 	private void drawEnvironment() {
 		//draw the indoor environment
+		
+		tint(255,255);	
 		image(environment, 0, 0);
 		
 		//draw buffs
@@ -228,6 +227,10 @@ public class Main extends PApplet {
 	}
 	
 	private void drawGrass() {
+		tint(255,180);
+		image(grassMask,0,0);
+		
+		/*
 		int i = 0;
 		for(Shelter s : World.getShelters()) {
 			if(i == 0 || i == 11) {
@@ -246,7 +249,7 @@ public class Main extends PApplet {
 				rect(s.x - 25, s.y - 19 , 290 , 45);
 			}
 			i++;
-		}
+		}*/
 	}
 	
 	private void drawText(String text, float x, float y, String font, float size, RGB rgb) {
@@ -264,13 +267,17 @@ public class Main extends PApplet {
 	
 	public void keyPressed() {
 		//System.out.println("Key pressed: "+key);
-		if(key == ' ') {
+		if(key == ' ')
 			pause = !pause;
-		}
 		
-		else if(key == 'v') {
+		else if(key == 'v')
 			Config.drawBoidVision = !Config.drawBoidVision;
-		}
+		else if(key == 'b')
+			Config.drawBoidAction = !Config.drawBoidAction;
+		else if(key == 'i')
+			Config.drawBoidId = !Config.drawBoidId;
+		else if(key == 'f')
+			Config.drawBoidFuel = !Config.drawBoidFuel;
 		
 		else if(key == PApplet.CODED) {
 			if(keyCode == UP)
@@ -301,14 +308,9 @@ public class Main extends PApplet {
 	
 	private void drawWinTeam(int teamID)
 	{
-		if(teamID==0)
-		{
-			drawText("Winner Team: Red!", Config.SCREEN_WIDTH/2-200, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, new RGB(255,0,0));	
-		}
-		if(teamID==1)
-		{
-			drawText("Winner Team: Blue!", Config.SCREEN_WIDTH/2-200, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, new RGB(0,0,255));	
-		}
+		String winText = "Winner: Red Team!";
+		if(teamID==1) winText = "Winner: Blue Team!";
+		drawText(winText, Config.SCREEN_WIDTH/2-200, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, new RGB(255,0,0));	
 	}
 	private void victoryJudge()
 	{
