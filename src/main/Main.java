@@ -91,7 +91,7 @@ public class Main extends PApplet {
 					//Attack.goAttack(b, mouseVec);
 				
 				//if(b != player.b)
-				//DecisionTree.PerformDecision(b);
+				DecisionTree.PerformDecision(b);
 			}//*/
 			
 			//Trace.trace(boids.get(1), player.b);
@@ -250,6 +250,20 @@ public class Main extends PApplet {
 		}
 	}
 	
+	
+	private void victoryJudge()
+	{
+		int winTeam;
+		if(boids.size()==1)
+		{
+			
+		}
+		for(Boid b:boids)
+		{
+			winTeam=b.getTeam();
+			
+		}
+	}
 	/*
 	private void testBoidVision(Boid b) {
 		if(frameCount % 60 == 1) {
