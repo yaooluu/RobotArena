@@ -28,7 +28,6 @@ public class Player {
 	void move()
 	{
 		//b.r%=360;
-		
 		//acceleration
 		if(Main.arrowKeys[0]) {				
 			b.a.x=(float)Math.sin(Math.toRadians(b.r));
@@ -36,6 +35,11 @@ public class Player {
 			b.a.drag(Config.MAX_LINACC[b.getType()]);			
 			b.vr=0;
 			Behavior.update(b);			
+		}
+		else
+		{
+			b.v=b.v.multiply(0f);
+			b.a=b.a.multiply(0f);
 		}
 		
 		//counter clockwise rotate

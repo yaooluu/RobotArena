@@ -77,7 +77,7 @@ public class Main extends PApplet {
 			}
 			if(mouseVec!=null)ellipse(mouseVec.x, mouseVec.y, 20, 20);
 			/* if(mouseVec != null) {}*/
-			///*
+			/*
 			for(int i=0;i<boids.size();i++) {
 				Boid b = boids.get(i);
 				
@@ -107,7 +107,7 @@ public class Main extends PApplet {
 
 			player.move();
 			//player.b.draw();
-			
+
 		 	//player.controlTeam(boids);
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
@@ -129,6 +129,7 @@ public class Main extends PApplet {
 			World.applyFriction(boids);
 			World.applyFuelConsumption(boids);
 			drawGrass();
+			victoryJudge();
 		} else {
 			drawText("Game Paused", 30, 30, "Georgia", 20, new RGB(255,0,0));
 		}
@@ -252,18 +253,44 @@ public class Main extends PApplet {
 	}
 	
 	
+	private void drawWinTeam(int teamID)
+	{
+		if(teamID==0)
+		{
+			drawText("Winner Team: Red!", Config.SCREEN_WIDTH/2-100, Config.SCREEN_HEIGHT/2, "Georgia", 30, new RGB(255,0,0));	
+		}
+		if(teamID==1)
+		{
+			drawText("Winner Team: Blue!", Config.SCREEN_WIDTH/2-100, Config.SCREEN_HEIGHT/2, "Georgia", 30, new RGB(0,255,0));	
+		}
+	}
 	private void victoryJudge()
 	{
 		int winTeam;
-		if(boids.size()==1)
+		if(boids.size()==0)
 		{
-			
+			drawText("No Winner!", Config.SCREEN_WIDTH/2, Config.SCREEN_HEIGHT/2, "Georgia", 30, new RGB(255,0,0));
+			return;
 		}
-		for(Boid b:boids)
+		else
 		{
-			winTeam=b.getTeam();
-			
-		}
+			winTeam=boids.get(0).getTeam();
+			if(boids.size()==1)
+			{
+				drawWinTeam(winTeam);		
+			}
+			else
+			{
+				for(Boid b:boids)
+				{
+					if(winTeam!=b.getTeam())
+					{
+						return;
+					}
+				}
+				drawWinTeam(winTeam);					
+			}
+		}		
 	}
 	/*
 	private void testBoidVision(Boid b) {
