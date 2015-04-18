@@ -22,6 +22,7 @@ public class Boid {
 	public Vec2D a = new Vec2D(0,0);
 	public float ar = 0;
 	
+	public int curShelter = -1;
 	public Boid curEnemy = null;
 	public List<Integer> curPath = new ArrayList<Integer>();
 	
@@ -34,8 +35,8 @@ public class Boid {
 	public static float accRotate=0;//accumulate rotate(for using ultimate)
 
 	public boolean isUlt=false;
+	public boolean isHit=false;
 	public boolean isRotate = true;
-	public boolean isHittingWall = false;
 	
 	//identify ally or enemy
 	private int team = -1;
@@ -208,6 +209,7 @@ public class Boid {
 		for(Boid b : Main.getBoids()) {
 			if(this.id == b.id || (this.team!=b.team) != isEnemy) continue;
 			if(World.detectAccessible(this.pos, b.pos) == false) continue;
+			if(inSameShelter(b) == false) continue;
 
 			float ang = Vec2D.getAngleBetween(b.pos.minus(this.pos), 
 					this.getOriVec());
@@ -223,6 +225,24 @@ public class Boid {
 		return boid;
 	}
 
+	private boolean inSameShelter(Boid b) {
+		//four shelter groups
+		int[][] shelters = 
+			{{1,2,3},
+			{4,6,8,10,12},
+			{5,7,9,11,13},
+			{14,15,16}};
+
+		for(int i=0;i<4;i++) {
+			List<Integer> l = new ArrayList<Integer>();
+			for(int j=0;j<shelters[i].length;j++) 
+				l.add(shelters[i][j]-1);
+			if(l.contains(this.curShelter) && l.contains(b.curShelter))
+				return true;
+		}
+		return false;
+	}
+	
 	public int getBuffRange() {
 		float range = Integer.MAX_VALUE;
 		for(Buff b : World.getBuffs()) {
@@ -258,7 +278,18 @@ public class Boid {
 	}
 	
 	public Vec2D findHide() {
-		return pos;
+		float range = Integer.MAX_VALUE;
+		Vec2D shelter = null;
+		for(Shelter s : World.getShelters()) {
+			if(s.isTaken) continue;
+			
+			float r = s.minus(this.pos).getLength();
+			if(r < range) {
+				range = r;
+				shelter = s;
+			}
+		}
+		return shelter;
 	}
 	
 	public String toString() {

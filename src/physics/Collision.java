@@ -74,7 +74,7 @@ public class Collision {
 				
 				nearestWall.collisionVec.drag(b.getSize()/2 + threshold + 1);
 				b.pos = nearestWall.plus(nearestWall.collisionVec.multiply(1.1f));
-				
+				if(b.isUlt)b.isHit=true;
 								
 			}
 		}
@@ -115,7 +115,8 @@ public class Collision {
 		
 		b1.pos.plusEqual(b1.v.multiply((float) (1.0/Config.FRAME_RATE)));
 		b2.pos.plusEqual(b2.v.multiply((float) (1.0/Config.FRAME_RATE)));
-		
+		if(b1.isUlt)b1.isHit=true;
+		if(b2.isUlt)b2.isHit=true;
 		//System.out.println("calculated: "+b1.v.getLength() +","+b2.v.getLength());
 		//System.out.println("calculated: "+b1.v +", "+b2.v+"\n");
 	}
