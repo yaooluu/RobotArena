@@ -1,5 +1,6 @@
 package behavior;
 
+import physics.Vec2D;
 import main.Config;
 import environment.Boid;
 
@@ -16,11 +17,19 @@ public class Ultimate {
 			}
 		}
 		b.isUlt=true;
+		Vec2D vibrate;
 		if(b.accRotate<1080)
 		{
+			vibrate=new Vec2D((float) (Math.sin(Math.toRadians(b.r))),
+					-(float)(Math.cos(Math.toRadians(b.r))));
+			
 			b.vr=3*Config.MAX_ANGACC[b.getType()];
 			b.v=b.v.multiply(0f);
-			b.accRotate+=b.vr;					
+			b.accRotate+=b.vr;	
+			
+			b.pos.plusEqual(vibrate);
+	
+			
 		}
 		else if(!b.isHit)
 		{

@@ -62,7 +62,7 @@ public class Player {
 		}
 		
 		//ultimate
-		if(Main.arrowKeys[1])
+		if(Main.arrowKeys[1]||canvas.key =='a')
 		{
 			b.ultimate();
 			Behavior.update2(b);
