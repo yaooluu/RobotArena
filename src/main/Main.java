@@ -257,11 +257,11 @@ public class Main extends PApplet {
 	{
 		if(teamID==0)
 		{
-			drawText("Winner Team: Red!", Config.SCREEN_WIDTH/2-100, Config.SCREEN_HEIGHT/2, "Georgia", 30, new RGB(255,0,0));	
+			drawText("Winner Team: Red!", Config.SCREEN_WIDTH/2-200, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, new RGB(255,0,0));	
 		}
 		if(teamID==1)
 		{
-			drawText("Winner Team: Blue!", Config.SCREEN_WIDTH/2-100, Config.SCREEN_HEIGHT/2, "Georgia", 30, new RGB(0,255,0));	
+			drawText("Winner Team: Blue!", Config.SCREEN_WIDTH/2-200, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, new RGB(0,0,255));	
 		}
 	}
 	private void victoryJudge()
