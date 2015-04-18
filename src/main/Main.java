@@ -20,7 +20,7 @@ public class Main extends PApplet {
 	
 	private static Graph graph = null;
 	public static Graph getGraph() {return graph;}
-	PImage environment;
+	PImage environment,test;
 	
 	//debug
 	private Vec2D mouseVec = null;
@@ -36,6 +36,8 @@ public class Main extends PApplet {
 		Config.canvas = this;
 		boids = new ArrayList<Boid>();	
 		environment=loadImage("../src/environment/GameEnvironment.png");			
+		test=loadImage("../src/environment/grass.png");		
+		
 		graph = World.createGraphFromImage(this);
 		
 		size(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
@@ -66,13 +68,17 @@ public class Main extends PApplet {
 		//pause game when pressed space bar
 		if(pause == false) {
 			background(255);
-			smooth(8);		
+			smooth(8);	
+			tint(255,255);
+			image(environment,0,0);
 			drawEnvironment();
-			
+			tint(255,150);
+			image(test,0,0);
+
 			mainLogic();
-			
+
 			debugLogic();			
-			
+
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
 			
@@ -87,10 +93,12 @@ public class Main extends PApplet {
 			
 			//draw grass layer
 			drawGrass();
-			
+			victoryJudge();
+
 		} else {
 			drawText("Game Paused", 30, 30, "Georgia", 20, new RGB(255,0,0));
 		}
+		
 	}
 
 	//main workflow here.
@@ -290,6 +298,46 @@ public class Main extends PApplet {
 		}
 	}
 	
+	
+	private void drawWinTeam(int teamID)
+	{
+		if(teamID==0)
+		{
+			drawText("Winner Team: Red!", Config.SCREEN_WIDTH/2-200, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, new RGB(255,0,0));	
+		}
+		if(teamID==1)
+		{
+			drawText("Winner Team: Blue!", Config.SCREEN_WIDTH/2-200, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, new RGB(0,0,255));	
+		}
+	}
+	private void victoryJudge()
+	{
+		int winTeam;
+		if(boids.size()==0)
+		{
+			drawText("No Winner!", Config.SCREEN_WIDTH/2, Config.SCREEN_HEIGHT/2, "Georgia", 30, new RGB(255,0,0));
+			return;
+		}
+		else
+		{
+			winTeam=boids.get(0).getTeam();
+			if(boids.size()==1)
+			{
+				drawWinTeam(winTeam);		
+			}
+			else
+			{
+				for(Boid b:boids)
+				{
+					if(winTeam!=b.getTeam())
+					{
+						return;
+					}
+				}
+				drawWinTeam(winTeam);					
+			}
+		}		
+	}
 	/*
 	private void testBoidVision(Boid b) {
 		if(frameCount % 60 == 1) {

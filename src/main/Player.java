@@ -35,6 +35,7 @@ public class Player {
 			b.a.drag(Config.MAX_LINACC[b.getType()]);			
 			b.vr=0;
 			Behavior.update(b);			
+		
 		} else {
 			b.a = new Vec2D(0,0);
 			b.v = new Vec2D(0,0);
