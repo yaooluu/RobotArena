@@ -105,13 +105,13 @@ public class DecisionTree {
 		case 4:
 			return enemy.getType() > b.getType() ? -1 : -2;
 		case 5:
-			return b.getFuel() < Config.MAX_FUEL * 0.15 ? -3 : 9;
+			return b.fuel < Config.BOID_FUEL[b.getType()] * Config.LOW_FUEL_RATE ? -3 : 9;
 		case 6:
-			return b.getFuel() < Config.MAX_FUEL * 0.15 ? -3 : 10;
+			return b.fuel < Config.BOID_FUEL[b.getType()] * Config.LOW_FUEL_RATE ? -3 : 10;
 		case 7:
 			return b.pos.minus(enemy.pos).dotCross(b.v) > 0 ? 11 : 12;
 		case 8:
-			return b.getFuel() < Config.MAX_FUEL * 0.15 ? -3 : 13;
+			return b.fuel < Config.BOID_FUEL[b.getType()] * Config.LOW_FUEL_RATE ? -3 : 13;
 		case 9:
 			return b.status == 1 ? 14 : 15;
 		case 10:
@@ -119,7 +119,7 @@ public class DecisionTree {
 		case 11:
 			return b.status == 1 ? 18 : -1;
 		case 12:
-			return b.getFuel() < Config.MAX_FUEL * 0.15 ? -1 : 19;
+			return b.fuel < Config.BOID_FUEL[b.getType()] * Config.LOW_FUEL_RATE ? -1 : 19;
 		case 13:
 			return Math.random() < 0.01 ? -8 : 20;
 		case 14:
@@ -147,7 +147,7 @@ public class DecisionTree {
 		case 24:
 			return Math.random() < 0.5 ? -7 : -2;
 		case 25:
-			return b.getFuel() < Config.MAX_FUEL * 0.15 ? -1 : -2;
+			return b.fuel < Config.BOID_FUEL[b.getType()] * Config.LOW_FUEL_RATE ? -1 : -2;
 		case 26:
 			return enemy.getType() > b.getType() ? 33 : 34;
 		case 27:
@@ -180,7 +180,7 @@ public class DecisionTree {
 		case 37:
 			return Math.random() < 0.5 ? -5 : -1;
 		case 38:
-			return b.getFuel() < Config.MAX_FUEL * 0.15 ? -9 : -6;
+			return b.fuel < Config.BOID_FUEL[b.getType()] * Config.LOW_FUEL_RATE ? -9 : -6;
 		}
 		return 0;
 	}

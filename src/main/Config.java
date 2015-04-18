@@ -12,10 +12,11 @@ public class Config {
 	public static int SCREEN_HEIGHT = 600;
 	public static int FRAME_RATE = 60;
 	public static int TILE_SIZE = 2;
-	public static int MAX_FUEL = 100;
 	
 	//buff countdown time (seconds)
 	public static int BUFF_COUNTDOWN = 15;
+	
+	public static float LOW_FUEL_RATE = 0.15f;
 	
 	//number of boids per team
 	public static int[] TEAM_SIZE = {1, 1};
