@@ -1,7 +1,6 @@
 package main;
 
 import java.util.*;
-
 import decisionmaking.DecisionTree;
 import pathfinding.Graph;
 import physics.Collision;
@@ -13,7 +12,7 @@ import environment.*;
 import behavior.*;
 
 @SuppressWarnings("serial")
-public class Main extends PApplet {
+public class StrategyDemo extends PApplet {
 
 	private static List<Boid> boids = null;
 	public static List<Boid> getBoids() {return boids;}
@@ -75,90 +74,75 @@ public class Main extends PApplet {
 			tint(255,150);
 			image(test,0,0);
 
-			mainLogic();
+			
+			if(this.mousePressed)
+			{
+				mouseVec = new Vec2D(mouseX, mouseY);		
+				for(Boid b : boids)
+					b.curPath.clear();
+				
+			}
+			if(mouseVec!=null)ellipse(mouseVec.x, mouseVec.y, 20, 20);
+			/* if(mouseVec != null) {}*/
+			/*
+			for(int i=0;i<boids.size();i++) {
+				Boid b = boids.get(i);
+				
+				if(b.curBehavior.equals(""))
+					b.curPath.clear();
 
-			debugLogic();			
+				//if(frameCount % mod != 0) continue;
+				//mod = (int)Math.random()*90 + 30;
+				//if(i==0)b.wander();
+				//if(mouseVec!=null)
+					//Attack.goAttack(b, mouseVec);
+				
+				//if(b != player.b)
+				DecisionTree.PerformDecision(b);
+			}//*/
+			
+			//Trace.trace(boids.get(1), player.b);
+			//boids.get(1).trace(player.b);
+			//boids.get(0).attack(boids.get(1));
+			//boids.get(1).getBuff("blue");
 
+			//Ultimate.ultimate(boids.get(1));
+
+			//Tackle.tackle(boids.get(1), boids.get(0));
+
+			//boids.get(3).getBuff("red");
+
+			player.move();
+			//player.b.draw();
+
+		 	//player.controlTeam(boids);
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
-			
-			World.applyFriction(boids);	
-			World.detectFallOff(boids);
-			
-			World.updateShelterStatus(boids);		
-			World.applyFuelConsumption(boids);
+
+			for(Boid b : boids) {
+				//b.addBreadcrumb();
+				//b.showBreadcrumbs();
+
+				if(b!=player.b){Behavior.update2(b);}
+				//Behavior.update2(b);
+				b.draw();
 				
-			//draw all robots
-			for(Boid b : boids) b.draw();
+				//if(b.curBehavior.equals(""))
+					//b.curPath = null;
+			}
 			
-			//draw grass layer
+			World.detectFallOff(boids);
+			World.updateShelterStatus(boids);
+			World.applyFriction(boids);
+			World.applyFuelConsumption(boids);
 			drawGrass();
 			victoryJudge();
-
 		} else {
 			drawText("Game Paused", 30, 30, "Georgia", 20, new RGB(255,0,0));
 		}
 		
 	}
-
-	//main workflow here.
-	private void mainLogic() {		
-		if(player.b.fuel > 0)
-			player.move();	
-	 	//player.controlTeam(boids);
-
-		for(Boid b : boids) {				
-			if(b!=player.b) {
-				DecisionTree.PerformDecision(b);
-			
-				if(b.fuel > 0)
-					Behavior.update2(b);
-				else {
-					b.v.x = 0;
-					b.v.y = 0;
-					b.a.x = 0;
-					b.a.y = 0;
-				}
-			}		
-			//b.addBreadcrumb();
-			//b.showBreadcrumbs();
-		}
-	}
 	
-	//all debug workflow
-	private void debugLogic() {
-		if(this.mousePressed)
-		{
-			mouseVec = new Vec2D(mouseX, mouseY);		
-			for(Boid b : boids)
-				b.curPath.clear();			
-		}		
-		if(mouseVec!=null) ellipse(mouseVec.x, mouseVec.y, 20, 20);
-		
-		/*
-		for(int i=0;i<boids.size();i++) {
-			Boid b = boids.get(i);
-			if(frameCount % mod != 0) continue;
-			mod = (int)Math.random()*90 + 30;
-			if(i==0)b.wander();
-			if(mouseVec!=null)
-				Attack.goAttack(b, mouseVec);
-			
-		}//*/
-		
-		//Trace.trace(boids.get(1), player.b);
-		//boids.get(1).trace(player.b);
-		//boids.get(0).attack(boids.get(1));
-		//boids.get(1).getBuff("blue");
-
-		//Ultimate.ultimate(boids.get(1));
-
-		//Tackle.tackle(boids.get(1), boids.get(0));
-		//boids.get(3).getBuff("red");
-		//boids.get(1).wander();
-		
-	}
-
 	private void drawEnvironment() {
 		//draw the indoor environment
 		image(environment, 0, 0);
@@ -166,12 +150,12 @@ public class Main extends PApplet {
 		//draw buffs
 		for(Buff buff : World.getBuffs()) {
 			if(buff.countdown > 0) {
-				if(frameCount % Config.FRAME_RATE == 0)
+				if(frameCount % 60 == 0)
 					buff.countdown--;
 				String buffText = "Red";
 				if(buff.getType() == 1) buffText = "Blue";
 				buffText += " in " + buff.countdown + " sec(s)";
-				drawText(buffText, buff.x - 50, buff.y, "Georgia", 15, buff.getRGB());
+				drawText(buffText, buff.x - 40, buff.y, "Georgia", 15, buff.getRGB());
 			}
 			else {
 				float x = buff.x, y = buff.y, size = 10;
@@ -190,36 +174,14 @@ public class Main extends PApplet {
 				for(Boid b : boids) {
 					if(b.pos.minus(buff).getLength() < b.getSize()/2) {
 						buff.countdown = Config.BUFF_COUNTDOWN;
-						
-						//apply buff benefit
-						if(buff.getType() ==0)
-							b.fuel = Config.BOID_FUEL[b.getType()];
-						else {
-							//System.out.println(b + " get blue buff.");
-							b.bonusAcc = Config.MAX_LINACC[b.getType()];
-							b.bonusSpeed = Config.MAX_SPEED[b.getType()];
-							b.bonusTime =  Config.BUFF_DURATION;
-						}
 						break;
 					}
 				}
 			}
 		}
 		
-		//update blue buff bonus time
-		for(Boid b : boids) {
-			if(b.bonusTime > 0) {
-				if(frameCount % Config.FRAME_RATE == 0)
-					b.bonusTime--;
-			}else if(b.bonusAcc > 0){
-				//System.out.println(b + " lose blue buff.");
-				b.bonusAcc = 0;
-				b.bonusSpeed = 0;
-			}
-		}
-		
-		
-		//debug, draw shelters point
+		//debug
+		//draw shelters point
 		int i = 0;
 		for(Shelter s : World.getShelters()) {
 			drawText("s"+i, s.x, s.y, "Georgia", 12, new RGB(255,0,255));

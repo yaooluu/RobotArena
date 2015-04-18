@@ -29,14 +29,19 @@ public class Boid {
 	//offensive, defensive
 	public int status = 1;
 	public String curBehavior = "";
-	public int wanderChangeCount = 0;
 	
+	public int wanderChangeCount = 0;	
 	public float wanderOrientation = 0;
 	public static float accRotate=0;//accumulate rotate(for using ultimate)
 
 	public boolean isUlt=false;
 	public boolean isHit=false;
 	public boolean isRotate = true;
+	
+	//blue buff gains
+	public float bonusSpeed = 0;
+	public float bonusAcc = 0;
+	public int bonusTime = 0; 
 	
 	//identify ally or enemy
 	private int team = -1;
@@ -96,16 +101,50 @@ public class Boid {
 		if(canvas == null) return;
 		float faceWidth = size / 15.0f;
 		
+		//draw boid fuel indicator
+		if(Config.drawBoidFuel) {
+			float border = 1f, pixPerFuel = 0.17f;
+			float height = 4.0f, width = pixPerFuel * Config.BOID_FUEL[type];
+			float x = pos.x - width/2;
+			float y = pos.y - size/2 - 12;
+			
+			canvas.stroke(0,0,0);
+			canvas.strokeWeight(border);
+			canvas.fill(255,255,255,0);
+			
+			canvas.rect(x,y,pixPerFuel * Config.BOID_FUEL[type],height);	//fuel border
+		
+			canvas.noStroke();
+			if(fuel <= Config.LOW_FUEL_RATE * Config.BOID_FUEL[type]) 
+				canvas.fill(255,0,0);		
+			else if(fuel <= 0.6 * Config.BOID_FUEL[type])
+				canvas.fill(255,150,0);
+			else canvas.fill(0,225,110);
+			
+			if(fuel <= 0.6 * Config.BOID_FUEL[type])
+				border = 0;
+			
+			canvas.rect(x + border, y + border,
+					pixPerFuel * fuel - border ,
+					height - border);
+		}
+		
 		canvas.noStroke();
 		if(rgb != null) {
 			canvas.stroke(rgb.r, rgb.g, rgb.b);
 			canvas.strokeWeight(0.5f + faceWidth);
 		}
 		
-		
-		if(Config.drawBoidIds) {
+		//debug, draw boid id
+		if(Config.drawBoidId) {
 			canvas.fill(rgb.r, rgb.g, rgb.b);
-			canvas.text(id, pos.x + size / 2, pos.y - size / 2);
+			canvas.text(id, pos.x - size / 2 - 10, pos.y - size / 2 + 5);
+		}
+		
+		//debug, draw current action
+		if(Config.drawBoidAction) {
+			canvas.fill(128,0,255);
+			canvas.text(curBehavior, pos.x - size / 2 - 10, pos.y - size / 2 - 20);
 		}
 				
 		canvas.pushMatrix();
@@ -129,9 +168,9 @@ public class Boid {
 		
 		//draw facing
 		canvas.rect(-1 * faceWidth/2, -0.9f * size/2, faceWidth, size * 0.5f);	
+	
 		
-		//draw fuel here...
-		
+		//debug, draw boid vision 
 		if(Config.drawBoidVision) {
 			canvas.strokeWeight(1.6f);
 			//draw boid's vision
