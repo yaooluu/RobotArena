@@ -32,7 +32,7 @@ public class Boid {
 	
 	public int wanderChangeCount = 0;	
 	public float wanderOrientation = 0;
-	public static float accRotate=0;//accumulate rotate(for using ultimate)
+	public float accRotate=0;//accumulate rotate(for using ultimate)
 
 	public boolean isUlt=false;
 	public boolean isHit=false;
