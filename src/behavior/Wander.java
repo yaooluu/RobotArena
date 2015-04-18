@@ -42,7 +42,7 @@ public class Wander {
 		target.y=(float) (boid.pos.y-wanderOffset*Math.cos(Math.toRadians(boid.r)));
 		
 		target.x+=wanderRadius*Math.sin(Math.toRadians(targetOrientation));
-		target.y+=wanderRadius*Math.cos(Math.toRadians(targetOrientation));
+		target.y-=wanderRadius*Math.cos(Math.toRadians(targetOrientation));
 		//draw the target
 		//Boid b1 = new Boid(target.x, target.y, targetOrientation, 0, Config.BOID_TYPE.scout,3);
 		//Config.canvas.ellipse(target.x, target.y, 30, 30);

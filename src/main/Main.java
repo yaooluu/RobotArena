@@ -96,7 +96,9 @@ public class Main extends PApplet {
 			
 			//Trace.trace(boids.get(1), player.b);
 			//boids.get(1).trace(player.b);
-			boids.get(1).getBuff("blue");
+			//boids.get(1).getBuff("blue");
+			Ultimate.ultimate(boids.get(5));
+			
 			player.move();
 			//player.b.draw();
 			
@@ -108,8 +110,8 @@ public class Main extends PApplet {
 				//b.addBreadcrumb();
 				//b.showBreadcrumbs();
 
-				if(b!=player.b){Behavior.update2(b);}
-				//Behavior.update2(b);
+				//if(b!=player.b){Behavior.update2(b);}
+				Behavior.update2(b);
 				b.draw();
 				
 				//if(b.curBehavior.equals(""))

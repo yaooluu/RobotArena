@@ -131,6 +131,12 @@ public class Behavior {
 //update velocity
 	public static void update2(Boid boid)
 	{
+		if(boid.isUlt)
+		{	
+			boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
+			boid.r += boid.vr;
+			return;
+		}
 		if(boid.isRotate)
 		{
 			boid.isRotate=false;
