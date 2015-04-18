@@ -20,11 +20,9 @@ public class Ultimate {
 		{
 			b.vr=3*Config.MAX_ANGACC[b.getType()];
 			b.v=b.v.multiply(0f);
-			b.accRotate+=b.vr;
-			
-					
+			b.accRotate+=b.vr;					
 		}
-		else
+		else if(!b.isHit)
 		{
 			b.vr=0;
 			b.v.x=(float) Math.sin(Math.toRadians(b.r));

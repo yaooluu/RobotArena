@@ -234,7 +234,7 @@ public class World {
 			if(b.fuel > 0) {
 				if(b.v.getLength() > 3) {
 					float loss = f * b.v.getLength();
-					System.out.println(b.v);
+					System.out.println(b.v.getLength());
 					System.out.println("Fuel loss rate: " + loss + " per frame");
 					b.fuel -= loss; 
 				}
