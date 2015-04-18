@@ -44,9 +44,10 @@ public class Boid {
 	private int size = 0;
 	private int vision = 0;
 	private int auditory = 0;
-	private int fuel = 0;
 	private int mass = 0;
 	private RGB rgb = null;
+	
+	public float fuel = 0;
 	
 	public int getId() {return id;}
 	public int getTeam() {return team;}
@@ -54,7 +55,6 @@ public class Boid {
 	public int getSize() {return size;}
 	public int getVision() {return vision;}
 	public int getAuditory() {return auditory;}
-	public int getFuel() {return fuel;}
 	public int getMass() {return mass;}
 	
 	public Vec2D getOriVec() {
