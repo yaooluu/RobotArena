@@ -52,7 +52,7 @@ public class Main extends PApplet {
 		}//*/	
 
 		boids.add(new Boid(100, 150, 90, 0, Config.BOID_TYPE.scout, 1));
-		boids.add(new Boid(100, 250, 0, 0, Config.BOID_TYPE.soldier, 2));
+		boids.add(new Boid(100, 250, 180, 0, Config.BOID_TYPE.soldier, 2));
 		boids.add(new Boid(100, 350, 90, 0, Config.BOID_TYPE.tank, 3));
 		
 		boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
@@ -90,7 +90,7 @@ public class Main extends PApplet {
 				//if(mouseVec!=null)
 					//Attack.goAttack(b, mouseVec);
 				
-				if(b != player.b)
+				//if(b != player.b)
 				DecisionTree.PerformDecision(b);
 			}//*/
 			
@@ -98,14 +98,16 @@ public class Main extends PApplet {
 			//boids.get(1).trace(player.b);
 			//boids.get(0).attack(boids.get(1));
 			//boids.get(1).getBuff("blue");
+
 			//Ultimate.ultimate(boids.get(1));
-			Tackle.tackle(boids.get(1), boids.get(0));
+
+			//Tackle.tackle(boids.get(1), boids.get(0));
 
 			//boids.get(3).getBuff("red");
 
 			player.move();
 			//player.b.draw();
-			
+
 		 	//player.controlTeam(boids);
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
@@ -124,7 +126,10 @@ public class Main extends PApplet {
 			
 			World.detectFallOff(boids);
 			World.updateShelterStatus(boids);
+			World.applyFriction(boids);
+			World.applyFuelConsumption(boids);
 			drawGrass();
+			victoryJudge();
 		} else {
 			drawText("Game Paused", 30, 30, "Georgia", 20, new RGB(255,0,0));
 		}
@@ -247,6 +252,46 @@ public class Main extends PApplet {
 		}
 	}
 	
+	
+	private void drawWinTeam(int teamID)
+	{
+		if(teamID==0)
+		{
+			drawText("Winner Team: Red!", Config.SCREEN_WIDTH/2-200, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, new RGB(255,0,0));	
+		}
+		if(teamID==1)
+		{
+			drawText("Winner Team: Blue!", Config.SCREEN_WIDTH/2-200, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, new RGB(0,0,255));	
+		}
+	}
+	private void victoryJudge()
+	{
+		int winTeam;
+		if(boids.size()==0)
+		{
+			drawText("No Winner!", Config.SCREEN_WIDTH/2, Config.SCREEN_HEIGHT/2, "Georgia", 30, new RGB(255,0,0));
+			return;
+		}
+		else
+		{
+			winTeam=boids.get(0).getTeam();
+			if(boids.size()==1)
+			{
+				drawWinTeam(winTeam);		
+			}
+			else
+			{
+				for(Boid b:boids)
+				{
+					if(winTeam!=b.getTeam())
+					{
+						return;
+					}
+				}
+				drawWinTeam(winTeam);					
+			}
+		}		
+	}
 	/*
 	private void testBoidVision(Boid b) {
 		if(frameCount % 60 == 1) {

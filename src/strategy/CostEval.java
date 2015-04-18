@@ -35,6 +35,7 @@ public class CostEval {
 		}
 		return result;
 	}
+	
 
 	public static void debug() {
 		System.out.println("CostEval debug...");
