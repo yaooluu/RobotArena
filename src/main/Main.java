@@ -99,7 +99,7 @@ public class Main extends PApplet {
 			//boids.get(0).attack(boids.get(1));
 			//boids.get(1).getBuff("blue");
 			//Ultimate.ultimate(boids.get(1));
-			Tackle.tackle(boids.get(1), boids.get(0));
+			//Tackle.tackle(boids.get(1), boids.get(0));
 
 			//boids.get(3).getBuff("red");
 
@@ -124,6 +124,7 @@ public class Main extends PApplet {
 			
 			World.detectFallOff(boids);
 			World.updateShelterStatus(boids);
+			World.applyFriction(boids);
 			drawGrass();
 		} else {
 			drawText("Game Paused", 30, 30, "Georgia", 20, new RGB(255,0,0));
