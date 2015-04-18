@@ -330,6 +330,15 @@ public class Boid {
 		Hide.hide(this);
 	}
 	
+	public void ultimate() {
+		curBehavior = "ultimate";
+		Ultimate.ultimate(this);
+	}
+	
+	public void tackle(Boid enemy) {
+		curBehavior = "tackle";
+		Tackle.tackle(this, enemy);
+	}
 	//split bread crumbs:
 	class Breadcrumbs{
 		float x,y;

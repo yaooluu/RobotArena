@@ -62,6 +62,7 @@ public class DecisionTree {
 			
 		case "ultimate":
 			//TODO
+			b.ultimate();
 			break;
 
 		case "guard":
@@ -85,7 +86,7 @@ public class DecisionTree {
 
 	private static String getLeafAction(int index) {
 		String actiontable[] = { "evade", "attack", "redbuff", "bluebuff",
-				"trace", "wander", "lure", "ultimate", "gurad", "hide" };
+				"trace", "wander", "lure", "ultimate", "guard", "hide" };
 		return actiontable[(-index) - 1];
 	}
 
