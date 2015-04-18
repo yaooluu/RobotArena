@@ -118,7 +118,7 @@ public class Main extends PApplet {
 			
 			World.detectFallOff(boids);
 			World.updateShelterStatus(boids);
-			
+			drawGrass();
 		} else {
 			drawText("Game Paused", 30, 30, "Georgia", 20, new RGB(255,0,0));
 		}
@@ -161,10 +161,33 @@ public class Main extends PApplet {
 			}
 		}
 		
-		//draw shelters
+		//debug
+		//draw shelters point
 		int i = 0;
 		for(Shelter s : World.getShelters()) {
 			drawText("s"+i, s.x, s.y, "Georgia", 12, new RGB(255,0,255));
+			i++;
+		}
+	}
+	
+	private void drawGrass() {
+		int i = 0;
+		for(Shelter s : World.getShelters()) {
+			if(i == 0 || i == 11) {
+				noStroke();
+				fill(0,255,0,100);
+				rect(s.x - 20, s.y - 75 , 45 , 145);
+			}
+			else if(i == 3) {
+				noStroke();
+				fill(0,255,0,100);
+				rect(s.x - 25, s.y - 22 , 300 , 45);
+			}
+			else if(i == 4) {
+				noStroke();
+				fill(0,255,0,100);
+				rect(s.x - 25, s.y - 19 , 290 , 45);
+			}
 			i++;
 		}
 	}
