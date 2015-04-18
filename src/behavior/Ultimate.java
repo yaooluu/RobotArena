@@ -36,7 +36,7 @@ public class Ultimate {
 			b.vr=0;
 			b.v.x=(float) Math.sin(Math.toRadians(b.r));
 			b.v.y=-(float) Math.cos(Math.toRadians(b.r));
-			b.v.drag(2.5f*Config.MAX_SPEED[b.getType()]);
+			b.v.drag(4f*Config.MAX_SPEED[b.getType()]);
 			//b.pos.plusEqual(b.v.multiply((float) (1.0/Config.FRAME_RATE)));
 			//finish ultimate
 			b.curBehavior = "";		

@@ -36,7 +36,7 @@ public class Main extends PApplet {
 		Config.canvas = this;
 		boids = new ArrayList<Boid>();	
 		environment=loadImage("../src/environment/GameEnvironment.png");			
-		test=loadImage("../src/environment/grass.png");		
+		test=loadImage("../src/environment/GE.png");		
 		
 		graph = World.createGraphFromImage(this);
 		
