@@ -42,7 +42,7 @@ public class Behavior {
 		st.a=targetPos.minus(boid.pos);
 		//System.out.println("Seeking: "+st.a.getLength()); 
 		//clip velocity
-		st.a.truncate(Config.MAX_LINACC[boid.getType()]);
+		st.a.truncate(Config.MAX_LINACC[boid.getType()]+boid.bonusAcc);
 		st.ar=0;
 		if(targetPos.equals(goalPos))
 		{
@@ -98,7 +98,7 @@ public class Behavior {
 		if(st.a.getLength()>0.01f)
 		{
 			boid.a=st.a;
-			boid.a.drag(Config.MAX_LINACC[boid.getType()]);
+			boid.a.drag(Config.MAX_LINACC[boid.getType()]+boid.bonusAcc);
 		}
 		boid.ar += st.ar;
 		if(boid.ar>Config.MAX_ANGACC[boid.getType()])
@@ -110,7 +110,7 @@ public class Behavior {
 	{
 		//
 		boid.a.plusEqual(st.a);
-		boid.a.drag(Config.MAX_LINACC[boid.getType()]);
+		boid.a.drag(Config.MAX_LINACC[boid.getType()]+boid.bonusAcc);
 		boid.ar += st.ar;
 		if(boid.ar>Config.MAX_ANGACC[boid.getType()])
 			boid.ar=Config.MAX_ANGACC[boid.getType()];
@@ -121,7 +121,7 @@ public class Behavior {
 	{
 		boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
 		boid.v.plusEqual(boid.a.multiply((float) (1.0/Config.FRAME_RATE)));
-		boid.v.truncate(Config.MAX_SPEED[boid.getType()]);
+		boid.v.truncate(Config.MAX_SPEED[boid.getType()]+boid.bonusAcc);
 		boid.vr += boid.ar;
 		boid.r += boid.vr;
 		
@@ -155,9 +155,9 @@ public class Behavior {
 		if(Math.abs(rDistance)<=2)
 		{
 			//boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
-			boid.a.truncate(Config.MAX_LINACC[boid.getType()]);
+			boid.a.truncate(Config.MAX_LINACC[boid.getType()]+boid.bonusAcc);
 			boid.v.plusEqual(boid.a.multiply((float) (1.0/Config.FRAME_RATE)));
-			boid.v.truncate(Config.MAX_SPEED[boid.getType()]);		
+			boid.v.truncate(Config.MAX_SPEED[boid.getType()]+boid.bonusSpeed);		
 			boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
 			boid.isRotate=true;
 			boid.vr=0;
