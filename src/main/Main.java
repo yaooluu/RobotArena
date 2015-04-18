@@ -19,7 +19,7 @@ public class Main extends PApplet {
 	
 	private static Graph graph = null;
 	public static Graph getGraph() {return graph;}
-	PImage environment;
+	PImage environment,test;
 	
 	//debug
 	private Vec2D mouseVec = null;
@@ -35,6 +35,8 @@ public class Main extends PApplet {
 		Config.canvas = this;
 		boids = new ArrayList<Boid>();	
 		environment=loadImage("../src/environment/GameEnvironment.png");			
+		test=loadImage("../src/environment/grass.png");		
+		
 		graph = World.createGraphFromImage(this);
 		
 		size(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
@@ -65,8 +67,13 @@ public class Main extends PApplet {
 		//pause game when pressed space bar
 		if(pause == false) {
 			background(255);
-			smooth(8);		
+			smooth(8);	
+			tint(255,255);
+			image(environment,0,0);
 			drawEnvironment();
+			tint(255,150);
+			image(test,0,0);
+
 			
 			if(this.mousePressed)
 			{
@@ -133,6 +140,7 @@ public class Main extends PApplet {
 		} else {
 			drawText("Game Paused", 30, 30, "Georgia", 20, new RGB(255,0,0));
 		}
+		
 	}
 	
 	private void drawEnvironment() {

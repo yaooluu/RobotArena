@@ -60,6 +60,13 @@ public class Player {
 			b.a=b.a.multiply(0f);
 			Behavior.update(b);			
 		}
+		
+		//ultimate
+		if(Main.arrowKeys[1])
+		{
+			b.ultimate();
+			Behavior.update2(b);
+		}
 	}
 	
 	
