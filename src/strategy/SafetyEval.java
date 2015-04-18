@@ -12,7 +12,7 @@ public class SafetyEval {
 	static float allyFactor = 1.3f;
 	static float enemyDanger = 1.2f;
 	static float bushFactor = 1.3f;
-	static float threatenAreaFactor = 0.2f;
+	static float threatenAreaFactor = 2f;
 
 	public static float getSafetyIndex(Boid b) {
 		return allySafety(b) - enemyDanger(b) + bushSafety(b)
@@ -26,10 +26,11 @@ public class SafetyEval {
 				continue;// not ally
 			if (!World.detectAccessible(b.pos, t.pos))
 				continue;// block by something
-			float dis = b.pos.minus(t.pos).getLength();
-			result += dis / Config.MAX_SPEED[t.getType()] * allyFactor;
+			float arriveTime = b.pos.minus(t.pos).getLength()
+					/ Config.MAX_SPEED[t.getType()];
+			result += t.getMass() / arriveTime * 0.01; // 0.01 is adjusting
 		}
-		return result;
+		return result * allyFactor;
 	}
 
 	private static float enemyDanger(Boid b) {
@@ -39,25 +40,39 @@ public class SafetyEval {
 				continue;// not enemy
 			if (!World.detectAccessible(b.pos, t.pos))
 				continue;// block by something
-			float dis = b.pos.minus(t.pos).getLength();
-			result += dis / Config.MAX_SPEED[t.getType()] * enemyDanger;
+			float arriveTime = b.pos.minus(t.pos).getLength()
+					/ Config.MAX_SPEED[t.getType()];
+			result += t.getMass() / arriveTime * 0.01;// 0.01 is adjusting
 		}
-		return result;
+		return result * enemyDanger;
 	}
 
 	private static float bushSafety(Boid b) {
-		return b.findHide().minus(b.pos).getLength() * bushFactor;
+		return Config.MAX_SPEED[b.getType()]
+				/ b.findHide().minus(b.pos).getLength() * 5 * bushFactor;
 	}
 
 	// considering the linear distance ONLY
 	private static float threatenAreaDanger(Boid b) {
 		float dis = Float.MAX_VALUE;
 		for (Border bor : World.getBorders()) {
-			float d = bor.borderVec.minus(b.pos).getLength();
+			float d = (float) Math.sqrt((bor.x - b.pos.x) * (bor.x - b.pos.x)
+					+ (bor.y - b.pos.y) * (bor.y - b.pos.y));
 			if (d < dis)
 				dis = d;
 		}
-		return dis * threatenAreaFactor;
+		return Config.MAX_SPEED[b.getType()] / dis * 5 * threatenAreaFactor;
+	}
+
+	public static void debug() {
+		System.out.println("SafetyEval Debug...");
+		for (Boid x : Main.getBoids()) {
+			// System.out.println(allySafety(x));
+			// System.out.println(enemyDanger(x));
+			// System.out.println(bushSafety(x));
+			// System.out.println(threatenAreaDanger(x));
+			System.out.println(x+"  "+getSafetyIndex(x));
+		}
 	}
 
 }
