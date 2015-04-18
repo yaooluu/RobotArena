@@ -232,14 +232,16 @@ public class World {
 		float f = 0.0005f;	//fuel consumption rate 
 		for(Boid b :boids) {
 			if(b.fuel > 0) {
-				if(b.v.getLength() > 3) {
-					float loss = f * b.v.getLength();
-					System.out.println(b.v.getLength());
-					System.out.println("Fuel loss rate: " + loss + " per frame");
+				if(b.v.getLength() > 0) {
+					float loss = f * b.v.getLength() * b.getMass() / 200;
+					//System.out.println(b.v.getLength());
+					//System.out.println("Fuel loss rate: " + loss + " per frame");
 					b.fuel -= loss; 
+					//System.out.println(b + " fuel: " +b.fuel);
 				}
 			}
-			else {b.fuel = 0;System.out.println("No fuel.");}
+			else 
+				b.fuel = 0;
 		}	
 		
 	}
