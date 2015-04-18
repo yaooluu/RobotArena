@@ -30,12 +30,12 @@ public class Behavior {
 		Steering st;
 		Vec2D goalPos;
 		goalPos=new Vec2D(targetPos);
-
+		Config.canvas.ellipse(goalPos.x, goalPos.y, 30, 30);
 		Vec2D newTarget = PathLibrary.getNextTarget(boid, targetPos);
 		if(newTarget != null) targetPos = newTarget;
 		
 		//System.out.println("Seeking: "+targetPos); 
-		//Config.canvas.ellipse(targetPos.x, targetPos.y, 10, 10);
+		Config.canvas.ellipse(targetPos.x, targetPos.y, 10, 10);
 		
 		st=new Steering();
 		//Steering behavior

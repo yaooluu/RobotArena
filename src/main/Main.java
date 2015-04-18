@@ -52,7 +52,7 @@ public class Main extends PApplet {
 		}//*/	
 
 		boids.add(new Boid(100, 150, 90, 0, Config.BOID_TYPE.scout, 1));
-		boids.add(new Boid(100, 250, 90, 0, Config.BOID_TYPE.soldier, 2));
+		boids.add(new Boid(100, 250, 0, 0, Config.BOID_TYPE.soldier, 2));
 		boids.add(new Boid(100, 350, 90, 0, Config.BOID_TYPE.tank, 3));
 		
 		boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
@@ -96,10 +96,10 @@ public class Main extends PApplet {
 			
 			//Trace.trace(boids.get(1), player.b);
 			//boids.get(1).trace(player.b);
-
+			//boids.get(0).attack(boids.get(1));
 			//boids.get(1).getBuff("blue");
-			Ultimate.ultimate(boids.get(3));
-			
+			//Ultimate.ultimate(boids.get(1));
+			Tackle.tackle(boids.get(1), boids.get(0));
 
 			//boids.get(3).getBuff("red");
 
@@ -114,8 +114,8 @@ public class Main extends PApplet {
 				//b.addBreadcrumb();
 				//b.showBreadcrumbs();
 
-				//if(b!=player.b){Behavior.update2(b);}
-				Behavior.update2(b);
+				if(b!=player.b){Behavior.update2(b);}
+				//Behavior.update2(b);
 				b.draw();
 				
 				//if(b.curBehavior.equals(""))
