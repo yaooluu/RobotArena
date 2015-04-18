@@ -215,6 +215,20 @@ public class World {
 			b.curShelter = curShelter;
 		}
 	}
+
+	public static void applyFriction(List<Boid> boids) {
+		//fraction factor
+		float f = 0.00005f; 
+		
+		for(Boid b :boids) {
+			if(b.v.getLength() > 0) {
+				Vec2D friction = new Vec2D(b.v).multiply(f * b.getMass());
+				//System.out.println("Friction (speed loss): " + friction + " per frame");
+				b.v.minusEqual(friction);
+			}
+			else b.v = new Vec2D(0,0);
+		}		
+	}
 }
 
 /*
