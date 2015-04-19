@@ -1,18 +1,21 @@
 package main;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import decisionmaking.DecisionTree;
 import pathfinding.Graph;
 import physics.Collision;
 import physics.Vec2D;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
-import strategy.CostEval;
-import strategy.SafetyEval;
-import environment.*;
-import behavior.*;
+import strategy.Coordinator;
+import behavior.Behavior;
+import environment.Boid;
+import environment.Buff;
+import environment.RGB;
+import environment.Shelter;
+import environment.World;
 
 @SuppressWarnings("serial")
 public class Main extends PApplet {
@@ -63,10 +66,9 @@ public class Main extends PApplet {
 		
 		boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
 		boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
-		boids.add(new Boid(700, 400, 270, 1, Config.BOID_TYPE.tank, 6));
+		boids.add(new Boid(100, 400, 270, 1, Config.BOID_TYPE.tank, 6));
 		player=new Player(boids.get(0));
-		SafetyEval.debug();
-		CostEval.debug();
+		Coordinator.selfDefenseStrategy(1);
 	}
 	
 	public void draw() {	

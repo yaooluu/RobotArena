@@ -39,7 +39,7 @@ public class CostEval {
 
 	public static void debug() {
 		System.out.println("CostEval debug...");
-		Boid t1 = Main.getBoids().get(3);
+		Boid t1 = Main.getBoids().get(1);
 		Boid t2 = Main.getBoids().get(4);
 		System.out.println(pathCost(t1, t2));
 	}
