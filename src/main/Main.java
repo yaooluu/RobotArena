@@ -106,6 +106,8 @@ public class Main extends PApplet {
 	private void mainLogic() {		
 		if(player.b.fuel > 0)
 			player.move();	
+		  System.out.println(player.b.v.getLength());
+		  System.out.println(player.b.a.getLength());
 	 	//player.controlTeam(boids);
 
 		for(Boid b : boids) {				

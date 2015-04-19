@@ -32,7 +32,7 @@ public class Player {
 		if(Main.arrowKeys[0]) {				
 			b.a.x=(float)Math.sin(Math.toRadians(b.r));
 			b.a.y=-(float)Math.cos(Math.toRadians(b.r));
-			b.a.drag(Config.MAX_LINACC[b.getType()]);			
+			b.a.drag(Config.MAX_LINACC[b.getType()]+b.bonusAcc);			
 			b.vr=0;
 			Behavior.update(b);			
 		
