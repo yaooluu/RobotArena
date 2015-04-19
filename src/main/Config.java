@@ -58,6 +58,6 @@ public class Config {
 										Color.MAGENTA, Color.ORANGE};
 	
 	
-	public static AudioPlayer bk_music;
-	public static AudioSample collision_music,die_music,ult_music,win_music,buff_music;
+	public static AudioPlayer bk_music,win_music;
+	public static AudioSample collision_music,die_music,ult_music,buff_music;
 }

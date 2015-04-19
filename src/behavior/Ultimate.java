@@ -42,7 +42,7 @@ public class Ultimate {
 		}
 		else if(!b.isHit)
 		{
-			
+			Config.ult_music.stop();
 			b.vr=0;
 			b.v.x=(float) Math.sin(Math.toRadians(b.r));
 			b.v.y=-(float) Math.cos(Math.toRadians(b.r));

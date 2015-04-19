@@ -63,6 +63,7 @@ public class Player {
 		//ultimate
 		if(Main.arrowKeys[1]||canvas.key =='a')
 		{
+			//Config.ult_music.trigger();
 			b.ultimate();
 			Behavior.update2(b);
 		}

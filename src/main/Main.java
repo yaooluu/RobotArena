@@ -47,7 +47,7 @@ public class Main extends PApplet {
 		Config.ult_music=minim.loadSample("../src/environment/ultimate.wav", 2048);
 		Config.collision_music=minim.loadSample("../src/environment/collision.mp3", 2048);
 		Config.die_music=minim.loadSample("../src/environment/die.mp3", 2048);  
-		Config.win_music=minim.loadSample("../src/environment/win.wav", 2048);
+		Config.win_music=minim.loadFile("../src/environment/win.wav", 2048);
 		Config.buff_music=minim.loadSample("../src/environment/buff.wav", 2048);
 	  
 		Config.canvas = this;
@@ -349,7 +349,7 @@ public class Main extends PApplet {
 	
 	private void drawWinTeam(int teamID)
 	{
-		Config.win_music.trigger();
+		Config.win_music.play();
 		String winText = "Winner: Red Team!";
 		RGB showColor=new RGB(255,0,0);
 		if(teamID==1) {winText = "Winner: Blue Team!";showColor.b=255;showColor.r=0;}
