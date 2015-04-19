@@ -62,7 +62,7 @@ public class DecisionTree {
 			
 		case "ultimate":
 			//TODO
-			Config.ult_music.trigger();
+			if(Config.canvas.frameCount % 30 == 0)Config.ult_music.trigger();
 			b.ultimate();
 			break;
 

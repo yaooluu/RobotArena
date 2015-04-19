@@ -50,6 +50,8 @@ public class Main extends PApplet {
 		Config.win_music=minim.loadFile("../src/environment/win.wav", 2048);
 		Config.buff_music=minim.loadSample("../src/environment/buff.wav", 2048);
 	  
+		Config.bk_music.setVolume(0.01f);
+		
 		Config.canvas = this;
 		boids = new ArrayList<Boid>();	
 		environment=loadImage("../src/environment/GE.png");			
@@ -65,22 +67,28 @@ public class Main extends PApplet {
 		//init players from two teams
 		//initPlayers();
 
-		debugPalyers();
+		debugPlayers();
 		
 		//SafetyEval.debug();
 		//CostEval.debug();
 	}
 
-	private void debugPalyers() {
+	private void debugPlayers() {
 		//if debug team follow, comment out initPlayers();
 		
-		boids.add(new Boid(100, 150, 90, 0, Config.BOID_TYPE.scout, 1));
-		//boids.add(new Boid(100, 250, 180, 0, Config.BOID_TYPE.soldier, 2));
-		//boids.add(new Boid(100, 350, 90, 0, Config.BOID_TYPE.tank, 3));
+		int offset=220;
+		boids.add(new Boid(70, offset+130, 90, 0, Config.BOID_TYPE.scout, 1));
+		boids.add(new Boid(70, offset+270, 90, 0, Config.BOID_TYPE.soldier, 2));
+		boids.add(new Boid(70, offset+200, 90, 0, Config.BOID_TYPE.tank, 3));
+		boids.add(new Boid(130, offset+270, 90, 0, Config.BOID_TYPE.hero, 4));
+		boids.add(new Boid(130, offset+200, 90, 0, Config.BOID_TYPE.commander, 5));
 		
-		boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
-		//boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
-		//boids.add(new Boid(700, 400, 270, 1, Config.BOID_TYPE.tank, 6));
+		
+		boids.add(new Boid(700, 100, 270, 1, Config.BOID_TYPE.scout, 6));
+		boids.add(new Boid(700, 150, 270, 1, Config.BOID_TYPE.soldier, 7));
+		boids.add(new Boid(700, 230, 270, 1, Config.BOID_TYPE.tank, 8));
+		boids.add(new Boid(700, 280, 270, 1, Config.BOID_TYPE.hero, 9));
+		boids.add(new Boid(700, 330, 270, 1, Config.BOID_TYPE.commander, 10));
 		player=new Player(boids.get(0));
 	}
 

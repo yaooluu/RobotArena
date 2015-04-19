@@ -1,7 +1,6 @@
 package physics;
 
 import java.util.*;
-
 import main.Config;
 import environment.Boid;
 import environment.Wall;
@@ -113,8 +112,9 @@ public class Collision {
 		if(b2.curBehavior.equals("attack")) b2.curBehavior = "";
 		
 		//play audio file
-		Config.collision_music.trigger();
-		
+		if(b1.getTeam()!=b2.getTeam()&&
+				Config.canvas.frameCount % 2 == 0)Config.collision_music.trigger();
+		System.out.println(Config.canvas.frameCount);
 		float m1 = b1.getMass();
 		float m2 = b2.getMass();
 		Vec2D v1 = b1.v;
