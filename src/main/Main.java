@@ -89,7 +89,7 @@ public class Main extends PApplet {
 		if(pause == false) {
 			background(255);
 			smooth(8);	
-		
+			Config.bk_music.play();
 			
 			
 			drawEnvironment();
@@ -115,6 +115,7 @@ public class Main extends PApplet {
 			victoryJudge();
 
 		} else {
+			Config.bk_music.pause();
 			drawText("Game Paused", 30, 30, "Georgia", 20, new RGB(255,0,0));
 		}
 		
@@ -349,7 +350,9 @@ public class Main extends PApplet {
 	
 	private void drawWinTeam(int teamID)
 	{
-		Config.win_music.play();
+		
+		Config.die_music.stop();
+		Config.win_music.play();;
 		String winText = "Winner: Red Team!";
 		RGB showColor=new RGB(255,0,0);
 		if(teamID==1) {winText = "Winner: Blue Team!";showColor.b=255;showColor.r=0;}
