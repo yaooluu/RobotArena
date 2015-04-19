@@ -1,7 +1,6 @@
 package main;
 
 import java.util.*;
-
 import decisionmaking.DecisionTree;
 import pathfinding.Graph;
 import physics.Collision;
@@ -65,8 +64,8 @@ public class Main extends PApplet {
 		boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
 		//boids.add(new Boid(700, 400, 270, 1, Config.BOID_TYPE.tank, 6));
 		player=new Player(boids.get(0));
-		SafetyEval.debug();
-		CostEval.debug();
+		//SafetyEval.debug();
+		//CostEval.debug();
 	}
 	
 	public void draw() {	
@@ -80,7 +79,6 @@ public class Main extends PApplet {
 			mainLogic();
 
 			debugLogic();			
-
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
 			
@@ -112,8 +110,8 @@ public class Main extends PApplet {
 		for(Boid b : boids) {				
 			if(b!=player.b) {
 				//DecisionTree.PerformDecision(b);
-				b.wander();
-
+				//b.wander();
+				Guard.guard(b,boids);
 				if(b.fuel > 0)
 					Behavior.update2(b);
 				else {
@@ -123,8 +121,8 @@ public class Main extends PApplet {
 					b.a.y = 0;
 				}
 			}		
-			b.addBreadcrumb();
-			b.showBreadcrumbs();
+			//b.addBreadcrumb();
+			//b.showBreadcrumbs();
 		}
 	}
 	
@@ -324,7 +322,7 @@ public class Main extends PApplet {
 		int winTeam;
 		if(boids.size()==0)
 		{
-			drawText("No Winner!", Config.SCREEN_WIDTH/2, Config.SCREEN_HEIGHT/2, "Georgia", 30, new RGB(255,0,0));
+			drawText("No Winner!", Config.SCREEN_WIDTH/2-150, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, new RGB(0,0,0));
 			return;
 		}
 		else
