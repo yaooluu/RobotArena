@@ -78,7 +78,8 @@ public class Main extends PApplet {
 
 			mainLogic();
 
-			debugLogic();			
+			debugLogic();	
+			
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
 			
@@ -108,13 +109,22 @@ public class Main extends PApplet {
 	 	//player.controlTeam(boids);
 
 		for(Boid b : boids) {				
-			if(b!=player.b) {
-				DecisionTree.PerformDecision(b);
+
+			
+			if(b!=player.b) {	
+				
+
 				//b.wander();
 
-				if(b.fuel > 0||b.v.getLength()>3)
+				//Guard.guard(b,boids);
+				
+				//if(b.fuel > 0)
+					//DecisionTree.PerformDecision(b);
+				
+				if(b.fuel > 0 || b.v.getLength() > 3)
 					Behavior.update2(b);
 				else {
+					b.curBehavior = "";
 					b.v.x = 0;
 					b.v.y = 0;
 					b.a.x = 0;
@@ -136,6 +146,8 @@ public class Main extends PApplet {
 		}		
 		if(mouseVec!=null) ellipse(mouseVec.x, mouseVec.y, 20, 20);
 		
+		if(boids.get(1).fuel > 0)
+			boids.get(1).attack(boids.get(0));
 		//boids.get(1).evade(boids.get(0));
 		/*
 		for(int i=0;i<boids.size();i++) {
@@ -282,6 +294,10 @@ public class Main extends PApplet {
 			Config.drawBoidId = !Config.drawBoidId;
 		else if(key == 'f')
 			Config.drawBoidFuel = !Config.drawBoidFuel;
+		else if(key == 'r')
+			Config.drawRayCasting = !Config.drawRayCasting;
+		else if(key == 'k')
+			Config.drawKeyPoints = !Config.drawKeyPoints;
 		
 		else if(key == PApplet.CODED) {
 			if(keyCode == UP)

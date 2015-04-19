@@ -41,16 +41,22 @@ public class Collision {
 			float minD = Integer.MAX_VALUE;
 			for(Wall w : World.getWalls()) {	
 				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
+				
 				if(dist < minD && dist < b.getSize()/2.0 + threshold) {							
 					minD = dist;
 					nearestWall = w;
 				}
 			}			
 			
-			if(nearestWall != null) {
-				//System.out.println("Colliding at "+minW + ", with vector "+minW.collisionVec);
-				float factor = 1.0f;
+			if(nearestWall != null) {			
+				float factor = 1.0f;				
+				b.a.x = 0;
+				b.a.y = 0;
+				b.v.truncate(1.0f);
+				b.v.plusEqual(nearestWall.collisionVec.multiply(factor));
+				b.pos.plusEqual(b.v);
 				
+				/*
 				Vec2D vec = new Vec2D(0,0);			
 				float x = Math.abs(nearestWall.collisionVec.x);
 				float y = Math.abs(nearestWall.collisionVec.y);
@@ -63,19 +69,27 @@ public class Collision {
 				else {
 					//nearestWall.collisionVec.truncate(.1f);
 					//vec = nearestWall.collisionVec.multiply(b.v.getLength() * factor);
-					vec = b.pos.multiply(1);
+					//vec = b.pos.multiply(1);
+					//b.v = b.v.multiply(1);
+					//vec = nearestWall.collisionVec;
+					b.v.truncate(1.1f);				
+					b.a = new Vec2D(0, 0);
+					b.v.plusEqual(nearestWall.collisionVec);
+					b.pos.plusEqual(b.v);
+					return;
 				}
-	
+				*/
+				
+				/*
 				b.v.plusEqual(vec);
 				b.v.truncate(Config.MAX_SPEED[b.getType()]);
-				b.v = b.v.multiply(0.2f);
+				b.v = b.v.multiply(0.1f);
+				*/
+						
+				//nearestWall.collisionVec.drag(b.getSize()/2 + 4);
+				//b.pos = nearestWall.plus(nearestWall.collisionVec.multiply(1.01f));
 				
-				b.a = new Vec2D(0, 0);
-				
-				nearestWall.collisionVec.drag(b.getSize()/2 + threshold + 1);
-				b.pos = nearestWall.plus(nearestWall.collisionVec.multiply(1.1f));
-				if(b.isUlt){b.isHit=true;b.isUlt=false;}
-								
+				if(b.isUlt){b.isHit=true;b.isUlt=false;}							
 			}
 		}
 	}
