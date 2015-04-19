@@ -108,7 +108,8 @@ public class Main extends PApplet {
 		for(Boid b : boids) {				
 			if(b!=player.b) {
 				//DecisionTree.PerformDecision(b);
-				
+				b.wander();
+
 				if(b.fuel > 0)
 					Behavior.update2(b);
 				else {
@@ -118,8 +119,8 @@ public class Main extends PApplet {
 					b.a.y = 0;
 				}
 			}		
-			//b.addBreadcrumb();
-			//b.showBreadcrumbs();
+			b.addBreadcrumb();
+			b.showBreadcrumbs();
 		}
 	}
 	
