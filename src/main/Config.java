@@ -7,8 +7,8 @@ import processing.core.PApplet;
 public class Config {
 	
 	//debug parameters
-	public static boolean drawRayCasting = true;
-	public static boolean drawKeyPoints = true;
+	public static boolean drawRayCasting = false;
+	public static boolean drawKeyPoints = false;
 	
 	public static boolean drawBoidVision = true;
 	public static boolean drawBoidId = true;

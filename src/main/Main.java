@@ -36,7 +36,7 @@ public class Main extends PApplet {
 	public void setup() {
 		Config.canvas = this;
 		boids = new ArrayList<Boid>();	
-		environment=loadImage("../src/environment/GameEnvironment.png");			
+		environment=loadImage("../src/environment/GE.png");			
 
 		grassMask=loadImage("../src/environment/Grass.png");		
 
@@ -291,6 +291,10 @@ public class Main extends PApplet {
 			Config.drawBoidId = !Config.drawBoidId;
 		else if(key == 'f')
 			Config.drawBoidFuel = !Config.drawBoidFuel;
+		else if(key == 'r')
+			Config.drawRayCasting = !Config.drawRayCasting;
+		else if(key == 'k')
+			Config.drawKeyPoints = !Config.drawKeyPoints;
 		
 		else if(key == PApplet.CODED) {
 			if(keyCode == UP)
