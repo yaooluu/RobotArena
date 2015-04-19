@@ -14,21 +14,28 @@ public class PathLibrary {
 		if(Config.drawKeyPoints) {
 			for(int i=0;i<b.curPath.size();i++) {
 				Vec2D vec = graph.getNodePos(b.curPath.get(i));
-				//Config.canvas.fill(255,0,0);
+				Config.canvas.fill(255,0,0);
 				Config.canvas.ellipse(vec.x, vec.y, 5, 5);
 				Config.canvas.text(b.curPath.get(i), vec.x + 3, vec.y - 3);
 			}
 		}
 		
-		if(World.detectAccessible(b, targetPos) == true) {
-			b.curPath.clear();
-			return targetPos;
+		//1-ray casting first
+		if(World.detectAccessible(b.pos, targetPos)) {	
+			
+			//if very close or 3-ray reachable, return targetPos
+			if(b.pos.minus(targetPos).getLength() < 80
+				|| World.detectAccessible(b, targetPos)) {
+				b.curPath.clear();
+				return targetPos;
+			}
 		}
 
 		int start = World.quantize(b.pos);
 		int end = World.quantize(targetPos);
 		
 		b.curPath = PathFinding.AStar(graph, start, end);
+		//System.out.println(b.curPath);
 			
 		//filter key points, find the farthest reachable one
 		while(b.curPath.size() >= 2) {

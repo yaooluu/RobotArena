@@ -36,7 +36,7 @@ public class Main extends PApplet {
 	public void setup() {
 		Config.canvas = this;
 		boids = new ArrayList<Boid>();	
-		environment=loadImage("../src/environment/GE.png");			
+		environment=loadImage("../src/environment/GameEnvironment.png");			
 
 		grassMask=loadImage("../src/environment/Grass.png");		
 
@@ -78,7 +78,8 @@ public class Main extends PApplet {
 
 			mainLogic();
 
-			debugLogic();			
+			debugLogic();	
+			
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
 			
@@ -108,13 +109,19 @@ public class Main extends PApplet {
 	 	//player.controlTeam(boids);
 
 		for(Boid b : boids) {				
-			if(b!=player.b) {
-				//DecisionTree.PerformDecision(b);
+			
+			if(b!=player.b) {	
+				
 				//b.wander();
-				Guard.guard(b,boids);
-				if(b.fuel > 0)
+				//Guard.guard(b,boids);
+				
+				//if(b.fuel > 0)
+					//DecisionTree.PerformDecision(b);
+				
+				if(b.fuel > 0 || b.v.getLength() > 3)
 					Behavior.update2(b);
 				else {
+					b.curBehavior = "";
 					b.v.x = 0;
 					b.v.y = 0;
 					b.a.x = 0;
@@ -136,6 +143,8 @@ public class Main extends PApplet {
 		}		
 		if(mouseVec!=null) ellipse(mouseVec.x, mouseVec.y, 20, 20);
 		
+		if(boids.get(1).fuel > 0)
+			boids.get(1).attack(boids.get(0));
 		//boids.get(1).evade(boids.get(0));
 		/*
 		for(int i=0;i<boids.size();i++) {

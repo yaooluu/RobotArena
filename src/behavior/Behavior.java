@@ -30,8 +30,9 @@ public class Behavior {
 		Steering st;
 		Vec2D goalPos;
 		goalPos=new Vec2D(targetPos);
-		Config.canvas.ellipse(goalPos.x, goalPos.y, 30, 30);
-		Vec2D newTarget = PathLibrary.getNextTarget(boid, targetPos);
+
+		//Config.canvas.ellipse(goalPos.x, goalPos.y, 30, 30);
+		Vec2D newTarget = PathLibrary.getNextTarget(boid, new Vec2D(targetPos));
 		if(newTarget != null) targetPos = newTarget;
 		
 		//System.out.println("Seeking: "+targetPos); 
@@ -286,7 +287,8 @@ public class Behavior {
 		float avoidDist,minDist=1000f;
 		Vec2D avoidVec=new Vec2D(0,0);
 		for(Boid b : boids) {
-
+			if(b.fuel < 1) continue;
+			
 			avoidDist=b.getSize()/2;
 			avoidVec=new Vec2D(0,0);
 			for(Border w : World.getBorders()) {

@@ -7,8 +7,8 @@ import processing.core.PApplet;
 public class Config {
 	
 	//debug parameters
-	public static boolean drawRayCasting = false;
-	public static boolean drawKeyPoints = false;
+	public static boolean drawRayCasting = true;
+	public static boolean drawKeyPoints = true;
 	
 	public static boolean drawBoidVision = true;
 	public static boolean drawBoidId = true;
@@ -50,7 +50,7 @@ public class Config {
 	public static int[] BOID_MASS =			{200, 300, 600, 250, 350};
 	
 	public static float[] MAX_LINACC = 		{300, 200, 150, 100, 300};
-	public static float[] MAX_ANGACC = 		{5, 3, 1, 3, 3};
+	public static float[] MAX_ANGACC = 		{5, 3, 1.5f, 3, 3};
 	public static float[] MAX_SPEED =  		{200, 150, 100, 200, 150};
 
 	public static Color[] TEAM_COLORS = {Color.RED, Color.BLUE, Color.GREEN,
