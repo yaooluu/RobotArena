@@ -138,12 +138,14 @@ public class Boid {
 		//debug, draw boid id
 		if(Config.drawBoidId) {
 			canvas.fill(rgb.r, rgb.g, rgb.b);
+			canvas.textSize(16);
 			canvas.text(id, pos.x - size / 2 - 10, pos.y - size / 2 + 5);
 		}
 		
 		//debug, draw current action
 		if(Config.drawBoidAction) {
 			canvas.fill(128,0,255);
+			canvas.textSize(16);
 			canvas.text(curBehavior, pos.x - size / 2 - 10, pos.y - size / 2 - 20);
 		}
 				
