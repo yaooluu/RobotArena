@@ -28,6 +28,10 @@ public class World {
 	private static List<Shelter> shelters = new ArrayList<Shelter>();
 	public static List<Shelter> getShelters() {return shelters;}
 	
+	//debug, store Dirichlet points
+	private static List<Vec2D> keypoints = new ArrayList<Vec2D>();
+	public static List<Vec2D> getKeyPoints() {return keypoints;}
+	
 	private static int[] pixels = null;
 	public static int[] getPixels() {return pixels;}
 	
@@ -52,6 +56,7 @@ public class World {
 				if (RGB.isGreen(pix)) {
 					graph.setNodePos(nodeIndex, new Vec2D(i, j));
 					nodeIndex++;
+					keypoints.add(new Vec2D(i,j));
 				}
 				
 				//scan and store walls (black) and borders (grey)
@@ -89,8 +94,7 @@ public class World {
 				//scan and store shelter locations
 				if(RGB.isPurple(pix)) {
 					shelters.add(new Shelter(i,j));
-				}
-				
+				}	
 			}
 		}
 

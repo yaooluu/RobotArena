@@ -39,13 +39,12 @@ public class Collision {
 			
 			Wall nearestWall = null;
 			float minD = Integer.MAX_VALUE;
-			for(Wall w : World.getWalls()) {	
+			for(Wall w : World.getWalls()) {
 				float dist = b.pos.minus(new Vec2D(w.x, w.y)).getLength();
-				
 				if(dist < minD && dist < b.getSize()/2.0 + threshold) {							
 					minD = dist;
-					nearestWall = w;
-				}
+					nearestWall = new Wall(w.x, w.y, w.collisionVec);
+				}	
 			}			
 			
 			if(nearestWall != null) {			

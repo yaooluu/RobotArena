@@ -61,29 +61,24 @@ public class Main extends PApplet {
 		size(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		frameRate(Config.FRAME_RATE);
 		
-		//init teams
-		/*
-		int id = 0;
-		for(int i=0;i<Config.TEAM_SIZE.length;i++) {
-			for(int j=0;j<Config.TEAM_SIZE[i];j++) {
-				id++;
-				Boid b = new Boid(100+400*i, 20*(j+1), 90+180*i, i, Config.BOID_TYPE.scout, id);	
-				boids.add(b);
-			}			
-		}//*/	
+		
+		//init players from two teams
+		initPlayers();
 
+		//if debug team follow, comment out initPlayers();
+		
 		//boids.add(new Boid(100, 150, 90, 0, Config.BOID_TYPE.scout, 1));
-		boids.add(new Boid(100, 250, 180, 0, Config.BOID_TYPE.soldier, 2));
+		//boids.add(new Boid(100, 250, 180, 0, Config.BOID_TYPE.soldier, 2));
 		//boids.add(new Boid(100, 350, 90, 0, Config.BOID_TYPE.tank, 3));
 		
 		//boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
-		boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
+		//boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
 		//boids.add(new Boid(700, 400, 270, 1, Config.BOID_TYPE.tank, 6));
-		player=new Player(boids.get(0));
+		//player=new Player(boids.get(0));
 		//SafetyEval.debug();
 		//CostEval.debug();
 	}
-	
+
 	public void draw() {	
 		//pause game when pressed space bar
 		if(pause == false) {
@@ -96,7 +91,7 @@ public class Main extends PApplet {
 
 			mainLogic();
 
-			debugLogic();	
+			//debugLogic();	
 			
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
@@ -121,23 +116,38 @@ public class Main extends PApplet {
 		
 	}
 
+	private void initPlayers() {
+		Boid[] b = new Boid[11];
+		
+		float span = 80, f = 1.2f;
+		float ang = 50, x = 90, y = 520;
+		b[1] = new Boid(x+span*f, y-span*f, ang, 0, Config.BOID_TYPE.scout, 1);
+		b[2] = new Boid(x, y-span, 0, 0, Config.BOID_TYPE.soldier, 2);
+		b[3] = new Boid(x+span, y, 90, 0, Config.BOID_TYPE.hero, 3);
+		b[4] = new Boid(x+span/2, y-span/2, ang, 0, Config.BOID_TYPE.tank, 4);
+		b[5] = new Boid(x, y, ang, 0, Config.BOID_TYPE.commander, 5);
+		
+		ang = 270 - ang; x = 710; y=85;
+		b[6] = new Boid(x-span*f, y+span*f, ang, 1, Config.BOID_TYPE.scout, 6);
+		b[7] = new Boid(x, y+span, 180, 1, Config.BOID_TYPE.soldier, 7);
+		b[8] = new Boid(x-span, y, 270, 1, Config.BOID_TYPE.hero, 8);
+		b[9] = new Boid(x-span/2, y+span/2, ang, 1, Config.BOID_TYPE.tank, 9);
+		b[10] = new Boid(x, y, ang, 1, Config.BOID_TYPE.commander, 10);
+		
+		for(int i=1;i<b.length;i++) boids.add(b[i]);
+		
+		player=new Player(boids.get(0));
+	}
+	
 	//main workflow here.
-	private void mainLogic() {		
+	private void mainLogic() {	
+		
 		if(player.b.fuel > 0)
-			player.move();	
-		  
+			player.move();		  
 	 	//player.controlTeam(boids);
 
-		for(Boid b : boids) {				
-
-			
+		for(Boid b : boids) {						
 			if(b!=player.b) {	
-				
-
-				//b.wander();
-
-				//Guard.guard(b,boids);
-				
 				if(b.fuel > 0)
 					DecisionTree.PerformDecision(b);
 				
@@ -158,6 +168,7 @@ public class Main extends PApplet {
 	
 	//all debug workflow
 	private void debugLogic() {
+		
 		if(this.mousePressed)
 		{
 			mouseVec = new Vec2D(mouseX, mouseY);		
@@ -193,6 +204,51 @@ public class Main extends PApplet {
 		//boids.get(3).getBuff("red");
 		//boids.get(1).wander();
 		
+		//debug draw wall vectors
+		/*
+		int i = 0;	
+		for(Wall w : World.getWalls()) {
+			i++;
+			if(i % 5!= 0) continue;
+					
+			stroke(255,0,0);
+			strokeWeight(1);
+			int f = 10;
+			line(w.x,w.y,	w.x + w.collisionVec.x * f,	w.y + w.collisionVec.y * f);	
+		}
+
+		i = 0;	
+		for(Border w : World.getBorders()) {
+			i++;
+			if(i % 5!= 0) continue;
+					
+			stroke(0,0,255);
+			strokeWeight(1);
+			int f = 10;
+			line(w.x,w.y,	w.x + w.borderVec.x * f,	w.y + w.borderVec.y * f);	
+		}
+		*/
+		
+		//debug, draw shelters point
+		if(Config.drawShelterPoints) {
+			int i = 0;
+			for(Shelter s : World.getShelters()) {
+				drawText("s"+i, s.x, s.y, "Georgia", 16, new RGB(255,0,0));
+				i++;
+			}
+		}
+		
+		//debug, draw Dirichlet points
+		if(Config.drawKeyPoints) {
+			int i = 0;
+			for(Vec2D v : World.getKeyPoints()) {
+				noStroke();
+				fill(128,0,128);
+				ellipse(v.x, v.y, 5, 5);
+				drawText("D"+i, v.x + 5, v.y + 5, "Georgia", 16, new RGB(128,0,128));
+				i++;
+			}
+		}
 	}
 
 	private void drawEnvironment() {	
@@ -200,6 +256,7 @@ public class Main extends PApplet {
 		image(environment, 0, 0);
 		
 		//draw buffs
+		///*
 		for(Buff buff : World.getBuffs()) {
 			if(buff.countdown > 0) {
 				if(frameCount % Config.FRAME_RATE == 0)
@@ -241,7 +298,7 @@ public class Main extends PApplet {
 					}
 				}
 			}
-		}
+		}//*/
 		
 		//update blue buff bonus time
 		for(Boid b : boids) {
@@ -253,14 +310,6 @@ public class Main extends PApplet {
 				b.bonusAcc = 0;
 				b.bonusSpeed = 0;
 			}
-		}
-		
-		
-		//debug, draw shelters point
-		int i = 0;
-		for(Shelter s : World.getShelters()) {
-			drawText("s"+i, s.x, s.y, "Georgia", 12, new RGB(255,0,255));
-			i++;
 		}
 	}
 	
@@ -320,6 +369,8 @@ public class Main extends PApplet {
 			Config.drawRayCasting = !Config.drawRayCasting;
 		else if(key == 'k')
 			Config.drawKeyPoints = !Config.drawKeyPoints;
+		else if(key == 's')
+			Config.drawShelterPoints = !Config.drawShelterPoints;
 		
 		else if(key == PApplet.CODED) {
 			if(keyCode == UP)

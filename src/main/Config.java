@@ -10,6 +10,7 @@ public class Config {
 	//debug parameters
 	public static boolean drawRayCasting = false;
 	public static boolean drawKeyPoints = false;
+	public static boolean drawShelterPoints = false;
 	
 	public static boolean drawBoidVision = false;
 	public static boolean drawBoidId = false;
@@ -44,7 +45,7 @@ public class Config {
 		public int value() {return this.value;}
 	};
 	
-	public static int[] BOID_SIZE = 		{15, 25, 35, 25, 25};
+	public static int[] BOID_SIZE = 		{15, 20, 35, 25, 25};
 	public static int[] BOID_VISION = 		{120, 90, 90, 90, 90};
 	public static int[] BOID_AUDITORY = 	{30, 15, 10, 20, 20};
 	public static int[] BOID_FUEL = 		{100, 200, 300, 200, 200};
