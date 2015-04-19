@@ -367,6 +367,18 @@ public class Main extends PApplet {
 		
 	}
 	
+	private void changePlayer(int id)
+	{
+		for(Boid b:boids)
+		{
+			if(b.getId()==id)
+			{
+				player.b=b;
+				return;
+			}
+		}
+	}
+	
 	public void keyPressed() {
 		//System.out.println("Key pressed: "+key);
 		if(key == ' ')
@@ -386,7 +398,27 @@ public class Main extends PApplet {
 			Config.drawKeyPoints = !Config.drawKeyPoints;
 		else if(key == 's')
 			Config.drawShelterPoints = !Config.drawShelterPoints;
-		
+		else if(key == '0')
+			changePlayer(10);
+		else if(key == '1')
+			changePlayer(1);
+		else if(key == '2')
+			changePlayer(2);
+		else if(key == '3')
+			changePlayer(3);
+		else if(key == '4')
+			changePlayer(4);
+		else if(key == '5')
+			changePlayer(5);
+		else if(key == '6')
+			changePlayer(6);
+		else if(key == '7')
+			changePlayer(7);
+		else if(key == '8')
+			changePlayer(8);
+		else if(key == '9')
+			changePlayer(9);
+
 		else if(key == PApplet.CODED) {
 			if(keyCode == UP)
 				arrowKeys[0] = true;
