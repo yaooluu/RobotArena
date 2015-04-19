@@ -12,6 +12,8 @@ import strategy.CostEval;
 import strategy.SafetyEval;
 import environment.*;
 import behavior.*;
+import ddf.minim.*;
+
 
 @SuppressWarnings("serial")
 public class Main extends PApplet {
@@ -33,7 +35,21 @@ public class Main extends PApplet {
 	private Player player;
 	public static boolean[] arrowKeys = new boolean[4];
 	
+	
 	public void setup() {
+		
+		Minim minim;//audio context
+		
+		minim = new Minim(this);
+		Config.bk_music = minim.loadFile("../src/environment/background.wav", 2048);
+		Config.bk_music.loop();
+	  
+		Config.ult_music=minim.loadSample("../src/environment/ultimate.wav", 2048);
+		Config.collision_music=minim.loadSample("../src/environment/collision.mp3", 2048);
+		Config.die_music=minim.loadSample("../src/environment/die.mp3", 2048);  
+		Config.win_music=minim.loadSample("../src/environment/win.wav", 2048);
+		Config.buff_music=minim.loadSample("../src/environment/buff.wav", 2048);
+	  
 		Config.canvas = this;
 		boids = new ArrayList<Boid>();	
 		environment=loadImage("../src/environment/GE.png");			
@@ -73,7 +89,9 @@ public class Main extends PApplet {
 		if(pause == false) {
 			background(255);
 			smooth(8);	
-
+		
+			
+			
 			drawEnvironment();
 
 			mainLogic();
@@ -119,8 +137,8 @@ public class Main extends PApplet {
 
 				//Guard.guard(b,boids);
 				
-				//if(b.fuel > 0)
-					//DecisionTree.PerformDecision(b);
+				if(b.fuel > 0)
+					DecisionTree.PerformDecision(b);
 				
 				if(b.fuel > 0 || b.v.getLength() > 3)
 					Behavior.update2(b);
@@ -147,8 +165,8 @@ public class Main extends PApplet {
 		}		
 		if(mouseVec!=null) ellipse(mouseVec.x, mouseVec.y, 20, 20);
 		
-		if(boids.get(1).fuel > 0)
-			boids.get(1).getBuff("blue");
+		//if(boids.get(1).fuel > 0)
+			//boids.get(1).getBuff("blue");
 
 			//boids.get(1).attack(boids.get(0));
 		//boids.get(1).evade(boids.get(0));
@@ -331,6 +349,7 @@ public class Main extends PApplet {
 	
 	private void drawWinTeam(int teamID)
 	{
+		Config.win_music.trigger();
 		String winText = "Winner: Red Team!";
 		RGB showColor=new RGB(255,0,0);
 		if(teamID==1) {winText = "Winner: Blue Team!";showColor.b=255;showColor.r=0;}

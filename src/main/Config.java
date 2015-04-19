@@ -1,7 +1,8 @@
 package main;
 
 import java.awt.Color;
-
+import ddf.minim.AudioPlayer;
+import ddf.minim.AudioSample;
 import processing.core.PApplet;
 
 public class Config {
@@ -56,4 +57,7 @@ public class Config {
 	public static Color[] TEAM_COLORS = {Color.RED, Color.BLUE, Color.GREEN,
 										Color.MAGENTA, Color.ORANGE};
 	
+	
+	public static AudioPlayer bk_music;
+	public static AudioSample collision_music,die_music,ult_music,win_music,buff_music;
 }

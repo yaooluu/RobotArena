@@ -11,7 +11,7 @@ public class Ultimate {
 		//behavior finish (ultimate)
 		if(b.isHit) {
 			b.isUlt=false;
-			
+			Config.ult_music.stop();
 			if(b.curBehavior.equals("ultimate")) {
 				b.curBehavior = "";			
 				return;	
@@ -22,6 +22,7 @@ public class Ultimate {
 		Vec2D vibrate;
 		if(b.accRotate<1080)
 		{
+			
 			vibrate=new Vec2D((float) (Math.sin(Math.toRadians(b.r))),
 					-(float)(Math.cos(Math.toRadians(b.r))));
 			
@@ -41,6 +42,7 @@ public class Ultimate {
 		}
 		else if(!b.isHit)
 		{
+			
 			b.vr=0;
 			b.v.x=(float) Math.sin(Math.toRadians(b.r));
 			b.v.y=-(float) Math.cos(Math.toRadians(b.r));

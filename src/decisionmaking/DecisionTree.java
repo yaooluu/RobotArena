@@ -62,6 +62,7 @@ public class DecisionTree {
 			
 		case "ultimate":
 			//TODO
+			Config.ult_music.trigger();
 			b.ultimate();
 			break;
 

@@ -113,6 +113,9 @@ public class Collision {
 		if(b1.curBehavior.equals("attack")) b1.curBehavior = "";
 		if(b2.curBehavior.equals("attack")) b2.curBehavior = "";
 		
+		//play audio file
+		Config.collision_music.trigger();
+		
 		float m1 = b1.getMass();
 		float m2 = b2.getMass();
 		Vec2D v1 = b1.v;

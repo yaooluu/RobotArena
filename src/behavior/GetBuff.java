@@ -20,6 +20,7 @@ public class GetBuff {
 				else {
 					//behavior finish (redbuff)
 					if(b.curBehavior.equals("redbuff")) {
+						Config.buff_music.trigger();
 						//System.out.println("Red got or missed.");
 						b.curBehavior = "";
 					}
@@ -36,6 +37,7 @@ public class GetBuff {
 				else {
 					//behavior finish (bluebuff)
 					if(b.curBehavior.equals("bluebuff")) {
+						Config.buff_music.trigger();
 						//System.out.println("Blue got or missed.");
 						b.curBehavior = "";
 					}

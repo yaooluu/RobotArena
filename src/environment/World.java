@@ -214,6 +214,7 @@ public class World {
 		for(Boid b : boids) {
 			int pix = pixels[(int)b.pos.y * width + (int)b.pos.x];
 			if(RGB.isGrey(pix) == true) {
+				Config.die_music.trigger();
 				System.out.println(b.pos + " is Out of stage!!!!!");
 				tmpList.add(b);
 			}		
