@@ -157,12 +157,13 @@ public class Boid {
 		canvas.rotate(PApplet.radians(r));
 
 		//draw body lower
-		canvas.fill(0);
+		//canvas.fill(0,150);
+		if(rgb != null)
+			canvas.fill(rgb.r, rgb.g, rgb.b, 70);
 		canvas.ellipse(0, 0, size, size);		
 				
-		if(rgb != null) {
+		if(rgb != null)
 			canvas.fill(rgb.r, rgb.g, rgb.b);
-		}
 		
 		//draw body upper
 		float upper = size / 3;

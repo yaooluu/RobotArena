@@ -11,8 +11,8 @@ public class Config {
 	public static boolean drawRayCasting = false;
 	public static boolean drawKeyPoints = false;
 	
-	public static boolean drawBoidVision = true;
-	public static boolean drawBoidId = true;
+	public static boolean drawBoidVision = false;
+	public static boolean drawBoidId = false;
 	public static boolean drawBoidFuel = true;
 	public static boolean drawBoidAction = true;
 	
