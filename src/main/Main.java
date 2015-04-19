@@ -311,8 +311,9 @@ public class Main extends PApplet {
 	private void drawWinTeam(int teamID)
 	{
 		String winText = "Winner: Red Team!";
-		if(teamID==1) winText = "Winner: Blue Team!";
-		drawText(winText, Config.SCREEN_WIDTH/2-200, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, new RGB(255,0,0));	
+		RGB showColor=new RGB(255,0,0);
+		if(teamID==1) {winText = "Winner: Blue Team!";showColor.b=255;showColor.r=0;}
+		drawText(winText, Config.SCREEN_WIDTH/2-200, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, showColor);	
 	}
 	private void victoryJudge()
 	{
