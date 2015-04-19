@@ -106,8 +106,7 @@ public class Main extends PApplet {
 	private void mainLogic() {		
 		if(player.b.fuel > 0)
 			player.move();	
-		  System.out.println(player.b.v.getLength());
-		  System.out.println(player.b.a.getLength());
+		  
 	 	//player.controlTeam(boids);
 
 		for(Boid b : boids) {				
@@ -149,7 +148,9 @@ public class Main extends PApplet {
 		if(mouseVec!=null) ellipse(mouseVec.x, mouseVec.y, 20, 20);
 		
 		if(boids.get(1).fuel > 0)
-			boids.get(1).attack(boids.get(0));
+			boids.get(1).getBuff("blue");
+
+			//boids.get(1).attack(boids.get(0));
 		//boids.get(1).evade(boids.get(0));
 		/*
 		for(int i=0;i<boids.size();i++) {

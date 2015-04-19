@@ -172,7 +172,7 @@ public class Behavior {
 			boid.r += boid.vr;
 			boid.vr += boid.ar;
 		}
-		boid.v.truncate(Config.MAX_SPEED[boid.getType()]);	
+		boid.v.truncate(Config.MAX_SPEED[boid.getType()]+boid.bonusSpeed);	
 	//	System.out.println("new r:"+boid.NewOrientation);
 	}
 	
