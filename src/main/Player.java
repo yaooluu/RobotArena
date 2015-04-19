@@ -8,8 +8,8 @@ import processing.core.PApplet;
 import environment.Boid;
 
 public class Player {
-	Boid b;
 	
+	public Boid b;
 	
 	private PApplet canvas = null;
 	

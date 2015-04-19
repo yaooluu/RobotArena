@@ -129,10 +129,18 @@ public class Boid {
 					height - border);
 		}
 		
-		canvas.noStroke();
-		if(rgb != null) {
-			canvas.stroke(rgb.r, rgb.g, rgb.b);
-			canvas.strokeWeight(0.5f + faceWidth);
+		//draw player halo
+		if(Main.getPlayer() != null && 
+				Main.getPlayer().b == this){
+			canvas.fill(255,0);		
+			canvas.strokeWeight(1);
+			
+			float alpha = 200;		
+			for(int r=size;r<size+20;r++) {
+				canvas.stroke(255,255,0,alpha);
+				canvas.ellipse(pos.x,pos.y,r,r);
+				alpha -= 10;
+			}
 		}
 		
 		//debug, draw boid id
@@ -156,22 +164,33 @@ public class Boid {
 		if(r < -180) r = r + 360;
 		canvas.rotate(PApplet.radians(r));
 
-		//draw body lower
-		//canvas.fill(0,150);
-		if(rgb != null)
-			canvas.fill(rgb.r, rgb.g, rgb.b, 70);
-		canvas.ellipse(0, 0, size, size);		
-				
-		if(rgb != null)
-			canvas.fill(rgb.r, rgb.g, rgb.b);
+		canvas.noStroke();
+		if(rgb != null) {
+			canvas.stroke(rgb.r, rgb.g, rgb.b);
+			canvas.strokeWeight(0.5f + faceWidth);
+		}
 		
-		//draw body upper
+		//draw body lower
+		if(rgb != null && fuel > 0)
+			canvas.fill(rgb.r, rgb.g, rgb.b, 70);
+		else canvas.fill(0,100);
+		canvas.ellipse(0, 0, size, size);		
+		
+		
+		//draw body upper		
+		if(rgb != null) 
+			canvas.fill(rgb.r, rgb.g, rgb.b);
 		float upper = size / 3;
 		canvas.rect(-1*upper/2, -1*upper/2 + faceWidth, upper, upper + faceWidth, 3);
 		
 		//draw facing
 		canvas.rect(-1 * faceWidth/2, -0.9f * size/2, faceWidth, size * 0.5f);	
 	
+		//draw type
+		//canvas.fill(255);
+		//canvas.textSize(10);
+		//canvas.textWidth("X");
+		//canvas.text("S",-5,7);
 		
 		//debug, draw boid vision 
 		if(Config.drawBoidVision) {
@@ -252,6 +271,7 @@ public class Boid {
 			if(this.id == b.id || (this.team!=b.team) != isEnemy) continue;
 			if(World.detectAccessible(this.pos, b.pos) == false) continue;
 			if(inSameShelter(b) == false) continue;
+			if(b.fuel <= 0) continue;
 
 			float ang = Vec2D.getAngleBetween(b.pos.minus(this.pos), 
 					this.getOriVec());
@@ -279,7 +299,8 @@ public class Boid {
 			List<Integer> l = new ArrayList<Integer>();
 			for(int j=0;j<shelters[i].length;j++) 
 				l.add(shelters[i][j]-1);
-			if(l.contains(this.curShelter) && l.contains(b.curShelter))
+			if((l.contains(this.curShelter) && l.contains(b.curShelter)) ||
+					this.curShelter == -1 || b.curShelter == -1)
 				return true;
 		}
 		return false;

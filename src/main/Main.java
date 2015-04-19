@@ -32,7 +32,9 @@ public class Main extends PApplet {
 	
 	
 	//player
-	private Player player;
+	private static Player player;
+	public static Player getPlayer() {return player;}
+	
 	public static boolean[] arrowKeys = new boolean[4];
 	
 	
@@ -65,9 +67,9 @@ public class Main extends PApplet {
 		
 		
 		//init players from two teams
-		//initPlayers();
+		initPlayers();
 
-		debugPlayers();
+		//debugPalyers();
 		
 		//SafetyEval.debug();
 		//CostEval.debug();
@@ -441,6 +443,7 @@ public class Main extends PApplet {
 			{
 				for(Boid b:boids)
 				{
+					if(b.fuel == 0) continue;
 					if(winTeam!=b.getTeam())
 					{
 						return;

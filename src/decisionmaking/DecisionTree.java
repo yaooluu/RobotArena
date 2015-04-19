@@ -13,13 +13,20 @@ public class DecisionTree {
 		
 		//if don't have current behavior, generate one
 		if(decision.equals("") || 
-				(b.curEnemy != null && !Main.getBoids().contains(b.curEnemy))) {
+			(b.curEnemy != null && !Main.getBoids().contains(b.curEnemy)) 
+			//|| b.curBehavior.equals("wander")
+		){
+			
 			decision = DecisionTree.makeDecision(b,1);
+			if(b.curBehavior.equals("wander") &&
+					decision.equals("wander"))
+				return;
 			
 			b.curEnemy = b.getVisibleEnemy();
 			if(b.curEnemy == null)
 				b.curEnemy = b.getAudibleEnemy();
 		
+			if(decision == "attack")
 			System.out.println(b + ": " + decision);
 		}
 		
