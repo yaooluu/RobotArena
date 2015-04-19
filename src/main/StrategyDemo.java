@@ -1,42 +1,53 @@
 package main;
 
-import java.util.*;
-import decisionmaking.DecisionTree;
+import java.util.ArrayList;
+import java.util.List;
+
 import pathfinding.Graph;
 import physics.Collision;
 import physics.Vec2D;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
-import environment.*;
-import behavior.*;
+import strategy.CostEval;
+import strategy.SafetyEval;
+import behavior.Behavior;
+import environment.Boid;
+import environment.Buff;
+import environment.RGB;
+import environment.Shelter;
+import environment.World;
 
 @SuppressWarnings("serial")
 public class StrategyDemo extends PApplet {
 
 	private static List<Boid> boids = null;
-	public static List<Boid> getBoids() {return boids;}
-	
+
+	public static List<Boid> getBoids() {
+		return boids;
+	}
+
 	private static Graph graph = null;
-	public static Graph getGraph() {return graph;}
-	PImage environment,test;
-	
-	//debug
+
+	public static Graph getGraph() {
+		return graph;
+	}
+
+	PImage environment, test;
+
+	// debug
 	private Vec2D mouseVec = null;
 	private boolean pause = false;
 	private static int mod = 1;
-	
-	
-	//player
+
+	// player
 	private Player player;
 	public static boolean[] arrowKeys = new boolean[4];
-	
+
 	public void setup() {
 		Config.canvas = this;
 		boids = new ArrayList<Boid>();	
 		environment=loadImage("../src/environment/GameEnvironment.png");			
-		test=loadImage("../src/environment/grass.png");		
-		
 		graph = World.createGraphFromImage(this);
 		
 		size(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
@@ -53,27 +64,23 @@ public class StrategyDemo extends PApplet {
 			}			
 		}//*/	
 
-		boids.add(new Boid(100, 150, 90, 0, Config.BOID_TYPE.scout, 1));
-		boids.add(new Boid(100, 250, 180, 0, Config.BOID_TYPE.soldier, 2));
-		boids.add(new Boid(100, 350, 90, 0, Config.BOID_TYPE.tank, 3));
+		boids.add(new Boid(100, 100, 90, 0, Config.BOID_TYPE.tank, 1));
+		boids.add(new Boid(500,100,90,0,Config.BOID_TYPE.commander,2));
 		
-		boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
-		boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
-		boids.add(new Boid(700, 400, 270, 1, Config.BOID_TYPE.tank, 6));
-		player=new Player(boids.get(0));
+		boids.add(new Boid(120, 220, 270, 1, Config.BOID_TYPE.scout, 3));
+		boids.add(new Boid(220, 310, 270, 1, Config.BOID_TYPE.soldier, 4));
+		boids.add(new Boid(124, 400, 270, 1, Config.BOID_TYPE.tank, 5));
+		//player=new Player(boids.get(0));
+		SafetyEval.debug();
+		CostEval.debug();
 	}
 	
 	public void draw() {	
 		//pause game when pressed space bar
 		if(pause == false) {
 			background(255);
-			smooth(8);	
-			tint(255,255);
-			image(environment,0,0);
+			smooth(8);		
 			drawEnvironment();
-			tint(255,150);
-			image(test,0,0);
-
 			
 			if(this.mousePressed)
 			{
@@ -97,7 +104,7 @@ public class StrategyDemo extends PApplet {
 				//if(mouseVec!=null)
 					//Attack.goAttack(b, mouseVec);
 				
-				//if(b != player.b)
+				if(b != player.b)
 				DecisionTree.PerformDecision(b);
 			}//*/
 			
@@ -105,16 +112,14 @@ public class StrategyDemo extends PApplet {
 			//boids.get(1).trace(player.b);
 			//boids.get(0).attack(boids.get(1));
 			//boids.get(1).getBuff("blue");
-
 			//Ultimate.ultimate(boids.get(1));
-
 			//Tackle.tackle(boids.get(1), boids.get(0));
 
 			//boids.get(3).getBuff("red");
 
-			player.move();
+			//player.move();
 			//player.b.draw();
-
+			
 		 	//player.controlTeam(boids);
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
@@ -123,8 +128,8 @@ public class StrategyDemo extends PApplet {
 				//b.addBreadcrumb();
 				//b.showBreadcrumbs();
 
-				if(b!=player.b){Behavior.update2(b);}
-				//Behavior.update2(b);
+//				if(b!=player.b){Behavior.update2(b);}
+				Behavior.update2(b);
 				b.draw();
 				
 				//if(b.curBehavior.equals(""))
@@ -133,14 +138,10 @@ public class StrategyDemo extends PApplet {
 			
 			World.detectFallOff(boids);
 			World.updateShelterStatus(boids);
-			World.applyFriction(boids);
-			World.applyFuelConsumption(boids);
 			drawGrass();
-			victoryJudge();
 		} else {
 			drawText("Game Paused", 30, 30, "Georgia", 20, new RGB(255,0,0));
 		}
-		
 	}
 	
 	private void drawEnvironment() {
@@ -260,46 +261,6 @@ public class StrategyDemo extends PApplet {
 		}
 	}
 	
-	
-	private void drawWinTeam(int teamID)
-	{
-		if(teamID==0)
-		{
-			drawText("Winner Team: Red!", Config.SCREEN_WIDTH/2-200, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, new RGB(255,0,0));	
-		}
-		if(teamID==1)
-		{
-			drawText("Winner Team: Blue!", Config.SCREEN_WIDTH/2-200, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, new RGB(0,0,255));	
-		}
-	}
-	private void victoryJudge()
-	{
-		int winTeam;
-		if(boids.size()==0)
-		{
-			drawText("No Winner!", Config.SCREEN_WIDTH/2, Config.SCREEN_HEIGHT/2, "Georgia", 30, new RGB(255,0,0));
-			return;
-		}
-		else
-		{
-			winTeam=boids.get(0).getTeam();
-			if(boids.size()==1)
-			{
-				drawWinTeam(winTeam);		
-			}
-			else
-			{
-				for(Boid b:boids)
-				{
-					if(winTeam!=b.getTeam())
-					{
-						return;
-					}
-				}
-				drawWinTeam(winTeam);					
-			}
-		}		
-	}
 	/*
 	private void testBoidVision(Boid b) {
 		if(frameCount % 60 == 1) {
