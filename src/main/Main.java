@@ -39,7 +39,6 @@ public class Main extends PApplet {
 
 		grassMask=loadImage("../src/environment/Grass.png");		
 
-		
 		graph = World.createGraphFromImage(this);
 		
 		size(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
@@ -56,12 +55,12 @@ public class Main extends PApplet {
 			}			
 		}//*/	
 
-		boids.add(new Boid(100, 150, 90, 0, Config.BOID_TYPE.tank, 1));
-		//boids.add(new Boid(100, 250, 180, 0, Config.BOID_TYPE.soldier, 2));
+		//boids.add(new Boid(100, 150, 90, 0, Config.BOID_TYPE.scout, 1));
+		boids.add(new Boid(100, 250, 180, 0, Config.BOID_TYPE.soldier, 2));
 		//boids.add(new Boid(100, 350, 90, 0, Config.BOID_TYPE.tank, 3));
 		
-		boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
-		//boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
+		//boids.add(new Boid(700, 200, 270, 1, Config.BOID_TYPE.scout, 4));
+		boids.add(new Boid(700, 300, 270, 1, Config.BOID_TYPE.soldier, 5));
 		//boids.add(new Boid(700, 400, 270, 1, Config.BOID_TYPE.tank, 6));
 		player=new Player(boids.get(0));
 	}
@@ -108,7 +107,7 @@ public class Main extends PApplet {
 
 		for(Boid b : boids) {				
 			if(b!=player.b) {
-				DecisionTree.PerformDecision(b);
+				//DecisionTree.PerformDecision(b);
 				
 				if(b.fuel > 0)
 					Behavior.update2(b);
@@ -134,6 +133,7 @@ public class Main extends PApplet {
 		}		
 		if(mouseVec!=null) ellipse(mouseVec.x, mouseVec.y, 20, 20);
 		
+		//boids.get(1).evade(boids.get(0));
 		/*
 		for(int i=0;i<boids.size();i++) {
 			Boid b = boids.get(i);
@@ -158,9 +158,7 @@ public class Main extends PApplet {
 		
 	}
 
-	private void drawEnvironment() {
-		//draw the indoor environment
-		
+	private void drawEnvironment() {	
 		tint(255,255);	
 		image(environment, 0, 0);
 		
@@ -171,7 +169,8 @@ public class Main extends PApplet {
 					buff.countdown--;
 				String buffText = "Red";
 				if(buff.getType() == 1) buffText = "Blue";
-				buffText += " in " + buff.countdown + " sec(s)";
+				buffText += " in " + buff.countdown + " sec";
+				if(buff.countdown > 1) buffText += "s";
 				drawText(buffText, buff.x - 50, buff.y, "Georgia", 15, buff.getRGB());
 			}
 			else {
