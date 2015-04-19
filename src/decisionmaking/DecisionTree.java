@@ -67,6 +67,7 @@ public class DecisionTree {
 
 		case "guard":
 			//TODO
+			b.guard();
 			break;
 			
 		case "hide":

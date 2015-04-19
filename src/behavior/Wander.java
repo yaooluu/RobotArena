@@ -34,7 +34,6 @@ public class Wander {
 		float targetOrientation;
 		
 		boid.wanderOrientation+=randomBinomial()*wanderRate;
-
 		boid.wanderOrientation%=360;
 
 		targetOrientation=boid.wanderOrientation+boid.r;
@@ -48,7 +47,7 @@ public class Wander {
 		target.y-=wanderRadius*Math.cos(Math.toRadians(targetOrientation));
 		//draw the target
 		//Boid b1 = new Boid(target.x, target.y, targetOrientation, 0, Config.BOID_TYPE.scout,3);
-		Config.canvas.ellipse(target.x, target.y, 30, 30);
+		//Config.canvas.ellipse(target.x, target.y, 30, 30);
 		//Steering behavior
 		Steering st;
 		st=Behavior.seek(boid, target);

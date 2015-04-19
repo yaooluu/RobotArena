@@ -109,10 +109,10 @@ public class Main extends PApplet {
 
 		for(Boid b : boids) {				
 			if(b!=player.b) {
-				//DecisionTree.PerformDecision(b);
+				DecisionTree.PerformDecision(b);
 				//b.wander();
-				Guard.guard(b,boids);
-				if(b.fuel > 0)
+
+				if(b.fuel > 0||b.v.getLength()>3)
 					Behavior.update2(b);
 				else {
 					b.v.x = 0;
@@ -122,7 +122,7 @@ public class Main extends PApplet {
 				}
 			}		
 			//b.addBreadcrumb();
-			//b.showBreadcrumbs();
+		  //b.showBreadcrumbs();
 		}
 	}
 	

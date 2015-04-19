@@ -378,6 +378,11 @@ public class Boid {
 		curBehavior = "tackle";
 		Tackle.tackle(this, enemy);
 	}
+	
+	public void guard() {
+		curBehavior = "guard";
+		Guard.guard(this, Main.getBoids());
+	}
 	//split bread crumbs:
 	class Breadcrumbs{
 		float x,y;
