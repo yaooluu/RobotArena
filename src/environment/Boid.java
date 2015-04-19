@@ -145,7 +145,7 @@ public class Boid {
 		//debug, draw current action
 		if(Config.drawBoidAction) {
 			canvas.fill(128,0,255);
-			canvas.textSize(16);
+			canvas.textSize(14);
 			canvas.text(curBehavior, pos.x - size / 2 - 10, pos.y - size / 2 - 20);
 		}
 				
