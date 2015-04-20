@@ -46,7 +46,7 @@ public class Main extends PApplet {
 		Minim minim;//audio context
 		
 		minim = new Minim(this);
-		Config.bk_music = minim.loadFile("../src/environment/background.mp3", 2048);
+		Config.bk_music = minim.loadFile("../src/environment/background.wav", 2048);
 		Config.bk_music.loop();
 	  
 		Config.ult_music=minim.loadSample("../src/environment/ultimate.wav", 512);
