@@ -73,7 +73,7 @@ public class Behavior {
 		Vec2D goalVelocity=new Vec2D(0,0);
 		Vec2D maxVelocity=new Vec2D(distance.x,distance.y);
 		
-		maxVelocity.truncate(Config.MAX_SPEED[boid.getType()]);
+		maxVelocity.truncate(Config.MAX_SPEED[boid.getType()]+boid.bonusSpeed);
 
 			
 		if(distance.getLength()<=arrivalRadius)
@@ -124,7 +124,7 @@ public class Behavior {
 	{
 		boid.pos.plusEqual(boid.v.multiply((float) (1.0/Config.FRAME_RATE)));
 		boid.v.plusEqual(boid.a.multiply((float) (1.0/Config.FRAME_RATE)));
-		boid.v.truncate(Config.MAX_SPEED[boid.getType()]+boid.bonusAcc);
+		boid.v.truncate(Config.MAX_SPEED[boid.getType()]+boid.bonusSpeed);
 		boid.vr += boid.ar;
 		boid.r += boid.vr;
 		
@@ -278,7 +278,10 @@ public class Behavior {
 			relativePosition.y=firstRelativePosition.y+firstRelativeVelocity.y*shortestTime;
 		}
 		relativePosition.normalize();
-		st.a=relativePosition.multiply(Config.MAX_LINACC[boid.getType()]);
+		st.a=relativePosition.multiply(Config.MAX_LINACC[boid.getType()]+boid.bonusAcc);
+		
+		addAcc(boid,st);
+		
 		return st;
 		
 	}

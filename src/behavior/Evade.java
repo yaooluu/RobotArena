@@ -16,7 +16,7 @@ public class Evade {
 		Steering st;
 		//Steering behavior
 		st=Behavior.seek(b2, b1.pos);	
-		Behavior.addAcc(b1, st);
+		Behavior.changeAcc(b1, st);
 		st=Behavior.collisionAvoid(b1);
 		Behavior.addAcc(b1, st);
 	}

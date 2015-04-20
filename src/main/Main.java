@@ -166,6 +166,9 @@ public class Main extends PApplet {
 				if(b.fuel > 0)
 					DecisionTree.PerformDecision(b);
 				
+				//avoid collide with allies
+				Behavior.collisionAvoid(b);
+				
 				if(b.fuel > 0 || b.v.getLength() > 3)
 					Behavior.update2(b);
 				else {
