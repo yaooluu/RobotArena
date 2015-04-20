@@ -68,7 +68,7 @@ public class Main extends PApplet {
 		
 		minim = new Minim(this);
 		Config.bk_music = minim.loadFile("../src/environment/background.wav", 2048);
-		Config.bk_music.loop();
+		if(!Config.isMute)Config.bk_music.loop();
 	  
 		Config.ult_music=minim.loadSample("../src/environment/ultimate.wav", 512);
 		Config.collision_music=minim.loadSample("../src/environment/collision.wav", 512);
@@ -100,7 +100,12 @@ public class Main extends PApplet {
 			background(255);
 			smooth(8);	
 			
-			if(!Config.bk_music.isPlaying())
+			if(Config.isMute)
+			{
+				Config.bk_music.pause();
+			}
+			
+			if(!Config.bk_music.isPlaying()&&!Config.isMute)
 				Config.bk_music.loop();
 			drawEnvironment();
 
@@ -482,7 +487,8 @@ public class Main extends PApplet {
 			Config.drawKeyPoints = !Config.drawKeyPoints;
 		else if(key == 's')
 			Config.drawShelterPoints = !Config.drawShelterPoints;
-		
+		else if(key == 'm')
+			Config.isMute = !Config.isMute;
 		else if(key>='0' && key <='9')
 			changePlayer(key - '0');
 

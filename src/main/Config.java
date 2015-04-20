@@ -16,7 +16,7 @@ public class Config {
 	public static boolean drawBoidId = false;
 	public static boolean drawBoidFuel = true;
 	public static boolean drawBoidAction = true;
-	
+	public static boolean isMute = false;
 	
 	public static PApplet canvas = null; 
 	public static int SCREEN_WIDTH = 800;

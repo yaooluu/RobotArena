@@ -28,15 +28,16 @@ public class DecisionTree {
 		
 			//if(decision == "attack")
 			//System.out.println(b + ": " + decision);
-		}
-		
-		for(int i=0;i<Main.keys.length;i++)
-		{
-			if(Main.keys[i].equals(decision))
+			for(int i=0;i<Main.keys.length;i++)
 			{
-				Main.statBehavior[b.getId()][i]++;				
+				if(Main.keys[i].equals(decision))
+				{
+					Main.statBehavior[b.getId()][i]++;				
+				}
 			}
 		}
+		
+
 		/*
 		if(Main.statBehavior.get(b.getId()).get(decision)==null)
 		{
