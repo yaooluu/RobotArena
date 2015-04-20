@@ -196,11 +196,7 @@ public class Main extends PApplet {
 		boids.add(new Boid(700, 150, 270, 1, Config.BOID_TYPE.soldier, 7));
 		boids.add(new Boid(700, 230, 270, 1, Config.BOID_TYPE.tank, 8));
 		boids.add(new Boid(700, 280, 270, 1, Config.BOID_TYPE.hero, 9));*/
-		boids.add(new Boid(700, 330, 270, 1, Config.BOID_TYPE.commander, 10));
-		
-
-		boids.add(new Boid(700, 280, 270, 1, Config.BOID_TYPE.hero, 9));
-		boids.add(new Boid(700, 130, 270, 1, Config.BOID_TYPE.soldier, 10));
+		boids.add(new Boid(700, 330, 270, 1, Config.BOID_TYPE.soldier, 10));
 		
 		player=new Player(boids.get(0));
 	}
@@ -223,17 +219,16 @@ public class Main extends PApplet {
 	 	//player.controlTeam(boids);
 
 		if(boids.size() > 2) {
-				boids.get(2).trace(boids.get(1));
-			//boids.get(1).evade(boids.get(2));
-				boids.get(1).wander();
+			boids.get(2).attack(boids.get(1));
+			boids.get(1).evade(boids.get(2));
+			//boids.get(1).wander();
 		}
 		
 		for(Boid b : boids) {						
 			if(b!=player.b) {
 				
 				if(b.fuel > 0) {
-					if(b==boids.get(1))b.evade(boids.get(2));
-					if(b==boids.get(2))b.attack(boids.get(1));
+					Behavior.update2(b);
 				} 
 				else {
 					b.curBehavior = "";
