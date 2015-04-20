@@ -114,7 +114,7 @@ public class Collision {
 		//play audio file
 		if(b1.getTeam()!=b2.getTeam()&&
 				Config.canvas.frameCount % 2 == 0)Config.collision_music.trigger();
-		System.out.println(Config.canvas.frameCount);
+
 		float m1 = b1.getMass();
 		float m2 = b2.getMass();
 		Vec2D v1 = b1.v;

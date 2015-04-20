@@ -21,6 +21,9 @@ public class Main extends PApplet {
 	private static List<Boid> boids = null;
 	public static List<Boid> getBoids() {return boids;}
 	
+	private static List<Boid> losers = null;
+	public static List<Boid> getLosers() {return losers;}
+	
 	private static Graph graph = null;
 	public static Graph getGraph() {return graph;}
 	PImage environment,grassMask;
@@ -43,7 +46,7 @@ public class Main extends PApplet {
 		Minim minim;//audio context
 		
 		minim = new Minim(this);
-		Config.bk_music = minim.loadFile("../src/environment/background.wav", 2048);
+		Config.bk_music = minim.loadFile("../src/environment/background.mp3", 2048);
 		Config.bk_music.loop();
 	  
 		Config.ult_music=minim.loadSample("../src/environment/ultimate.wav", 2048);
@@ -55,7 +58,8 @@ public class Main extends PApplet {
 		Config.bk_music.setVolume(0.01f);
 		
 		Config.canvas = this;
-		boids = new ArrayList<Boid>();	
+		boids = new ArrayList<Boid>();
+		losers = new ArrayList<Boid>();	
 		environment=loadImage("../src/environment/GE.png");			
 
 		grassMask=loadImage("../src/environment/Grass.png");		
@@ -119,6 +123,21 @@ public class Main extends PApplet {
 				
 			//draw all robots
 			for(Boid b : boids) b.draw();
+			
+			//draw losers
+			float offset = 0.2f, margin = 25;
+			for(Boid b: losers) {
+				if(b.pos.x < 45 && b.pos.x > margin) b.pos.x -= offset;
+				if(b.pos.x > 750 && b.pos.x < 800-margin) b.pos.x += offset;
+				if(b.pos.y < 45 && b.pos.y > margin) b.pos.y -= offset;
+				if(b.pos.y > 550 && b.pos.y < 600-margin) b.pos.y += offset;
+				b.curBehavior = "";
+				b.fuel = 0;
+				b.getRGB().r = 200;
+				b.getRGB().g = 200;
+				b.getRGB().b = 200;
+				b.draw();
+			}
 			
 			//draw grass layer
 			drawGrass();

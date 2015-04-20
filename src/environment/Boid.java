@@ -61,6 +61,7 @@ public class Boid {
 	public int getVision() {return vision;}
 	public int getAuditory() {return auditory;}
 	public int getMass() {return mass;}
+	public RGB getRGB() {return rgb;}
 	
 	public Vec2D getOriVec() {
 		Vec2D oriVec = new Vec2D(0,0);
