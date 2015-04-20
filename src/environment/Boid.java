@@ -28,6 +28,7 @@ public class Boid {
 	//offensive, defensive
 	public int status = 1;
 	public String curBehavior = "";
+	public int ctTime=0;
 	
 	public int wanderChangeCount = 0;	
 	public float wanderOrientation = 0;

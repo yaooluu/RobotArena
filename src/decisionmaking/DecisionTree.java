@@ -11,12 +11,29 @@ public class DecisionTree {
 		//if has current behavior, maintain it
 		String decision = b.curBehavior;
 		
+		b.ctTime++;	
+		if(b.ctTime>10*Config.FRAME_RATE)
+		{
+
+			decision="";
+		}
+		
+		
 		//if don't have current behavior, generate one
 		if(decision.equals("") || 
 			(b.curEnemy != null && !Main.getBoids().contains(b.curEnemy)) 
 			//|| b.curBehavior.equals("wander")
 		){
+		
 			decision = DecisionTree.makeDecision(b,1);
+			
+			
+			if(b.ctTime>10*Config.FRAME_RATE)
+			{				
+				b.ctTime=0;
+				b.curBehavior="";		
+			}
+			
 			
 			//no early ultimate
 			if(decision.equals("ultimate") && 
