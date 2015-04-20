@@ -30,6 +30,7 @@ public class DecisionTree {
 			System.out.println(b + ": " + decision);
 		}
 		
+		
 		//debug
 //		/System.out.print(".");
 		//if(Config.canvas.frameCount % 60 == 1) 

@@ -42,6 +42,8 @@ public class Main extends PApplet {
 	public static boolean[] arrowKeys = new boolean[4];
 	
 	
+	public int[][] statBehavior = new int[15][15];
+	
 	public void setup() {
 		
 		Minim minim;//audio context
@@ -70,8 +72,8 @@ public class Main extends PApplet {
 		frameRate(Config.FRAME_RATE);
 
 				
-		//initPlayers();
-		debugPlayers();
+		initPlayers();
+		//debugPlayers();
 	}
 
 	public void draw() {	
@@ -84,9 +86,9 @@ public class Main extends PApplet {
 				Config.bk_music.loop();
 			drawEnvironment();
 
-			//mainLogic();
+			mainLogic();
 
-			debugLogic();	
+			//debugLogic();	
 			
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
@@ -115,8 +117,8 @@ public class Main extends PApplet {
 			}
 			
 			//draw grass layer
-			//drawGrass();
-			//victoryJudge();
+			drawGrass();
+		 victoryJudge();
 
 		} else {
 			Config.bk_music.pause();
@@ -145,18 +147,18 @@ public class Main extends PApplet {
 		
 		for(int i=1;i<b.length;i++) boids.add(b[i]);
 		
-		player=new Player(boids.get(0));
+		//player=new Player(boids.get(0));
 	}
 	
 	//main workflow here.
 	private void mainLogic() {	
 		
-		if(player.b.fuel > 0)
-			player.move();
+		//if(player.b.fuel > 0)
+		//	player.move();
 
 		for(Boid b : boids) {						
 
-			if(b!=player.b) {	
+			if(true||b!=player.b) {	
 				if(b.fuel > 0) {
 					DecisionTree.PerformDecision(b);
 					Behavior.update2(b);	
