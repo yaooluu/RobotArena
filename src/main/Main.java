@@ -90,9 +90,9 @@ public class Main extends PApplet {
 				Config.bk_music.loop();
 			drawEnvironment();
 
-			//mainLogic();
+			mainLogic();
 
-			debugLogic();	
+			//debugLogic();	
 			
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
@@ -122,7 +122,7 @@ public class Main extends PApplet {
 			
 			//draw grass layer
 			drawGrass();
-			//victoryJudge();
+			victoryJudge();
 
 		} else {
 			//printStat();
@@ -153,18 +153,18 @@ public class Main extends PApplet {
 		for(int i=1;i<b.length;i++) 
 			if(b[i] != null) boids.add(b[i]);
 		
-		player=new Player(boids.get(0));
+	//	player=new Player(boids.get(0));
 	}
 	
 	//main workflow here.
 	private void mainLogic() {	
 		
-		if(player.b.fuel > 0)
-			player.move();
+		//if(player.b.fuel > 0)
+			//player.move();
 
 		for(Boid b : boids) {						
 
-			if(b!=player.b) {	
+			if(true||b!=player.b) {	
 				if(b.fuel > 0) {
 					DecisionTree.PerformDecision(b);
 					Behavior.update2(b);	
@@ -537,10 +537,22 @@ public class Main extends PApplet {
 		if(teamID==1) {winText = "Winner: Blue Team!";showColor.b=255;showColor.r=0;}
 		drawText(winText, Config.SCREEN_WIDTH/2-200, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, showColor);	
 	}
+	private boolean hasFuel()
+	{
+		for(Boid b:boids)
+		{
+			if(b.fuel>0)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	private void victoryJudge()
 	{
 		int winTeam;
-		if(boids.size()==0)
+		
+		if(boids.size()==0||!hasFuel())
 		{
 			printStat();
 			drawText("No Winner!", Config.SCREEN_WIDTH/2-150, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, new RGB(0,0,0));
