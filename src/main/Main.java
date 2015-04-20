@@ -1,7 +1,6 @@
 package main;
 
 import java.util.*;
-
 import decisionmaking.DecisionTree;
 import pathfinding.Graph;
 import physics.Collision;
@@ -42,9 +41,28 @@ public class Main extends PApplet {
 	public static boolean[] arrowKeys = new boolean[4];
 	
 	
-	public int[][] statBehavior = new int[15][15];
+	public static int[][] statBehavior=new int[15][15];
+	public static String be="attack,evade,trace,wander,ultimate,guard,hide,redbuff,bluebuff";
+	public static String[] keys=be.split(",");
+	//public static List<HashMap<String, Integer>> statBehavior = new ArrayList<HashMap<String, Integer>>();
+	
 	
 	public void setup() {
+		
+
+		for(int i=0;i<15;i++)
+		{
+			statBehavior[i]=new int[15];
+			for(int j=0;j<15;j++)
+			{
+				statBehavior[i][j]=0;
+			}
+		}
+		for(int i=0;i<15;i++)
+		{
+			HashMap<String, Integer> e=new HashMap<String, Integer>();
+			//statBehavior.add(e);
+		}
 		
 		Minim minim;//audio context
 		
@@ -121,6 +139,7 @@ public class Main extends PApplet {
 		 victoryJudge();
 
 		} else {
+			printStat();
 			Config.bk_music.pause();
 			drawText("Game Paused", 30, 30, "Georgia", 20, new RGB(255,0,0));
 		}
@@ -494,9 +513,30 @@ public class Main extends PApplet {
 	}
 	
 	
-	private void drawWinTeam(int teamID)
+	
+	private void printStat()
 	{
 		
+		System.out.print("\t");
+		for(String key:keys)
+		{
+			System.out.print(key+"\t");
+		}
+		
+		for(int i=1;i<=10;i++)
+		{
+			System.out.println();
+			System.out.print("boid"+i+"\t");	
+			for(int j=0;j<keys.length;j++)
+					System.out.print(statBehavior[i][j]+"\t");
+				
+		}
+		System.out.println();
+	}
+	
+	private void drawWinTeam(int teamID)
+	{
+		printStat();
 		Config.die_music.stop();
 		Config.win_music.play();;
 		String winText = "Winner: Red Team!";
@@ -509,6 +549,7 @@ public class Main extends PApplet {
 		int winTeam;
 		if(boids.size()==0)
 		{
+			printStat();
 			drawText("No Winner!", Config.SCREEN_WIDTH/2-150, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, new RGB(0,0,0));
 			return;
 		}

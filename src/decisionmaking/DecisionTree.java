@@ -26,10 +26,32 @@ public class DecisionTree {
 			if(b.curEnemy == null)
 				b.curEnemy = b.getAudibleEnemy();
 		
-			if(decision == "attack")
-			System.out.println(b + ": " + decision);
+			//if(decision == "attack")
+			//System.out.println(b + ": " + decision);
 		}
 		
+		for(int i=0;i<Main.keys.length;i++)
+		{
+			if(Main.keys[i].equals(decision))
+			{
+				Main.statBehavior[b.getId()][i]++;				
+			}
+		}
+		/*
+		if(Main.statBehavior.get(b.getId()).get(decision)==null)
+		{
+			count = 1;
+		}
+		else
+		{
+			count=Main.statBehavior.get(b.getId()).get(decision).intValue()+1;
+		}
+	
+		Main.statBehavior.get(b.getId()).put(decision, count);
+			*/
+		//System.out.println(b.getId()+" key: "+decision+" count:"+count);
+		//System.out.println(Main.statBehavior[0][3]);
+		//System.out.println(Main.statBehavior[1][3]);
 		
 		//debug
 //		/System.out.print(".");
