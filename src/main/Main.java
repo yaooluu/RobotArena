@@ -47,8 +47,8 @@ public class Main extends PApplet {
 		Config.bk_music.loop();
 	  
 		Config.ult_music=minim.loadSample("../src/environment/ultimate.wav", 2048);
-		Config.collision_music=minim.loadSample("../src/environment/collision.mp3", 2048);
-		Config.die_music=minim.loadSample("../src/environment/die.mp3", 2048);  
+		Config.collision_music=minim.loadSample("../src/environment/collision.wav", 2048);
+		Config.die_music=minim.loadSample("../src/environment/die.wav", 2048);  
 		Config.win_music=minim.loadFile("../src/environment/win.wav", 2048);
 		Config.buff_music=minim.loadSample("../src/environment/buff.wav", 2048);
 	  
