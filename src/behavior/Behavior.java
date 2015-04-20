@@ -32,7 +32,7 @@ public class Behavior {
 		goalPos=new Vec2D(targetPos);
 
 
-		//Config.canvas.ellipse(goalPos.x, goalPos.y, 30, 30);
+		Config.canvas.ellipse(goalPos.x, goalPos.y, 30, 30);
 		Vec2D newTarget = PathLibrary.getNextTarget(boid, new Vec2D(targetPos));
 
 		if(newTarget != null) targetPos = newTarget;
