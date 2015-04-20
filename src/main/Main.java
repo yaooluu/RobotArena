@@ -90,7 +90,6 @@ public class Main extends PApplet {
 			
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
-			
 			World.applyFriction(boids);	
 			World.detectFallOff(boids);
 			
@@ -174,7 +173,8 @@ public class Main extends PApplet {
 						b.v.y = 0;
 					}
 				}
-
+			//avoid collide with allies
+				Behavior.collisionAvoid(b);
 			}
 
 		}
@@ -220,7 +220,9 @@ public class Main extends PApplet {
 			if(b!=player.b) {
 				
 				if(b.fuel > 0) {
-					b.wander();
+					//b.wander();
+					if(b==boids.get(1))b.evade(boids.get(2));
+					if(b==boids.get(2))b.attack(boids.get(1));
 					Behavior.update2(b);	
 				} 
 				else {
@@ -238,10 +240,10 @@ public class Main extends PApplet {
 			
 				//avoid collide with allies
 				Behavior.collisionAvoid(b);
-
+				b.addBreadcrumb();
+			  b.showBreadcrumbs();
 			}		
-			b.addBreadcrumb();
-		  b.showBreadcrumbs();
+			
 		}
 		
 		//if(boids.get(1).fuel > 0)

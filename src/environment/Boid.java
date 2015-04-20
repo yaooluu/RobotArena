@@ -1,7 +1,6 @@
 package environment;
 
 import java.util.*;
-
 import behavior.*;
 import main.*;
 import physics.*;
