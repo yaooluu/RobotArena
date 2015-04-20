@@ -69,7 +69,6 @@ public class Main extends PApplet {
 		
 		size(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		frameRate(Config.FRAME_RATE);
-			
 		initPlayers();
 		//debugPlayers();
 	}
@@ -84,9 +83,9 @@ public class Main extends PApplet {
 				Config.bk_music.loop();
 			drawEnvironment();
 
-			mainLogic();
+			//mainLogic();
 
-			//debugLogic();	
+			debugLogic();	
 			
 			Collision.allCollision(boids);
 			Behavior.borderAvoid(boids);
@@ -116,7 +115,7 @@ public class Main extends PApplet {
 			
 			//draw grass layer
 			drawGrass();
-			victoryJudge();
+			//victoryJudge();
 
 		} else {
 			//printStat();
@@ -188,7 +187,7 @@ public class Main extends PApplet {
 		int offset=220;
 		boids.add(new Boid(70, offset+0, 90, 0, Config.BOID_TYPE.soldier, 1));
 		
-		boids.add(new Boid(700, offset+200, 90, 0, Config.BOID_TYPE.soldier, 2));
+		boids.add(new Boid(700, offset+200, 270, 0, Config.BOID_TYPE.soldier, 2));
 		//boids.add(new Boid(70, offset+200, 90, 0, Config.BOID_TYPE.scout, 3));
 		/*boids.add(new Boid(130, offset+270, 90, 0, Config.BOID_TYPE.hero, 4));
 		boids.add(new Boid(130, offset+200, 90, 0, Config.BOID_TYPE.commander, 5));
@@ -198,7 +197,7 @@ public class Main extends PApplet {
 		boids.add(new Boid(700, 150, 270, 1, Config.BOID_TYPE.soldier, 7));
 		boids.add(new Boid(700, 230, 270, 1, Config.BOID_TYPE.tank, 8));
 		boids.add(new Boid(700, 280, 270, 1, Config.BOID_TYPE.hero, 9));*/
-		boids.add(new Boid(700, 330, 270, 1, Config.BOID_TYPE.soldier, 10));
+		//boids.add(new Boid(700, 330, 270, 1, Config.BOID_TYPE.soldier, 10));
 		
 		player=new Player(boids.get(0));
 	}
@@ -220,11 +219,14 @@ public class Main extends PApplet {
 			player.move();		  
 	 	//player.controlTeam(boids);
 
+		///*
 		if(boids.size() > 2) {
-			boids.get(2).attack(boids.get(1));
-			boids.get(1).evade(boids.get(2));
+			
+			//boids.get(1).evade(boids.get(2));
 			//boids.get(1).wander();
-		}
+		}//*/
+		
+		boids.get(1).guard();
 		
 		for(Boid b : boids) {						
 			if(b!=player.b) {
@@ -245,8 +247,8 @@ public class Main extends PApplet {
 					}
 				}
 			
-				//b.addBreadcrumb();
-				//b.showBreadcrumbs();
+				b.addBreadcrumb();
+				b.showBreadcrumbs();
 
 				//Behavior.collisionAvoid(b);
 

@@ -7,10 +7,12 @@ import environment.Boid;
 public class Guard {
 	//seek the boid which needs protect, predict the future attack position, seek that position
 	public static void guard(Boid b1, List<Boid> boids)
-	{	
-		float minDist=200;
-		float dist;
+	{
 		Boid b2=null;
+		
+		/*
+		float minDist=800;
+		float dist;	
 		for(Boid b:boids)
 		{
 			if(b!=b1)
@@ -22,28 +24,22 @@ public class Guard {
 					b2=b;
 				}
 			}
-		}
+		}*/
 		
-		
+		b2 = b1.getDetectableAlly();
+				
 		if(b2!=null)
 		{
-		//behavior finish (guard)
-			if(b1.pos.minus(b2.pos).getLength() < (b1.getSize()+b2.getSize())) {
+			//behavior finish (guard)
+			if(b1.pos.minus(b2.pos).getLength() < (b1.getSize()+b2.getSize()+100)) {
 				if(b1.curBehavior.equals("guard")) {
+					b1.a=b1.a.multiply(0f);
 					b1.curBehavior = "";
 					return;
 				}
-				b1.v=b1.v.multiply(0f);
-				b1.a=b1.a.multiply(0f);
-				return;
 			}	
 			//guard b2
-			Attack.goAttack(b1, b2);
-			
-			
+			Attack.goAttack(b1, b2);			
 		}
-		
-		
-
 	}
 }
