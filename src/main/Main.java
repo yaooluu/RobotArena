@@ -49,14 +49,13 @@ public class Main extends PApplet {
 		Config.bk_music = minim.loadFile("../src/environment/background.mp3", 2048);
 		Config.bk_music.loop();
 	  
-		Config.ult_music=minim.loadSample("../src/environment/ultimate.wav", 2048);
-		Config.collision_music=minim.loadSample("../src/environment/collision.wav", 2048);
-		Config.die_music=minim.loadSample("../src/environment/die.wav", 2048);  
-		Config.win_music=minim.loadFile("../src/environment/win.wav", 2048);
-		Config.buff_music=minim.loadSample("../src/environment/buff.wav", 2048);
+		Config.ult_music=minim.loadSample("../src/environment/ultimate.wav", 512);
+		Config.collision_music=minim.loadSample("../src/environment/collision.wav", 512);
+		Config.die_music=minim.loadSample("../src/environment/die.wav", 512);  
+		Config.win_music=minim.loadFile("../src/environment/win.wav", 512);
+		Config.buff_music=minim.loadSample("../src/environment/buff.wav", 512);
 	  
 		Config.bk_music.setVolume(0.01f);
-		
 		Config.canvas = this;
 		boids = new ArrayList<Boid>();
 		losers = new ArrayList<Boid>();	
