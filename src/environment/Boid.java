@@ -129,17 +129,27 @@ public class Boid {
 					height - border);
 		}
 		
-		//draw player halo
-		if(Main.getPlayer() != null && 
-				Main.getPlayer().b == this){
+		//draw player or hero halo
+		boolean isHero = (type == Config.BOID_TYPE.hero.value());
+		if( (Main.getPlayer() != null && Main.getPlayer().b == this)
+				|| isHero){
+			
 			canvas.fill(255,0);		
 			canvas.strokeWeight(1);
+						
+			float alpha = 200, span = 20, step = 10;
+			canvas.stroke(255,255,0,alpha);
+			RGB halo = new RGB(255,255,0);
 			
-			float alpha = 200;		
-			for(int r=size;r<size+20;r++) {
-				canvas.stroke(255,255,0,alpha);
+			if(isHero) {
+				alpha = 150;
+				halo = new RGB(rgb.r,rgb.g,rgb.b);
+			}
+			
+			for(int r=size;r<=size+span;r++) {					
+				canvas.stroke(halo.r,halo.g,halo.b,alpha);
 				canvas.ellipse(pos.x,pos.y,r,r);
-				alpha -= 10;
+				alpha -= step;
 			}
 		}
 		
@@ -177,15 +187,20 @@ public class Boid {
 		canvas.ellipse(0, 0, size, size);		
 		
 		
+		//draw facing
+		canvas.rect(-1 * faceWidth/2, -0.95f * size/2, faceWidth, size * 0.5f);	
+		
 		//draw body upper		
 		if(rgb != null) 
 			canvas.fill(rgb.r, rgb.g, rgb.b);
+		
+		//commander has unique body upper color
+		if(type == Config.BOID_TYPE.commander.value()) 
+			canvas.fill(0,162,232);
+		
 		float upper = size / 3;
 		canvas.rect(-1*upper/2, -1*upper/2 + faceWidth, upper, upper + faceWidth, 3);
 		
-		//draw facing
-		canvas.rect(-1 * faceWidth/2, -0.9f * size/2, faceWidth, size * 0.5f);	
-	
 		//draw type
 		//canvas.fill(255);
 		//canvas.textSize(10);

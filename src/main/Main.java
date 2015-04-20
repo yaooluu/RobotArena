@@ -69,7 +69,7 @@ public class Main extends PApplet {
 		//init players from two teams
 		initPlayers();
 
-		//debugPalyers();
+		//debugPlayers();
 		
 		//SafetyEval.debug();
 		//CostEval.debug();
@@ -305,8 +305,8 @@ public class Main extends PApplet {
 							b.fuel = Config.BOID_FUEL[b.getType()];
 						else {
 							//System.out.println(b + " get blue buff.");
-							b.bonusAcc = Config.MAX_LINACC[b.getType()];
-							b.bonusSpeed = Config.MAX_SPEED[b.getType()];
+							b.bonusAcc = Config.MAX_LINACC[b.getType()]/2;
+							b.bonusSpeed = Config.MAX_SPEED[b.getType()]/2;
 							b.bonusTime =  Config.BUFF_DURATION;
 						}
 						break;
@@ -369,10 +369,12 @@ public class Main extends PApplet {
 	
 	private void changePlayer(int id)
 	{
+		if(id == 0) id = 10;
 		for(Boid b:boids)
 		{
 			if(b.getId()==id)
 			{
+				b.curBehavior = "";
 				player.b=b;
 				return;
 			}
@@ -398,26 +400,9 @@ public class Main extends PApplet {
 			Config.drawKeyPoints = !Config.drawKeyPoints;
 		else if(key == 's')
 			Config.drawShelterPoints = !Config.drawShelterPoints;
-		else if(key == '0')
-			changePlayer(10);
-		else if(key == '1')
-			changePlayer(1);
-		else if(key == '2')
-			changePlayer(2);
-		else if(key == '3')
-			changePlayer(3);
-		else if(key == '4')
-			changePlayer(4);
-		else if(key == '5')
-			changePlayer(5);
-		else if(key == '6')
-			changePlayer(6);
-		else if(key == '7')
-			changePlayer(7);
-		else if(key == '8')
-			changePlayer(8);
-		else if(key == '9')
-			changePlayer(9);
+		
+		else if(key>='0' && key <='9')
+			changePlayer(key - '0');
 
 		else if(key == PApplet.CODED) {
 			if(keyCode == UP)
