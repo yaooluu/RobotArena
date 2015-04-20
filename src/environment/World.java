@@ -275,7 +275,8 @@ public class World {
 					//System.out.println(b.v.getLength());
 					//System.out.println("Fuel loss rate: " + loss + " per frame");
 					b.fuel -= loss; 
-					//System.out.println(b + " fuel: " +b.fuel);
+					if(b.fuel < 0) b.fuel = 0;
+					System.out.println(b + " fuel: " +b.fuel);
 				}
 			}
 			else 
