@@ -33,6 +33,7 @@ public class Guard {
 			//behavior finish (guard)
 			if(b1.pos.minus(b2.pos).getLength() < (b1.getSize()+b2.getSize()+100)) {
 				if(b1.curBehavior.equals("guard")) {
+					//b1.v=b1.v.multiply(0.8f);
 					b1.a=b1.a.multiply(0f);
 					b1.curBehavior = "";
 					return;
