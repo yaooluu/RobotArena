@@ -221,6 +221,8 @@ public class World {
 				Config.die_music.trigger();
 				System.out.println(b.pos + " is Out of stage!!!!!");
 				tmpList.add(b);
+				
+				Main.getLosers().add(b);
 			}		
 		}
 		boids.removeAll(tmpList);
