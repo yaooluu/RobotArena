@@ -1,6 +1,7 @@
 package main;
 
 import java.util.*;
+
 import decisionmaking.DecisionTree;
 import pathfinding.Graph;
 import physics.Collision;
@@ -71,7 +72,6 @@ public class Main extends PApplet {
 				
 		//initPlayers();
 		debugPlayers();
-
 	}
 
 	public void draw() {	
@@ -115,8 +115,8 @@ public class Main extends PApplet {
 			}
 			
 			//draw grass layer
-			drawGrass();
-			victoryJudge();
+			//drawGrass();
+			//victoryJudge();
 
 		} else {
 			Config.bk_music.pause();
@@ -184,11 +184,11 @@ public class Main extends PApplet {
 		//if debug team follow, comment out initPlayers();
 		
 		int offset=220;
-		boids.add(new Boid(70, offset+130, 90, 0, Config.BOID_TYPE.scout, 1));
+		boids.add(new Boid(70, offset+0, 90, 0, Config.BOID_TYPE.soldier, 1));
 		
-		boids.add(new Boid(70, offset+270, 90, 0, Config.BOID_TYPE.soldier, 2));
-		/*boids.add(new Boid(70, offset+200, 90, 0, Config.BOID_TYPE.tank, 3));
-		boids.add(new Boid(130, offset+270, 90, 0, Config.BOID_TYPE.hero, 4));
+		boids.add(new Boid(700, offset+200, 90, 0, Config.BOID_TYPE.soldier, 2));
+		//boids.add(new Boid(70, offset+200, 90, 0, Config.BOID_TYPE.scout, 3));
+		/*boids.add(new Boid(130, offset+270, 90, 0, Config.BOID_TYPE.hero, 4));
 		boids.add(new Boid(130, offset+200, 90, 0, Config.BOID_TYPE.commander, 5));
 		
 		
@@ -198,32 +198,42 @@ public class Main extends PApplet {
 		boids.add(new Boid(700, 280, 270, 1, Config.BOID_TYPE.hero, 9));*/
 		boids.add(new Boid(700, 330, 270, 1, Config.BOID_TYPE.commander, 10));
 		
+
+		boids.add(new Boid(700, 280, 270, 1, Config.BOID_TYPE.hero, 9));
+		boids.add(new Boid(700, 130, 270, 1, Config.BOID_TYPE.soldier, 10));
+		
 		player=new Player(boids.get(0));
 	}
 	
 	//all debug workflow
 	private void debugLogic() {
 		
+		/*
 		if(this.mousePressed)
 		{
 			mouseVec = new Vec2D(mouseX, mouseY);		
 			for(Boid b : boids)
 				b.curPath.clear();			
-		}		
+		}
+		*/		
 		if(mouseVec!=null) ellipse(mouseVec.x, mouseVec.y, 20, 20);
 		
 		if(player.b.fuel > 0)
 			player.move();		  
 	 	//player.controlTeam(boids);
 
+		if(boids.size() > 2) {
+				boids.get(2).trace(boids.get(1));
+			//boids.get(1).evade(boids.get(2));
+				boids.get(1).wander();
+		}
+		
 		for(Boid b : boids) {						
 			if(b!=player.b) {
 				
 				if(b.fuel > 0) {
-					//b.wander();
 					if(b==boids.get(1))b.evade(boids.get(2));
 					if(b==boids.get(2))b.attack(boids.get(1));
-					Behavior.update2(b);	
 				} 
 				else {
 					b.curBehavior = "";
@@ -238,10 +248,11 @@ public class Main extends PApplet {
 					}
 				}
 			
-				//avoid collide with allies
-				Behavior.collisionAvoid(b);
-				b.addBreadcrumb();
-			  b.showBreadcrumbs();
+				//b.addBreadcrumb();
+				//b.showBreadcrumbs();
+
+				//Behavior.collisionAvoid(b);
+
 			}		
 			
 		}
@@ -307,6 +318,7 @@ public class Main extends PApplet {
 			}
 		}
 		
+		/*
 		//debug, draw Dirichlet points
 		if(Config.drawKeyPoints) {
 			int i = 0;
@@ -317,7 +329,7 @@ public class Main extends PApplet {
 				drawText("D"+i, v.x + 5, v.y + 5, "Georgia", 16, new RGB(128,0,128));
 				i++;
 			}
-		}
+		}*/
 	}
 
 	private void drawEnvironment() {	

@@ -1,6 +1,5 @@
 package behavior;
 
-import physics.Vec2D;
 import environment.Boid;
 
 public class Trace {
@@ -12,6 +11,7 @@ public class Trace {
 		if(b1.pos.minus(b2.pos).getLength() < 100) {
 			if(b1.curBehavior.equals("trace")) {
 				b1.curBehavior = "";
+				b1.a=b1.a.multiply(0f);
 				return;
 			}
 			b1.v=b1.v.multiply(0f);
