@@ -8,8 +8,6 @@ import physics.Vec2D;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
-import strategy.CostEval;
-import strategy.SafetyEval;
 import environment.*;
 import behavior.*;
 import ddf.minim.*;
@@ -32,8 +30,7 @@ public class Main extends PApplet {
 	private Vec2D mouseVec = null;
 	private boolean pause = false;
 	private static int mod = 1;
-	
-	
+		
 	//player
 	private static Player player;
 	public static Player getPlayer() {return player;}
@@ -46,29 +43,13 @@ public class Main extends PApplet {
 	public static String[] keys=be.split(",");
 	//public static List<HashMap<String, Integer>> statBehavior = new ArrayList<HashMap<String, Integer>>();
 	
-	
 	public void setup() {
-		
-
-		for(int i=0;i<15;i++)
-		{
-			statBehavior[i]=new int[15];
-			for(int j=0;j<15;j++)
-			{
-				statBehavior[i][j]=0;
-			}
-		}
-		for(int i=0;i<15;i++)
-		{
-			HashMap<String, Integer> e=new HashMap<String, Integer>();
-			//statBehavior.add(e);
-		}
 		
 		Minim minim;//audio context
 		
 		minim = new Minim(this);
 		Config.bk_music = minim.loadFile("../src/environment/background.wav", 2048);
-		Config.bk_music.loop();
+		//Config.bk_music.loop();
 	  
 		Config.ult_music=minim.loadSample("../src/environment/ultimate.wav", 512);
 		Config.collision_music=minim.loadSample("../src/environment/collision.wav", 512);
@@ -81,15 +62,14 @@ public class Main extends PApplet {
 		boids = new ArrayList<Boid>();
 		losers = new ArrayList<Boid>();	
 		environment=loadImage("../src/environment/GE.png");			
-
+		
 		grassMask=loadImage("../src/environment/Grass.png");		
 
 		graph = World.createGraphFromImage(this);
 		
 		size(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		frameRate(Config.FRAME_RATE);
-
-				
+			
 		initPlayers();
 		//debugPlayers();
 	}
@@ -136,10 +116,10 @@ public class Main extends PApplet {
 			
 			//draw grass layer
 			drawGrass();
-		 victoryJudge();
+			victoryJudge();
 
 		} else {
-			printStat();
+			//printStat();
 			Config.bk_music.pause();
 			drawText("Game Paused", 30, 30, "Georgia", 20, new RGB(255,0,0));
 		}
@@ -164,20 +144,21 @@ public class Main extends PApplet {
 		b[9] = new Boid(x-span/2, y+span/2, ang, 1, Config.BOID_TYPE.tank, 9);
 		b[10] = new Boid(x, y, ang, 1, Config.BOID_TYPE.commander, 10);
 		
-		for(int i=1;i<b.length;i++) boids.add(b[i]);
+		for(int i=1;i<b.length;i++) 
+			if(b[i] != null) boids.add(b[i]);
 		
-		//player=new Player(boids.get(0));
+		player=new Player(boids.get(0));
 	}
 	
 	//main workflow here.
 	private void mainLogic() {	
 		
-		//if(player.b.fuel > 0)
-		//	player.move();
+		if(player.b.fuel > 0)
+			player.move();
 
 		for(Boid b : boids) {						
 
-			if(true||b!=player.b) {	
+			if(b!=player.b) {	
 				if(b.fuel > 0) {
 					DecisionTree.PerformDecision(b);
 					Behavior.update2(b);	
@@ -379,7 +360,7 @@ public class Main extends PApplet {
 				
 				//judge if buff is taken
 				for(Boid b : boids) {
-					if(b.pos.minus(buff).getLength() < b.getSize()/2) {
+					if(b.pos.minus(buff).getLength() < b.getSize()/2 + size) {
 						buff.countdown = Config.BUFF_COUNTDOWN;
 						
 						//apply buff benefit
@@ -465,8 +446,10 @@ public class Main extends PApplet {
 	
 	public void keyPressed() {
 		//System.out.println("Key pressed: "+key);
-		if(key == ' ')
+		if(key == ' ') {
 			pause = !pause;
+			printStat();
+		}
 		
 		else if(key == 'v')
 			Config.drawBoidVision = !Config.drawBoidVision;
