@@ -71,8 +71,8 @@ public class Main extends PApplet {
 		
 		size(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		frameRate(Config.FRAME_RATE);
-		initPlayers();
-		//debugPlayers();
+		//initPlayers();
+		debugPlayers();
 	}
 
 	public void draw() {	
