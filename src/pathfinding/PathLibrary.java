@@ -15,7 +15,7 @@ public class PathLibrary {
 			for(int i=0;i<b.curPath.size();i++) {
 				Vec2D vec = graph.getNodePos(b.curPath.get(i));
 				Config.canvas.fill(255,0,0);
-				Config.canvas.ellipse(vec.x, vec.y, 5, 5);
+				Config.canvas.ellipse(vec.x, vec.y, 10, 10);
 				Config.canvas.text(b.curPath.get(i), vec.x + 3, vec.y - 3);
 			}
 		}
