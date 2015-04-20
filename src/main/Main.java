@@ -102,9 +102,9 @@ public class Main extends PApplet {
 		if(pause == false) {
 			background(255);
 			smooth(8);	
-			Config.bk_music.play();
 			
-			
+			if(!Config.bk_music.isPlaying())
+				Config.bk_music.loop();
 			drawEnvironment();
 
 			mainLogic();
