@@ -219,7 +219,7 @@ public class World {
 			int pix = pixels[(int)b.pos.y * width + (int)b.pos.x];
 			if(RGB.isGrey(pix) == true) {
 				Config.die_music.trigger();
-				System.out.println(b.pos + " is Out of stage!!!!!");
+				System.out.println(b + " is out of stage!");
 				tmpList.add(b);
 				
 				Main.getLosers().add(b);

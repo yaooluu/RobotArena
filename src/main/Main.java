@@ -1,6 +1,7 @@
 package main;
 
 import java.util.*;
+
 import decisionmaking.DecisionTree;
 import pathfinding.Graph;
 import physics.Collision;
@@ -71,8 +72,8 @@ public class Main extends PApplet {
 		
 		size(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		frameRate(Config.FRAME_RATE);
-		//initPlayers();
-		debugPlayers();
+		initPlayers();
+		//debugPlayers();
 	}
 
 	public void draw() {	
@@ -129,7 +130,6 @@ public class Main extends PApplet {
 			Config.bk_music.pause();
 			drawText("Game Paused", 30, 30, "Georgia", 20, new RGB(255,0,0));
 		}
-		
 	}
 
 	private void initPlayers() {
@@ -153,18 +153,20 @@ public class Main extends PApplet {
 		for(int i=1;i<b.length;i++) 
 			if(b[i] != null) boids.add(b[i]);
 		
-	//	player=new Player(boids.get(0));
+		//player=new Player(boids.get(0));
+		player = new Player(null);
 	}
 	
 	//main workflow here.
-	private void mainLogic() {	
+	private void mainLogic() {
+		if(frameCount < Config.FRAME_RATE * 2) return;
 		
-		//if(player.b.fuel > 0)
-			//player.move();
+		if(player.b!=null && player.b.fuel > 0)
+			player.move();
 
 		for(Boid b : boids) {						
 
-			if(true||b!=player.b) {	
+			if(b!=player.b) {	
 				if(b.fuel > 0) {
 					DecisionTree.PerformDecision(b);
 					Behavior.update2(b);	
@@ -181,7 +183,7 @@ public class Main extends PApplet {
 						b.v.y = 0;
 					}
 				}
-			//avoid collide with allies
+				//avoid collide with allies
 				Behavior.collisionAvoid(b);
 			}
 
@@ -529,7 +531,6 @@ public class Main extends PApplet {
 	
 	private void drawWinTeam(int teamID)
 	{
-		printStat();
 		Config.die_music.stop();
 		Config.win_music.play();;
 		String winText = "Winner: Red Team!";
@@ -548,25 +549,46 @@ public class Main extends PApplet {
 		}
 		return false;
 	}
+
+	private int statPrintCount = 0;
 	private void victoryJudge()
-	{
-		int winTeam;
+	{	
+		if(statPrintCount == 1) printStat();
 		
+		int winTeam;
 		if(boids.size()==0||!hasFuel())
 		{
-			printStat();
+			statPrintCount++;
 			drawText("No Winner!", Config.SCREEN_WIDTH/2-150, Config.SCREEN_HEIGHT/2-80, "Georgia", 50, new RGB(0,0,0));
 			return;
 		}
 		else
 		{
+			
 			winTeam=boids.get(0).getTeam();
 			if(boids.size()==1)
 			{
+				statPrintCount++;
 				drawWinTeam(winTeam);		
 			}
 			else
 			{
+				int c1 = 0, c2 = 0;
+				for(Boid b:boids) {
+					if(b.fuel > 0) {
+						if(b.getTeam() == 0) c1++;
+						else c2++;
+					}
+				}
+				
+				if(c1>0 && c2>0) return;
+				
+				statPrintCount++;
+				if(c1>0)
+					drawWinTeam(0);	
+				else drawWinTeam(1);
+				
+				/*
 				for(Boid b:boids)
 				{
 					if(b.fuel == 0) continue;
@@ -575,7 +597,8 @@ public class Main extends PApplet {
 						return;
 					}
 				}
-				drawWinTeam(winTeam);					
+				*/
+				
 			}
 		}		
 	}

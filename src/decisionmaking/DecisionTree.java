@@ -16,10 +16,20 @@ public class DecisionTree {
 			(b.curEnemy != null && !Main.getBoids().contains(b.curEnemy)) 
 			//|| b.curBehavior.equals("wander")
 		){
-			
 			decision = DecisionTree.makeDecision(b,1);
+			
+			//no early ultimate
+			if(decision.equals("ultimate") && 
+					Config.canvas.frameCount < 10 * Config.FRAME_RATE)
+				return;	
+			
+			//no wander duplicate call
 			if(b.curBehavior.equals("wander") &&
 					decision.equals("wander"))
+				return;
+			
+			//no intensive hiding
+			if(decision.equals("hide") && b.isHiding())
 				return;
 			
 			b.curEnemy = b.getVisibleEnemy();
@@ -32,8 +42,6 @@ public class DecisionTree {
 					Main.statBehavior[b.getId()][i]++;				
 
 		}
-
-
 		
 		switch (decision) {
 		case "attack":
@@ -68,13 +76,11 @@ public class DecisionTree {
 			break;
 			
 		case "ultimate":
-			//TODO
 			if(Config.canvas.frameCount % 30 == 0)Config.ult_music.trigger();
 			b.ultimate();
 			break;
 
 		case "guard":
-			//TODO
 			b.guard();
 			break;
 			

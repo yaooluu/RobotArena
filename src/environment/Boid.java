@@ -460,4 +460,11 @@ public class Boid {
 			}
 		}
 	}
+	public boolean isHiding() {
+		for(Shelter s : World.getShelters()) {
+			if(pos.minus(s).getLength() < size)
+				return true;
+		}
+		return false;
+	}
 }

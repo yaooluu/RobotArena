@@ -49,7 +49,7 @@ public class Config {
 	public static int[] BOID_VISION = 		{120, 90, 90, 90, 90};
 	public static int[] BOID_AUDITORY = 	{30, 15, 10, 20, 20};
 	public static int[] BOID_FUEL = 		{100, 200, 300, 200, 200};
-	public static int[] BOID_MASS =			{200, 300, 600, 400, 350};
+	public static int[] BOID_MASS =			{200, 300, 600, 450, 350};
 	
 	public static float[] MAX_LINACC = 		{300, 200, 150, 250, 200};
 	public static float[] MAX_ANGACC = 		{5, 3, 1.5f, 3.5f, 3};
