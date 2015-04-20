@@ -23,9 +23,11 @@ public class Evade {
 		target.x=target.y;
 		target.y=-temp;
 		target.normalize();
-		target.drag(100);
-		target.plusEqual(b1.pos);
+		float angle=target.vecToR(target);
+		target.x=(float) (b1.pos.x+250*Math.sin(Math.toRadians(angle)));
+		target.y=(float) (b1.pos.y-250*Math.cos(Math.toRadians(angle)));
 		st=Behavior.seek(b1, target);	
+		
 		Behavior.changeAcc(b1, st);
 
 	}
