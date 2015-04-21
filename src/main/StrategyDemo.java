@@ -38,10 +38,10 @@ public class StrategyDemo extends PApplet {
 	// debug
 	private Vec2D mouseVec = null;
 	private boolean pause = false;
-	private static int mod = 1;
+	//private static int mod = 1;
 
 	// player
-	private Player player;
+	//private Player player;
 	public static boolean[] arrowKeys = new boolean[4];
 
 	public void setup() {

@@ -31,7 +31,7 @@ public class Main extends PApplet {
 	//debug
 	private Vec2D mouseVec = null;
 	private boolean pause = false;
-	private static int mod = 1;
+	//private static int mod = 1;
 		
 	//player
 	private static Player player;
@@ -191,6 +191,8 @@ public class Main extends PApplet {
 		}
 	}
 	
+	
+	@SuppressWarnings("unused")
 	private void debugPlayers() {
 		//if debug team follow, comment out initPlayers();
 		
@@ -212,7 +214,9 @@ public class Main extends PApplet {
 		player=new Player(boids.get(0));
 	}
 	
+	
 	//all debug workflow
+	@SuppressWarnings("unused")
 	private void debugLogic() {
 		
 		/*
