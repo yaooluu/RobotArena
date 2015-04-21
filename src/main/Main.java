@@ -14,8 +14,9 @@ import behavior.*;
 import ddf.minim.*;
 
 
-@SuppressWarnings("serial")
 public class Main extends PApplet {
+
+	private static final long serialVersionUID = 7557963131888169473L;
 
 	private static List<Boid> boids = null;
 	public static List<Boid> getBoids() {return boids;}
@@ -49,24 +50,24 @@ public class Main extends PApplet {
 		Minim minim;//audio context
 		
 		minim = new Minim(this);
-		Config.bk_music = minim.loadFile("../src/environment/background.wav", 2048);
+		Config.bk_music = minim.loadFile("environment/background.mp3", 2048);
 
 		if(!Config.isMute)Config.bk_music.loop();
 
 	  
-		Config.ult_music=minim.loadSample("../src/environment/ultimate.wav", 512);
-		Config.collision_music=minim.loadSample("../src/environment/collision.wav", 512);
-		Config.die_music=minim.loadSample("../src/environment/die.wav", 512);  
-		Config.win_music=minim.loadFile("../src/environment/win.wav", 512);
-		Config.buff_music=minim.loadSample("../src/environment/buff.mp3", 512);
+		Config.ult_music=minim.loadSample("environment/ultimate.wav", 512);
+		Config.collision_music=minim.loadSample("environment/collision.wav", 512);
+		Config.die_music=minim.loadSample("environment/die.wav", 512);  
+		Config.win_music=minim.loadFile("environment/win.wav", 512);
+		Config.buff_music=minim.loadSample("environment/buff.mp3", 512);
 	  
 
 		Config.canvas = this;
 		boids = new ArrayList<Boid>();
 		losers = new ArrayList<Boid>();	
-		environment=loadImage("../src/environment/GE.png");			
+		environment=loadImage("environment/GE.png");			
 		
-		grassMask=loadImage("../src/environment/Grass.png");		
+		grassMask=loadImage("environment/Grass.png");		
 
 		graph = World.createGraphFromImage(this);
 		

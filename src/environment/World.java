@@ -41,7 +41,7 @@ public class World {
 	public static Graph createGraphFromImage(PApplet parent) {
 		Graph graph = new Graph();
 		PImage environment;
-		environment = parent.loadImage("../src/environment/Environment.png");
+		environment = parent.loadImage("environment/Environment.png");
 		environment.loadPixels();
 		pixels = environment.pixels;
 
