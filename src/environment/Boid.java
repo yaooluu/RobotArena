@@ -132,8 +132,9 @@ public class Boid {
 		
 		//draw player or hero halo
 		boolean isHero = (type == Config.BOID_TYPE.hero.value());
-		if( (Main.getPlayer() != null && Main.getPlayer().b == this)
-				|| isHero){
+		boolean isPlayer = (Main.getPlayer() != null &&
+				Main.getPlayer().b == this);
+		if(isPlayer || isHero){
 			
 			canvas.fill(255,0);		
 			canvas.strokeWeight(1);
@@ -151,6 +152,16 @@ public class Boid {
 				canvas.stroke(halo.r,halo.g,halo.b,alpha);
 				canvas.ellipse(pos.x,pos.y,r,r);
 				alpha -= step;
+			}
+			
+			if(isHero && isPlayer) {
+				alpha = 150;
+				halo = new RGB(255,255,0);
+				for(int r=(int) (size+span - 8);r<=size+span*1.2f;r++) {					
+					canvas.stroke(halo.r,halo.g,halo.b,alpha);
+					canvas.ellipse(pos.x,pos.y,r,r);
+					alpha -= step;
+				}
 			}
 		}
 		
